@@ -1,24 +1,71 @@
-import React, { useState, useEffect } from 'react';
-import { Video, Mic, MicOff, VideoOff, PhoneOff, MessageSquare, Sparkles, X, Brain, Stethoscope, User, ShieldCheck, Send, CheckCircle2 } from 'lucide-react';
+import React, { useState, useEffect, useRef } from 'react';
+import { Video, Mic, MicOff, VideoOff, PhoneOff, MessageSquare, Sparkles, X, Brain, Stethoscope, User, ShieldCheck, Send, CheckCircle2, Camera } from 'lucide-react';
 
 export default function TeleconsultationModal({ appointment, isOpen, onClose }) {
   const [isMicMuted, setIsMicMuted] = useState(false);
   const [isVideoOff, setIsVideoOff] = useState(false);
+  const [hasCameraPermission, setHasCameraPermission] = useState(false);
   const [chatInput, setChatInput] = useState('');
   const [callDuration, setCallDuration] = useState(255); // 04:15 in seconds
+  
+  const localVideoRef = useRef(null);
+  const doctorVideoRef = useRef(null);
+  const mediaStreamRef = useRef(null);
+
   const [liveTranscript, setLiveTranscript] = useState([
     { sender: 'Dr. Rajesh Sharma', time: '10:31 AM', text: 'Namaste Rahul! How are you feeling after taking the prescribed cardiology medication?' },
     { sender: 'Rahul Verma', time: '10:32 AM', text: 'Good morning Dr. Sharma. My blood pressure has stabilized at 120/78 today.' },
     { sender: 'AI Scribe', time: '10:32 AM', text: '[AI Clinical Note]: Patient vitals confirmed within normal physiological range (BP 120/78).' }
   ]);
 
+  // Handle Real HTML5 Camera Stream
   useEffect(() => {
-    if (!isOpen) return;
+    if (!isOpen) {
+      stopCamera();
+      return;
+    }
+
     const timer = setInterval(() => {
       setCallDuration(prev => prev + 1);
     }, 1000);
-    return () => clearInterval(timer);
-  }, [isOpen]);
+
+    if (!isVideoOff) {
+      startCamera();
+    } else {
+      stopCamera();
+    }
+
+    return () => {
+      clearInterval(timer);
+      stopCamera();
+    };
+  }, [isOpen, isVideoOff]);
+
+  const startCamera = async () => {
+    try {
+      if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+        const stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
+        mediaStreamRef.current = stream;
+        if (localVideoRef.current) {
+          localVideoRef.current.srcObject = stream;
+        }
+        setHasCameraPermission(true);
+      }
+    } catch (err) {
+      console.log('Webcam permission or device error:', err);
+      setHasCameraPermission(false);
+    }
+  };
+
+  const stopCamera = () => {
+    if (mediaStreamRef.current) {
+      mediaStreamRef.current.getTracks().forEach(track => track.stop());
+      mediaStreamRef.current = null;
+    }
+    if (localVideoRef.current) {
+      localVideoRef.current.srcObject = null;
+    }
+  };
 
   if (!isOpen || !appointment) return null;
 
@@ -91,7 +138,7 @@ export default function TeleconsultationModal({ appointment, isOpen, onClose }) 
           {/* Main Video Screen (2 Cols) */}
           <div className="lg:col-span-2 bg-slate-950 p-4 relative flex flex-col justify-between">
             
-            {/* Remote Doctor Video Feed */}
+            {/* Remote Doctor Stream Container */}
             <div className="w-full h-full rounded-2xl bg-gradient-to-br from-slate-900 via-sky-950 to-slate-900 border border-slate-800 relative overflow-hidden flex items-center justify-center">
               
               {!isVideoOff ? (
@@ -109,17 +156,34 @@ export default function TeleconsultationModal({ appointment, isOpen, onClose }) 
               ) : (
                 <div className="text-center text-slate-400 font-medium text-xs space-y-2">
                   <VideoOff className="w-10 h-10 mx-auto text-red-400" />
-                  <p className="text-white font-bold">Your Video Feed Paused</p>
+                  <p className="text-white font-bold">Video Feed Paused</p>
                 </div>
               )}
 
-              {/* Local Patient PIP Video */}
-              <div className="absolute bottom-4 right-4 w-32 h-24 rounded-2xl bg-slate-900/90 border border-slate-700/80 shadow-2xl overflow-hidden flex items-center justify-center p-2">
-                <div className="text-center space-y-1">
-                  <User className="w-6 h-6 text-sky-400 mx-auto" />
-                  <span className="text-[11px] text-white font-bold block">Rahul Verma</span>
-                  <span className="text-[9px] text-emerald-400 font-semibold block">You (Active)</span>
-                </div>
+              {/* Local Patient PIP Webcam Video Element */}
+              <div className="absolute bottom-4 right-4 w-36 h-28 rounded-2xl bg-slate-900 border-2 border-sky-400 shadow-2xl overflow-hidden flex items-center justify-center">
+                {!isVideoOff ? (
+                  hasCameraPermission ? (
+                    <video
+                      ref={localVideoRef}
+                      autoPlay
+                      playsInline
+                      muted
+                      className="w-full h-full object-cover rounded-xl"
+                    />
+                  ) : (
+                    <div className="text-center p-2 space-y-1">
+                      <User className="w-6 h-6 text-sky-400 mx-auto" />
+                      <span className="text-[10px] text-white font-extrabold block">Rahul Verma</span>
+                      <span className="text-[9px] text-emerald-400 font-bold block">● Live Feed</span>
+                    </div>
+                  )
+                ) : (
+                  <div className="text-center p-2 text-red-400">
+                    <VideoOff className="w-5 h-5 mx-auto" />
+                    <span className="text-[9px] text-slate-400 block font-bold mt-1">Cam Off</span>
+                  </div>
+                )}
               </div>
 
             </div>
@@ -129,29 +193,29 @@ export default function TeleconsultationModal({ appointment, isOpen, onClose }) 
               <button
                 type="button"
                 onClick={() => setIsMicMuted(!isMicMuted)}
-                className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all btn-minimal flex items-center space-x-1.5 ${
+                className={`px-3.5 py-2 rounded-xl text-xs font-extrabold transition-all btn-minimal flex items-center space-x-1.5 ${
                   isMicMuted ? 'bg-red-600 text-white' : 'bg-slate-800 text-slate-200 hover:bg-slate-700'
                 }`}
               >
                 {isMicMuted ? <MicOff className="w-4 h-4" /> : <Mic className="w-4 h-4 text-emerald-400" />}
-                <span>{isMicMuted ? 'Unmute' : 'Mute'}</span>
+                <span>{isMicMuted ? 'Unmute Mic' : 'Mute Mic'}</span>
               </button>
 
               <button
                 type="button"
                 onClick={() => setIsVideoOff(!isVideoOff)}
-                className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all btn-minimal flex items-center space-x-1.5 ${
-                  isVideoOff ? 'bg-red-600 text-white' : 'bg-slate-800 text-slate-200 hover:bg-slate-700'
+                className={`px-3.5 py-2 rounded-xl text-xs font-extrabold transition-all btn-minimal flex items-center space-x-1.5 ${
+                  isVideoOff ? 'bg-red-600 text-white' : 'bg-emerald-600 text-white hover:bg-emerald-700'
                 }`}
               >
-                {isVideoOff ? <VideoOff className="w-4 h-4" /> : <Video className="w-4 h-4 text-sky-400" />}
-                <span>{isVideoOff ? 'Camera On' : 'Camera Off'}</span>
+                {isVideoOff ? <VideoOff className="w-4 h-4" /> : <Video className="w-4 h-4 text-white" />}
+                <span>{isVideoOff ? 'Turn Camera On' : 'Turn Camera Off'}</span>
               </button>
 
               <button
                 type="button"
                 onClick={onClose}
-                className="px-4 py-2 rounded-xl bg-red-600 hover:bg-red-700 text-white text-xs font-bold transition-all btn-minimal shadow-md flex items-center space-x-1.5"
+                className="px-4 py-2 rounded-xl bg-red-600 hover:bg-red-700 text-white text-xs font-extrabold transition-all btn-minimal shadow-md flex items-center space-x-1.5"
                 title="End Consultation Call"
               >
                 <PhoneOff className="w-4 h-4" />
