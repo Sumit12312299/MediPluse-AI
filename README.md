@@ -10,6 +10,54 @@
 
 ---
 
+## 📂 Project Directory Structure
+
+```dir
+medipulse-ai/
+├── 📁 backend/                        # Django REST Framework Backend
+│   ├── 📁 api_core/                   # Project Core Settings & URLs
+│   │   ├── settings.py                # CORS, JWT, Installed Apps & Middleware
+│   │   ├── urls.py                    # Root API Router
+│   │   └── wsgi.py
+│   ├── 📁 hospital/                   # Core Clinical Application App
+│   │   ├── 📁 management/commands/    # Seed Database Scripts (seed_db.py)
+│   │   ├── 📁 migrations/             # Database Schemas & Migrations
+│   │   ├── models.py                  # User, Doctor, Patient, Appointment, Prescription, Payment Models
+│   │   ├── serializers.py             # DRF Model Serializers & Validation
+│   │   ├── views.py                   # API ViewSets & Action Handlers
+│   │   └── urls.py                    # Hospital App Endpoint Routes
+│   ├── manage.py                      # Django CLI Tool
+│   └── requirements.txt               # Backend Python Dependencies
+│
+├── 📁 frontend/                       # Vite + React Frontend Application
+│   ├── 📁 public/                     # Static Assets & Medical Background Wallpaper
+│   │   └── medical_bg.png
+│   ├── 📁 src/                        # React Source Code
+│   │   ├── 📁 assets/                 # High-Res Imagery & Icons
+│   │   ├── 📁 components/             # Modular React UI Components
+│   │   │   ├── Navbar.jsx             # Top Bar with Dark/Light Theme & Role Switcher
+│   │   │   ├── PatientDashboard.jsx   # Patient Vitals, Live ECG Canvas & Appointments
+│   │   │   ├── DoctorDashboard.jsx    # Doctor OPD Queue & AI Prescription Synthesizer
+│   │   │   ├── AdminDashboard.jsx     # Analytics KPIs, Doctor Onboarding & Audit Logs
+│   │   │   ├── PaymentModal.jsx       # UPI/Razorpay Payment Gateway & Confetti Animation
+│   │   │   ├── AIPrescriptionModal.jsx# AI Layman Speech Reader & Drug Breakdown
+│   │   │   ├── TeleconsultationModal.jsx # WebRTC Video Suite & AI Scribe Transcript
+│   │   │   ├── BookAppointmentModal.jsx # OPD Specialist Booking Dialog
+│   │   │   ├── NotificationCenter.jsx # Slide-over Log Drawer
+│   │   │   └── AuthModal.jsx          # JWT Authentication Dialog
+│   │   ├── api.js                     # REST API Client & Indian Mock Fallbacks
+│   │   ├── App.jsx                    # Root Workspace Container & Modal State
+│   │   ├── index.css                  # Glassmorphism Tokens & Keyframe Animations
+│   │   └── main.jsx                   # React DOM Entrypoint
+│   ├── package.json                   # Frontend Dependencies
+│   └── vite.config.js                 # Vite Bundler & Proxy Configuration
+│
+├── .gitignore                         # Version Control Exclusions
+└── README.md                          # Production System Documentation
+```
+
+---
+
 ## 🌟 Key Features
 
 ### 👨‍⚕️ 1. Doctor OPD Workstation
@@ -55,8 +103,8 @@
 
 ### 1. Clone the Repository
 ```bash
-git clone https://github.com/your-username/medipulse-ai.git
-cd medipulse-ai
+git clone https://github.com/Sumit12312299/MediPluse-AI.git
+cd MediPluse-AI
 ```
 
 ### 2. Backend Setup (Django REST API)
