@@ -13,8 +13,9 @@ import Footer from './components/Footer';
 import { api, getCurrentUser, removeAuthToken } from './api';
 
 export default function App() {
+  const isTeleconsultRoute = window.location.pathname === '/teleconsult';
   const [activeRole, setActiveRole] = useState('PATIENT');
-  const [activeView, setActiveView] = useState('dashboard'); // 'dashboard' | 'teleconsult'
+  const [activeView, setActiveView] = useState(isTeleconsultRoute ? 'teleconsult' : 'dashboard');
   const [currentUser, setCurrentUser] = useState(getCurrentUser());
   const [appointments, setAppointments] = useState([]);
   const [prescriptions, setPrescriptions] = useState([]);
@@ -34,6 +35,16 @@ export default function App() {
 
   useEffect(() => {
     loadData();
+
+    const handlePopState = () => {
+      if (window.location.pathname === '/teleconsult') {
+        setActiveView('teleconsult');
+      } else {
+        setActiveView('dashboard');
+      }
+    };
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
   }, []);
 
   const loadData = async () => {
@@ -93,15 +104,24 @@ export default function App() {
 
   const handleOpenTeleconsultRoom = (appt) => {
     setTeleconsultAppt(appt || { doctor_name: 'Dr. Rajesh Sharma', appointment_date: 'Today', time_slot: '10:30 AM' });
-    setActiveView('teleconsult');
+    
+    // Open in a Brand New Browser Tab!
+    window.open('/teleconsult', '_blank');
   };
 
-  // If in Video Call Room mode, render full page video room
+  // If in Video Call Room mode (e.g. /teleconsult in new tab), render full page video room
   if (activeView === 'teleconsult') {
     return (
       <TeleconsultationRoom
-        appointment={teleconsultAppt}
-        onBackToDashboard={() => setActiveView('dashboard')}
+        appointment={teleconsultAppt || { doctor_name: 'Dr. Rajesh Sharma', appointment_date: 'Today', time_slot: '10:30 AM' }}
+        onBackToDashboard={() => {
+          if (window.opener) {
+            window.close();
+          } else {
+            window.history.pushState({}, '', '/');
+            setActiveView('dashboard');
+          }
+        }}
       />
     );
   }
