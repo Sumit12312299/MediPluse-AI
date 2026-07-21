@@ -3,10 +3,10 @@ import Navbar from './components/Navbar';
 import PatientDashboard from './components/PatientDashboard';
 import DoctorDashboard from './components/DoctorDashboard';
 import AdminDashboard from './components/AdminDashboard';
+import TeleconsultationRoom from './components/TeleconsultationRoom';
 import BookAppointmentModal from './components/BookAppointmentModal';
 import PaymentModal from './components/PaymentModal';
 import AIPrescriptionModal from './components/AIPrescriptionModal';
-import TeleconsultationModal from './components/TeleconsultationModal';
 import NotificationCenter from './components/NotificationCenter';
 import AuthModal from './components/AuthModal';
 import Footer from './components/Footer';
@@ -14,6 +14,7 @@ import { api, getCurrentUser, removeAuthToken } from './api';
 
 export default function App() {
   const [activeRole, setActiveRole] = useState('PATIENT');
+  const [activeView, setActiveView] = useState('dashboard'); // 'dashboard' | 'teleconsult'
   const [currentUser, setCurrentUser] = useState(getCurrentUser());
   const [appointments, setAppointments] = useState([]);
   const [prescriptions, setPrescriptions] = useState([]);
@@ -90,6 +91,21 @@ export default function App() {
     setDoctors(prev => [...prev, newDoc]);
   };
 
+  const handleOpenTeleconsultRoom = (appt) => {
+    setTeleconsultAppt(appt || { doctor_name: 'Dr. Rajesh Sharma', appointment_date: 'Today', time_slot: '10:30 AM' });
+    setActiveView('teleconsult');
+  };
+
+  // If in Video Call Room mode, render full page video room
+  if (activeView === 'teleconsult') {
+    return (
+      <TeleconsultationRoom
+        appointment={teleconsultAppt}
+        onBackToDashboard={() => setActiveView('dashboard')}
+      />
+    );
+  }
+
   return (
     <div className="min-h-screen flex flex-col font-sans bg-slate-50 transition-colors duration-300">
       
@@ -116,7 +132,7 @@ export default function App() {
             onOpenBooking={() => setIsBookingOpen(true)}
             onOpenAIModal={(rx) => setAiRxModalData(rx)}
             onOpenPayment={(appt) => setPaymentAppointment(appt)}
-            onOpenTeleconsult={(appt) => setTeleconsultAppt(appt)}
+            onOpenTeleconsult={handleOpenTeleconsultRoom}
           />
         )}
 
@@ -127,7 +143,7 @@ export default function App() {
             patients={patients}
             onUpdateAppointmentStatus={handleUpdateStatus}
             onCreatePrescription={handleCreatePrescription}
-            onOpenTeleconsult={(appt) => setTeleconsultAppt(appt)}
+            onOpenTeleconsult={handleOpenTeleconsultRoom}
           />
         )}
 
@@ -164,12 +180,6 @@ export default function App() {
         prescription={aiRxModalData}
         isOpen={!!aiRxModalData}
         onClose={() => setAiRxModalData(null)}
-      />
-
-      <TeleconsultationModal
-        appointment={teleconsultAppt}
-        isOpen={!!teleconsultAppt}
-        onClose={() => setTeleconsultAppt(null)}
       />
 
       <NotificationCenter
