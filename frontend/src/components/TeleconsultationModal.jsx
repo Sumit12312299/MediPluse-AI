@@ -9,14 +9,19 @@ export default function TeleconsultationModal({ appointment, isOpen, onClose }) 
   const [callDuration, setCallDuration] = useState(255); // 04:15 in seconds
   
   const localVideoRef = useRef(null);
-  const doctorVideoRef = useRef(null);
   const mediaStreamRef = useRef(null);
+  const chatEndRef = useRef(null);
 
   const [liveTranscript, setLiveTranscript] = useState([
     { sender: 'Dr. Rajesh Sharma', time: '10:31 AM', text: 'Namaste Rahul! How are you feeling after taking the prescribed cardiology medication?' },
     { sender: 'Rahul Verma', time: '10:32 AM', text: 'Good morning Dr. Sharma. My blood pressure has stabilized at 120/78 today.' },
-    { sender: 'AI Scribe', time: '10:32 AM', text: '[AI Clinical Note]: Patient vitals confirmed within normal physiological range (BP 120/78).' }
+    { sender: 'Dr. Rajesh Sharma', time: '10:32 AM', text: "That's excellent news! Please continue taking the dosage after meals." }
   ]);
+
+  // Auto Scroll Chat
+  useEffect(() => {
+    chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [liveTranscript]);
 
   // Handle Real HTML5 Camera Stream
   useEffect(() => {
@@ -52,7 +57,7 @@ export default function TeleconsultationModal({ appointment, isOpen, onClose }) 
         setHasCameraPermission(true);
       }
     } catch (err) {
-      console.log('Webcam permission or device error:', err);
+      console.log('Webcam permission error:', err);
       setHasCameraPermission(false);
     }
   };
@@ -86,15 +91,22 @@ export default function TeleconsultationModal({ appointment, isOpen, onClose }) 
     const currentInput = chatInput;
     setChatInput('');
 
-    // Simulate AI Scribe response
+    // Direct Doctor Response (Not AI!)
     setTimeout(() => {
-      const aiMsg = {
-        sender: 'AI Scribe',
-        time: currentTime,
-        text: `[AI Live Note]: Query recorded ("${currentInput}"). Synced with Doctor OPD record.`
+      const doctorResponses = [
+        `Rahul, I have noted your message ("${currentInput}"). Everything looks under control.`,
+        `Thank you for the update Rahul. Please keep monitoring your vitals daily.`,
+        `Understood Rahul. Feel free to reach out if you notice any unusual symptoms.`
+      ];
+      const randomDocReply = doctorResponses[Math.floor(Math.random() * doctorResponses.length)];
+      
+      const docMsg = {
+        sender: 'Dr. Rajesh Sharma',
+        time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+        text: randomDocReply
       };
-      setLiveTranscript(prev => [...prev, aiMsg]);
-    }, 1000);
+      setLiveTranscript(prev => [...prev, docMsg]);
+    }, 1200);
   };
 
   return (
@@ -132,7 +144,7 @@ export default function TeleconsultationModal({ appointment, isOpen, onClose }) 
           </button>
         </div>
 
-        {/* Video & AI Transcript Body */}
+        {/* Video & Direct Chat Body */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-0 h-[520px]">
           
           {/* Main Video Screen (2 Cols) */}
@@ -225,33 +237,32 @@ export default function TeleconsultationModal({ appointment, isOpen, onClose }) 
 
           </div>
 
-          {/* AI Clinical Live Scribe Drawer (1 Col) */}
+          {/* Direct Doctor-Patient Chat Session Drawer (1 Col) */}
           <div className="bg-slate-50 border-l border-slate-200 p-4 flex flex-col justify-between space-y-3">
             <div className="space-y-3 flex-1 flex flex-col min-h-0">
               <div className="flex items-center justify-between border-b border-slate-200 pb-2.5">
                 <span className="font-extrabold text-xs text-slate-900 uppercase tracking-wider flex items-center gap-1.5">
-                  <Brain className="w-4 h-4 text-emerald-600" /> AI Clinical Scribe
+                  <MessageSquare className="w-4 h-4 text-sky-600" /> Direct Doctor Chat
                 </span>
                 <span className="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
               </div>
 
-              {/* Chat & AI Transcript List */}
-              <div className="flex-1 overflow-y-auto space-y-2.5 pr-1">
+              {/* Chat List (Smooth Scrollable Container + Auto-Scroll to Bottom) */}
+              <div className="flex-1 overflow-y-auto space-y-2.5 pr-1 max-h-[380px]">
                 {liveTranscript.map((t, i) => (
                   <div key={i} className={`p-3 rounded-xl text-xs space-y-1 ${
-                    t.sender === 'AI Scribe' 
-                      ? 'bg-sky-50 text-sky-950 border border-sky-200/90' 
-                      : t.sender === 'Rahul Verma'
-                      ? 'bg-emerald-50 text-emerald-950 border border-emerald-200/90 ml-2'
-                      : 'bg-white text-slate-800 border border-slate-200/90 shadow-2xs'
+                    t.sender === 'Rahul Verma'
+                      ? 'bg-sky-600 text-white shadow-xs ml-4'
+                      : 'bg-white text-slate-900 border border-slate-200/90 shadow-2xs mr-4'
                   }`}>
-                    <div className="flex items-center justify-between font-bold text-[10px] text-slate-500">
-                      <span>{t.sender}</span>
-                      <span>{t.time}</span>
+                    <div className="flex items-center justify-between font-extrabold text-[10px] text-slate-400">
+                      <span className={t.sender === 'Rahul Verma' ? 'text-sky-100' : 'text-slate-500'}>{t.sender}</span>
+                      <span className={t.sender === 'Rahul Verma' ? 'text-sky-200' : 'text-slate-400'}>{t.time}</span>
                     </div>
                     <p className="font-semibold leading-relaxed">{t.text}</p>
                   </div>
                 ))}
+                <div ref={chatEndRef} />
               </div>
             </div>
 
@@ -261,7 +272,7 @@ export default function TeleconsultationModal({ appointment, isOpen, onClose }) 
                 type="text"
                 value={chatInput}
                 onChange={(e) => setChatInput(e.target.value)}
-                placeholder="Type message to doctor..."
+                placeholder="Type message to Dr. Rajesh Sharma..."
                 className="flex-1 px-3 py-2 rounded-xl glass-input text-xs font-semibold"
               />
               <button

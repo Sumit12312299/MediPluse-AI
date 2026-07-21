@@ -5,18 +5,24 @@ export default function TeleconsultationRoom({ appointment, onBackToDashboard })
   const [isMicMuted, setIsMicMuted] = useState(false);
   const [isVideoOff, setIsVideoOff] = useState(false);
   const [hasCameraPermission, setHasCameraPermission] = useState(false);
-  const [activeRightTab, setActiveRightTab] = useState('scribe');
+  const [activeRightTab, setActiveRightTab] = useState('chat');
   const [chatInput, setChatInput] = useState('');
   const [callDuration, setCallDuration] = useState(312); // 05:12 in seconds
   
   const localVideoRef = useRef(null);
   const mediaStreamRef = useRef(null);
+  const chatEndRef = useRef(null);
 
   const [liveTranscript, setLiveTranscript] = useState([
     { sender: 'Dr. Rajesh Sharma', time: '10:31 AM', text: 'Namaste Rahul! How are you feeling after taking the prescribed cardiology medication?' },
     { sender: 'Rahul Verma', time: '10:32 AM', text: 'Good morning Dr. Sharma. My blood pressure has stabilized at 120/78 today.' },
-    { sender: 'AI Scribe', time: '10:32 AM', text: '[AI Clinical Note]: Patient vitals confirmed within normal physiological range (BP 120/78, HR 72 BPM).' }
+    { sender: 'Dr. Rajesh Sharma', time: '10:32 AM', text: "That's excellent news! Please continue taking the dosage after meals and stay hydrated." }
   ]);
+
+  // Handle Auto Scroll
+  useEffect(() => {
+    chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [liveTranscript, activeRightTab]);
 
   // Handle Real HTML5 Camera Stream
   useEffect(() => {
@@ -79,15 +85,22 @@ export default function TeleconsultationRoom({ appointment, onBackToDashboard })
     const currentInput = chatInput;
     setChatInput('');
 
-    // Simulate AI Scribe response
+    // Simulate Direct Doctor Response (Not AI!)
     setTimeout(() => {
-      const aiMsg = {
-        sender: 'AI Scribe',
-        time: currentTime,
-        text: `[AI Live Note]: Query recorded ("${currentInput}"). Synced with Doctor OPD record.`
+      const doctorResponses = [
+        `Rahul, I have noted your message ("${currentInput}"). Everything looks under control.`,
+        `Thank you for the update Rahul. Please keep monitoring your vitals daily.`,
+        `Understood Rahul. Feel free to reach out if you notice any unusual symptoms.`
+      ];
+      const randomDocReply = doctorResponses[Math.floor(Math.random() * doctorResponses.length)];
+      
+      const docMsg = {
+        sender: 'Dr. Rajesh Sharma',
+        time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+        text: randomDocReply
       };
-      setLiveTranscript(prev => [...prev, aiMsg]);
-    }, 1000);
+      setLiveTranscript(prev => [...prev, docMsg]);
+    }, 1200);
   };
 
   return (
@@ -232,7 +245,7 @@ export default function TeleconsultationRoom({ appointment, onBackToDashboard })
 
         </div>
 
-        {/* Right Side: Tabbed AI Scribe & Clinical Workspace (1 Col) */}
+        {/* Right Side: Tabbed Direct Doctor-Patient Chat Workspace (1 Col) */}
         <div className="bg-slate-900 border-l border-slate-800 p-5 flex flex-col justify-between space-y-4">
           
           {/* Segmented Sidebar Tabs */}
@@ -240,23 +253,13 @@ export default function TeleconsultationRoom({ appointment, onBackToDashboard })
             
             <div className="flex items-center bg-slate-950 p-1 rounded-xl border border-slate-800 space-x-1">
               <button
-                onClick={() => setActiveRightTab('scribe')}
-                className={`flex-1 py-2 rounded-lg text-xs font-extrabold transition-all btn-minimal flex items-center justify-center space-x-1.5 ${
-                  activeRightTab === 'scribe' ? 'bg-sky-600 text-white shadow-xs' : 'text-slate-400 hover:text-white'
-                }`}
-              >
-                <Brain className="w-3.5 h-3.5" />
-                <span>AI Scribe</span>
-              </button>
-
-              <button
                 onClick={() => setActiveRightTab('chat')}
                 className={`flex-1 py-2 rounded-lg text-xs font-extrabold transition-all btn-minimal flex items-center justify-center space-x-1.5 ${
                   activeRightTab === 'chat' ? 'bg-sky-600 text-white shadow-xs' : 'text-slate-400 hover:text-white'
                 }`}
               >
                 <MessageSquare className="w-3.5 h-3.5" />
-                <span>Live Chat</span>
+                <span>Doctor Chat</span>
               </button>
 
               <button
@@ -266,46 +269,28 @@ export default function TeleconsultationRoom({ appointment, onBackToDashboard })
                 }`}
               >
                 <Activity className="w-3.5 h-3.5" />
-                <span>Vitals</span>
+                <span>Patient Vitals</span>
               </button>
             </div>
 
-            {/* Tab 1: AI Scribe Transcript */}
-            {activeRightTab === 'scribe' && (
-              <div className="flex-1 overflow-y-auto space-y-3 pr-1">
-                {liveTranscript.map((t, i) => (
-                  <div key={i} className={`p-3.5 rounded-2xl text-xs space-y-1 ${
-                    t.sender === 'AI Scribe' 
-                      ? 'bg-sky-950/70 text-sky-200 border border-sky-800/80' 
-                      : 'bg-slate-800 text-slate-200 border border-slate-700'
-                  }`}>
-                    <div className="flex items-center justify-between font-bold text-[10px] text-slate-400">
-                      <span>{t.sender}</span>
-                      <span>{t.time}</span>
-                    </div>
-                    <p className="font-semibold leading-relaxed">{t.text}</p>
-                  </div>
-                ))}
-              </div>
-            )}
-
-            {/* Tab 2: Live Chat */}
+            {/* Direct Doctor-Patient Chat Session (Scrollable with Auto-Scroll) */}
             {activeRightTab === 'chat' && (
               <div className="flex-1 flex flex-col justify-between space-y-3 min-h-0">
-                <div className="flex-1 overflow-y-auto space-y-3 pr-1">
-                  {liveTranscript.filter(t => t.sender !== 'AI Scribe').map((t, i) => (
-                    <div key={i} className={`p-3.5 rounded-2xl text-xs space-y-1 ${
+                <div className="flex-1 overflow-y-auto space-y-3 pr-1 max-h-[380px] custom-scrollbar">
+                  {liveTranscript.map((t, i) => (
+                    <div key={i} className={`p-3.5 rounded-2xl text-xs space-y-1.5 ${
                       t.sender === 'Rahul Verma' 
-                        ? 'bg-emerald-950/70 text-emerald-200 border border-emerald-800 ml-4' 
-                        : 'bg-slate-800 text-slate-200 border border-slate-700 mr-4'
+                        ? 'bg-sky-600 text-white shadow-xs ml-6' 
+                        : 'bg-slate-800 text-slate-100 border border-slate-700 mr-6'
                     }`}>
-                      <div className="flex items-center justify-between font-bold text-[10px] text-slate-400">
+                      <div className="flex items-center justify-between font-extrabold text-[10px] text-slate-300 opacity-90">
                         <span>{t.sender}</span>
                         <span>{t.time}</span>
                       </div>
-                      <p className="font-semibold">{t.text}</p>
+                      <p className="font-semibold leading-relaxed">{t.text}</p>
                     </div>
                   ))}
+                  <div ref={chatEndRef} />
                 </div>
 
                 <form onSubmit={handleSendMessage} className="flex items-center gap-2 pt-2 border-t border-slate-800">
@@ -313,7 +298,7 @@ export default function TeleconsultationRoom({ appointment, onBackToDashboard })
                     type="text"
                     value={chatInput}
                     onChange={(e) => setChatInput(e.target.value)}
-                    placeholder="Type message to doctor..."
+                    placeholder="Type message to Dr. Rajesh Sharma..."
                     className="flex-1 px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-xs font-semibold text-white focus:outline-none focus:border-sky-500"
                   />
                   <button
@@ -326,7 +311,7 @@ export default function TeleconsultationRoom({ appointment, onBackToDashboard })
               </div>
             )}
 
-            {/* Tab 3: Patient Vitals Card */}
+            {/* Tab 2: Patient Vitals Card */}
             {activeRightTab === 'vitals' && (
               <div className="space-y-4">
                 <div className="p-4 rounded-2xl bg-slate-950 border border-slate-800 space-y-3">
@@ -361,7 +346,7 @@ export default function TeleconsultationRoom({ appointment, onBackToDashboard })
           </div>
 
           <p className="text-[11px] text-slate-500 font-bold text-center border-t border-slate-800/80 pt-3">
-            Gemini AI Voice Scribe Active • MediPulse OS
+            Direct Doctor-Patient Tele-Consultation Stream • MediPulse OS
           </p>
 
         </div>
