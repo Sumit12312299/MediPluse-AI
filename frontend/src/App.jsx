@@ -9,8 +9,8 @@ import AIPrescriptionModal from './components/AIPrescriptionModal';
 import TeleconsultationModal from './components/TeleconsultationModal';
 import NotificationCenter from './components/NotificationCenter';
 import AuthModal from './components/AuthModal';
+import Footer from './components/Footer';
 import { api, getCurrentUser, removeAuthToken } from './api';
-import { ShieldAlert, HeartPulse, Sparkles, Activity } from 'lucide-react';
 
 export default function App() {
   const [activeRole, setActiveRole] = useState('PATIENT');
@@ -91,7 +91,7 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col font-sans transition-colors duration-300">
+    <div className="min-h-screen flex flex-col font-sans bg-slate-50 transition-colors duration-300">
       
       {/* Sticky Header Navbar */}
       <Navbar
@@ -103,22 +103,6 @@ export default function App() {
         notificationCount={notifications.length}
         onOpenNotifications={() => setIsNotificationsOpen(true)}
       />
-
-      {/* Floating Clinical Alert Ticker Bar */}
-      <div className="bg-gradient-to-r from-sky-900 via-slate-900 to-teal-900 text-white py-2 px-4 text-xs font-semibold flex items-center justify-between border-b border-sky-800/40 shadow-2xs">
-        <div className="w-full max-w-7xl mx-auto flex items-center justify-between px-2">
-          <div className="flex items-center space-x-2">
-            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
-            <span className="text-sky-200 font-bold uppercase tracking-wider text-[11px]">Emergency OPD Active</span>
-            <span className="hidden sm:inline text-slate-300">• Avg Wait Time: 4 Mins • 4 Cardiology Specialists Available</span>
-          </div>
-
-          <div className="flex items-center space-x-3 text-sky-300 text-[11px] font-bold">
-            <span className="flex items-center gap-1"><Sparkles className="w-3 h-3 text-sky-400" /> Gemini AI Scribe v2.4</span>
-            <span className="hidden md:inline">• 256-Bit SSL Secured</span>
-          </div>
-        </div>
-      </div>
 
       {/* Main Full-Screen Fluid Container */}
       <main className="flex-1 w-full max-w-full px-4 sm:px-8 lg:px-12 py-6 sm:py-8">
@@ -158,24 +142,8 @@ export default function App() {
 
       </main>
 
-      {/* Standard Medical Footer */}
-      <footer className="mt-auto border-t border-slate-200/80 dark:border-slate-800/80 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md py-6 text-xs text-slate-500 dark:text-slate-400">
-        <div className="w-full px-4 sm:px-8 lg:px-12 flex flex-col md:flex-row items-center justify-between gap-4">
-          <div className="flex items-center space-x-3">
-            <div className="w-7 h-7 rounded-lg bg-slate-900 dark:bg-sky-600 text-white flex items-center justify-center">
-              <HeartPulse className="w-4 h-4 text-sky-400 dark:text-white" />
-            </div>
-            <div>
-              <p className="font-extrabold text-slate-900 dark:text-white">MediPulse AI Health Systems</p>
-              <p className="text-[11px] font-medium text-slate-400">HIPAA & ISO 27001 Certified Clinical Architecture</p>
-            </div>
-          </div>
-
-          <p className="text-[11px] font-medium text-center md:text-right">
-            © 2026 MediPulse AI Health Inc. All rights reserved. • Powered by React 18, Vite & Django REST Framework
-          </p>
-        </div>
-      </footer>
+      {/* Rich Enterprise Multi-Column Footer */}
+      <Footer />
 
       {/* Interactive Modals */}
       <BookAppointmentModal
