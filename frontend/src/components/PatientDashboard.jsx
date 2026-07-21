@@ -1,68 +1,5 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { Calendar, Stethoscope, Sparkles, FileText, CreditCard, Clock, CheckCircle2, ChevronRight, HeartPulse, Plus, Video, Pill, Brain, Thermometer, ArrowUpRight, Activity, ShieldCheck, Dna, FileHeart } from 'lucide-react';
-
-// Live Animated ECG Heartbeat Graph Component
-function ECGWaveformCanvas() {
-  const canvasRef = useRef(null);
-
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext('2d');
-    let animationFrameId;
-    let x = 0;
-    const points = [];
-    const width = canvas.width;
-    const height = canvas.height;
-    const midY = height / 2;
-
-    const render = () => {
-      ctx.fillStyle = 'rgba(255, 255, 255, 0.25)';
-      ctx.fillRect(0, 0, width, height);
-
-      // Calculate ECG Wave height
-      x = (x + 2) % width;
-      let y = midY;
-      const phase = x % 120;
-      if (phase > 40 && phase < 50) y = midY - 18; // P peak
-      else if (phase >= 50 && phase < 55) y = midY + 8; // Q dip
-      else if (phase >= 55 && phase < 65) y = midY - 36; // R high peak
-      else if (phase >= 65 && phase < 70) y = midY + 14; // S dip
-      else if (phase >= 70 && phase < 85) y = midY - 10; // T wave
-      else y = midY + (Math.random() * 2 - 1); // Baseline noise
-
-      points.push({ x, y });
-      if (points.length > width / 2) points.shift();
-
-      ctx.beginPath();
-      ctx.strokeStyle = '#0284c7';
-      ctx.lineWidth = 2;
-      ctx.shadowColor = '#0284c7';
-      ctx.shadowBlur = 6;
-
-      for (let i = 0; i < points.length - 1; i++) {
-        ctx.moveTo(points[i].x, points[i].y);
-        ctx.lineTo(points[i + 1].x, points[i + 1].y);
-      }
-      ctx.stroke();
-
-      animationFrameId = requestAnimationFrame(render);
-    };
-
-    render();
-
-    return () => cancelAnimationFrame(animationFrameId);
-  }, []);
-
-  return (
-    <canvas 
-      ref={canvasRef} 
-      width={220} 
-      height={40} 
-      className="w-full h-9 rounded-lg bg-sky-50/50 border border-sky-100 mt-2"
-    />
-  );
-}
+import React, { useState } from 'react';
+import { Calendar, Stethoscope, Sparkles, FileText, CreditCard, Clock, CheckCircle2, ChevronRight, HeartPulse, Plus, Video, Pill, Brain, Thermometer, ArrowUpRight, Activity, ShieldCheck, Dna, FileHeart, Ticket, FileSpreadsheet } from 'lucide-react';
 
 export default function PatientDashboard({ appointments, prescriptions, payments, doctors, onOpenBooking, onOpenAIModal, onOpenPayment, onOpenTeleconsult }) {
   const [activeTab, setActiveTab] = useState('appointments');
@@ -99,43 +36,44 @@ export default function PatientDashboard({ appointments, prescriptions, payments
           </button>
         </div>
 
-        {/* Dynamic Metric Cards Grid with Live Animated ECG Canvas */}
+        {/* Upgraded 4 Core Utility Cards (Token, Lab Reports, Appointments, AI RX) */}
         <div className="mt-8 grid grid-cols-2 sm:grid-cols-4 gap-4 pt-6 border-t border-slate-100">
           
+          {/* Card 1: Live OPD Token */}
           <div className="glass-card p-4.5 rounded-2xl space-y-2 group">
             <div className="flex items-center justify-between text-slate-600">
               <span className="text-xs font-bold uppercase tracking-wider text-slate-600 flex items-center gap-1">
-                <Activity className="w-3.5 h-3.5 text-rose-500" /> Blood Pressure
+                <Ticket className="w-3.5 h-3.5 text-sky-600" /> Live OPD Token
               </span>
               <span className="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
             </div>
             <p className="text-2xl sm:text-3xl font-extrabold text-slate-900 group-hover:text-sky-600 transition-colors">
-              120 / 78 <span className="text-xs font-semibold text-emerald-600">mmHg</span>
+              # 14 <span className="text-xs font-semibold text-sky-700">Token</span>
             </p>
             <div className="w-full bg-slate-100 rounded-full h-1.5 overflow-hidden">
-              <div className="bg-emerald-500 h-full rounded-full w-[78%]"></div>
+              <div className="bg-sky-500 h-full rounded-full w-[70%]"></div>
             </div>
-            <span className="text-xs text-emerald-700 font-bold flex items-center gap-1">
-              ✓ Optimal Reading
-            </span>
+            <span className="text-xs text-sky-700 font-bold">~10 Mins Est. Wait</span>
           </div>
 
-          {/* Card with Animated ECG Waveform Canvas */}
-          <div className="glass-card p-4.5 rounded-2xl space-y-1.5 group">
+          {/* Card 2: Diagnostic Lab Reports */}
+          <div className="glass-card p-4.5 rounded-2xl space-y-2 group">
             <div className="flex items-center justify-between text-slate-600">
               <span className="text-xs font-bold uppercase tracking-wider text-slate-600 flex items-center gap-1">
-                <Thermometer className="w-3.5 h-3.5 text-sky-500" /> Heart Rate (ECG)
+                <FileSpreadsheet className="w-3.5 h-3.5 text-teal-600" /> Lab Reports
               </span>
-              <HeartPulse className="w-4 h-4 text-sky-500 animate-pulse" />
+              <CheckCircle2 className="w-4 h-4 text-emerald-500" />
             </div>
-            <div className="flex items-baseline space-x-2">
-              <span className="text-2xl sm:text-3xl font-extrabold text-slate-900 group-hover:text-sky-600 transition-colors">72</span>
-              <span className="text-xs font-semibold text-slate-500">BPM</span>
+            <p className="text-2xl sm:text-3xl font-extrabold text-slate-900 group-hover:text-teal-600 transition-colors">
+              2 <span className="text-xs font-semibold text-slate-500">Reports</span>
+            </p>
+            <div className="w-full bg-slate-100 rounded-full h-1.5 overflow-hidden">
+              <div className="bg-emerald-500 h-full rounded-full w-[100%]"></div>
             </div>
-            {/* Live Waveform */}
-            <ECGWaveformCanvas />
+            <span className="text-xs text-emerald-700 font-bold">✓ Blood & ECG Ready</span>
           </div>
 
+          {/* Card 3: Upcoming Consultations */}
           <div className="glass-card p-4.5 rounded-2xl space-y-2 group">
             <div className="flex items-center justify-between text-slate-600">
               <span className="text-xs font-bold uppercase tracking-wider text-slate-600 flex items-center gap-1">
@@ -152,6 +90,7 @@ export default function PatientDashboard({ appointments, prescriptions, payments
             <span className="text-xs text-teal-700 font-semibold">Confirmed Booking</span>
           </div>
 
+          {/* Card 4: AI Prescriptions */}
           <div className="glass-card p-4.5 rounded-2xl space-y-2 group">
             <div className="flex items-center justify-between text-slate-600">
               <span className="text-xs font-bold uppercase tracking-wider text-slate-600 flex items-center gap-1">
