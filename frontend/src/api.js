@@ -273,7 +273,7 @@ export const api = {
 
   async getAdminMetrics() {
     try {
-      const res = await fetch(`${API_BASE}/admin-metrics/`, { headers: authHeader() });
+      const res = await fetch(`${API_BASE}/admin/metrics/`, { headers: authHeader() });
       if (res.ok) return await res.json();
     } catch (e) {}
     return MOCK_METRICS;

@@ -25,11 +25,20 @@ export default function App() {
   const [notifications, setNotifications] = useState([]);
   const [adminMetrics, setAdminMetrics] = useState({});
 
-  // Modals state
   const [isBookingOpen, setIsBookingOpen] = useState(false);
   const [paymentAppointment, setPaymentAppointment] = useState(null);
   const [aiRxModalData, setAiRxModalData] = useState(null);
-  const [teleconsultAppt, setTeleconsultAppt] = useState(null);
+  const [teleconsultAppt, setTeleconsultAppt] = useState(() => {
+    const saved = localStorage.getItem('active_teleconsult_appt');
+    if (saved) {
+      try {
+        return JSON.parse(saved);
+      } catch (e) {
+        return null;
+      }
+    }
+    return null;
+  });
   const [isNotificationsOpen, setIsNotificationsOpen] = useState(false);
   const [isAuthOpen, setIsAuthOpen] = useState(false);
 
@@ -76,6 +85,27 @@ export default function App() {
     setCurrentUser(null);
   };
 
+  const handleAuthSuccess = async (action, credentials) => {
+    if (action === 'login') {
+      const res = await api.login(credentials.username, credentials.password);
+      if (res && res.user) {
+        setCurrentUser(res.user);
+        setActiveRole(res.user.role);
+        loadData();
+      }
+    } else if (action === 'register') {
+      const res = await api.register(credentials);
+      if (res && res.user) {
+        const loginRes = await api.login(credentials.username, credentials.password);
+        if (loginRes && loginRes.user) {
+          setCurrentUser(loginRes.user);
+          setActiveRole(loginRes.user.role);
+          loadData();
+        }
+      }
+    }
+  };
+
   const handleBookSuccess = async (payload) => {
     const newAppt = await api.bookAppointment(payload);
     setAppointments(prev => [newAppt, ...prev]);
@@ -103,7 +133,9 @@ export default function App() {
   };
 
   const handleOpenTeleconsultRoom = (appt) => {
-    setTeleconsultAppt(appt || { doctor_name: 'Dr. Rajesh Sharma', appointment_date: 'Today', time_slot: '10:30 AM' });
+    const activeAppt = appt || { doctor_name: 'Dr. Rajesh Sharma', appointment_date: 'Today', time_slot: '10:30 AM' };
+    localStorage.setItem('active_teleconsult_appt', JSON.stringify(activeAppt));
+    setTeleconsultAppt(activeAppt);
     
     // Open in a Brand New Browser Tab!
     window.open('/teleconsult', '_blank');
@@ -115,6 +147,7 @@ export default function App() {
       <TeleconsultationRoom
         appointment={teleconsultAppt || { doctor_name: 'Dr. Rajesh Sharma', appointment_date: 'Today', time_slot: '10:30 AM' }}
         onBackToDashboard={() => {
+          localStorage.removeItem('active_teleconsult_appt');
           if (window.opener) {
             window.close();
           } else {
@@ -211,7 +244,7 @@ export default function App() {
       <AuthModal
         isOpen={isAuthOpen}
         onClose={() => setIsAuthOpen(false)}
-        onLoginSuccess={(user) => setCurrentUser(user)}
+        onAuthSuccess={handleAuthSuccess}
       />
 
     </div>

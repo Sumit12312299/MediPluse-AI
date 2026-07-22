@@ -36,8 +36,8 @@ export default function DoctorDashboard({ appointments, prescriptions, patients,
     try {
       await onCreatePrescription({
         appointment_id: selectedAppt.id,
-        patient_id: selectedAppt.patient_id || 1,
-        doctor_id: selectedAppt.doctor_id || 1,
+        patient_id: selectedAppt.patient || selectedAppt.patient_id || 1,
+        doctor_id: selectedAppt.doctor || selectedAppt.doctor_id || 1,
         diagnosis,
         medications: meds,
         notes,
