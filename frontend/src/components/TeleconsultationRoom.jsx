@@ -205,16 +205,24 @@ export default function TeleconsultationRoom({ appointment, onBackToDashboard })
                   <Stethoscope className="w-12 h-12 text-sky-400" />
                 </div>
                 <div>
-                  <h3 className="font-black text-2xl text-white">{appointment?.doctor_name || 'Dr. Rajesh Sharma'}</h3>
+                  <h3 className="font-black text-2xl text-white">{doctorName}</h3>
                   <span className="text-xs text-emerald-400 font-extrabold flex items-center justify-center gap-1.5 mt-1">
                     <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping"></span> 1080p HD Encrypted Stream Active
                   </span>
                 </div>
               </div>
             ) : (
-              <div className="text-center text-slate-500 space-y-2">
-                <VideoOff className="w-12 h-12 text-red-500 mx-auto" />
-                <p className="text-white font-extrabold text-base">Video Feed Paused</p>
+              <div className="text-center space-y-4 animate-fade-in">
+                <div className="w-20 h-20 rounded-full bg-slate-900 border border-slate-800 text-slate-500 mx-auto flex items-center justify-center shadow-2xl relative">
+                  <Stethoscope className="w-9 h-9 text-slate-500" />
+                  <div className="absolute -bottom-1 -right-1 w-6 h-6 rounded-full bg-rose-500 flex items-center justify-center border-2 border-slate-905">
+                    <VideoOff className="w-3.5 h-3.5 text-white" />
+                  </div>
+                </div>
+                <div>
+                  <h3 className="font-extrabold text-lg text-slate-350">{doctorName}</h3>
+                  <p className="text-xs text-rose-450 font-bold mt-1">Video Stream Paused by Doctor</p>
+                </div>
               </div>
             )}
 
@@ -229,7 +237,9 @@ export default function TeleconsultationRoom({ appointment, onBackToDashboard })
             )}
 
             {/* Local Patient PIP Video Feed */}
-            <div className="absolute bottom-6 right-6 w-48 h-36 rounded-2xl bg-slate-900 border-2 border-sky-400 shadow-2xl overflow-hidden flex items-center justify-center">
+            <div className={`absolute bottom-6 right-6 w-48 h-36 rounded-2xl bg-slate-900 border-2 shadow-2xl overflow-hidden flex items-center justify-center transition-all duration-300 ${
+              isVideoOff ? 'border-slate-800' : 'border-sky-450'
+            }`}>
               {!isVideoOff ? (
                 hasCameraPermission ? (
                   <video
@@ -247,9 +257,9 @@ export default function TeleconsultationRoom({ appointment, onBackToDashboard })
                   </div>
                 )
               ) : (
-                <div className="text-center p-2 text-red-400">
-                  <VideoOff className="w-6 h-6 mx-auto" />
-                  <span className="text-xs text-slate-400 font-extrabold block mt-1">Cam Muted</span>
+                <div className="text-center p-2 text-slate-500 space-y-1.5 animate-fade-in">
+                  <VideoOff className="w-6 h-6 text-slate-600 mx-auto" />
+                  <span className="text-xs text-slate-450 font-bold block">Cam Muted</span>
                 </div>
               )}
 
@@ -266,50 +276,60 @@ export default function TeleconsultationRoom({ appointment, onBackToDashboard })
           </div>
 
           {/* Floating Controls Bar */}
-          <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex items-center space-x-4 px-6 py-3 rounded-2xl bg-slate-900/95 backdrop-blur-xl border border-slate-700/90 shadow-2xl">
+          <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex items-center space-x-3 px-5 py-3 rounded-3xl bg-slate-900/95 backdrop-blur-xl border border-slate-700/90 shadow-[0_10px_40px_-10px_rgba(0,0,0,0.5)]">
+            {/* Mic Toggle Button */}
             <button
               onClick={() => setIsMicMuted(!isMicMuted)}
-              className={`px-4 py-2.5 rounded-xl text-xs font-extrabold transition-all btn-minimal flex items-center space-x-2 ${
-                isMicMuted ? 'bg-red-600 text-white' : 'bg-slate-800 text-slate-200 hover:bg-slate-700'
+              className={`w-12 h-12 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-105 active:scale-95 ${
+                isMicMuted 
+                  ? 'bg-rose-500/90 text-white border border-rose-400/40 shadow-[0_0_15px_rgba(244,63,94,0.3)] hover:bg-rose-600' 
+                  : 'bg-slate-800/80 text-emerald-400 border border-slate-700/50 hover:bg-slate-700 hover:text-emerald-350'
               }`}
+              title={isMicMuted ? "Unmute Mic" : "Mute Mic"}
             >
-              {isMicMuted ? <MicOff className="w-4 h-4" /> : <Mic className="w-4 h-4 text-emerald-400" />}
-              <span>{isMicMuted ? 'Unmute Mic' : 'Mute Mic'}</span>
+              {isMicMuted ? <MicOff className="w-5 h-5" /> : <Mic className="w-5 h-5" />}
             </button>
 
+            {/* Camera Toggle Button */}
             <button
               onClick={() => setIsVideoOff(!isVideoOff)}
-              className={`px-4 py-2.5 rounded-xl text-xs font-extrabold transition-all btn-minimal flex items-center space-x-2 ${
-                isVideoOff ? 'bg-red-600 text-white' : 'bg-emerald-600 text-white hover:bg-emerald-700'
+              className={`w-12 h-12 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-105 active:scale-95 ${
+                isVideoOff 
+                  ? 'bg-rose-500/90 text-white border border-rose-400/40 shadow-[0_0_15px_rgba(244,63,94,0.3)] hover:bg-rose-600' 
+                  : 'bg-slate-800/80 text-emerald-400 border border-slate-700/50 hover:bg-slate-700 hover:text-emerald-350'
               }`}
+              title={isVideoOff ? "Turn Camera On" : "Turn Camera Off"}
             >
-              {isVideoOff ? <VideoOff className="w-4 h-4" /> : <Video className="w-4 h-4 text-white" />}
-              <span>{isVideoOff ? 'Turn Camera On' : 'Turn Camera Off'}</span>
+              {isVideoOff ? <VideoOff className="w-5 h-5" /> : <Video className="w-5 h-5" />}
             </button>
 
+            {/* Snapshot Button */}
             <button
               onClick={() => {
                 setShowFlash(true);
                 setTimeout(() => setShowFlash(false), 250);
               }}
-              className="px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-extrabold transition-all btn-minimal flex items-center space-x-2 border border-slate-700"
+              className="w-12 h-12 rounded-full flex items-center justify-center bg-slate-800/80 text-teal-400 border border-slate-700/50 hover:bg-slate-700 hover:text-teal-350 transition-all duration-300 hover:scale-105 active:scale-95"
               title="Capture patient webcam snapshot"
             >
-              <Camera className="w-4 h-4 text-emerald-400 animate-pulse" />
-              <span>Snapshot</span>
+              <Camera className="w-5 h-5" />
             </button>
 
+            {/* Share Screen Button */}
             <button
               onClick={() => alert('Screen sharing initialized in HD mode!')}
-              className="px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-extrabold transition-all btn-minimal flex items-center space-x-2 border border-slate-700"
+              className="w-12 h-12 rounded-full flex items-center justify-center bg-slate-800/80 text-sky-400 border border-slate-700/50 hover:bg-slate-700 hover:text-sky-350 transition-all duration-300 hover:scale-105 active:scale-95"
+              title="Share Screen"
             >
-              <Share2 className="w-4 h-4 text-sky-400" />
-              <span>Share Screen</span>
+              <Share2 className="w-5 h-5" />
             </button>
 
+            <div className="w-px h-8 bg-slate-800 mx-1"></div>
+
+            {/* End Call Button */}
             <button
               onClick={onBackToDashboard}
-              className="px-5 py-2.5 rounded-xl bg-red-600 hover:bg-red-700 text-white text-xs font-extrabold transition-all btn-minimal shadow-lg flex items-center space-x-2"
+              className="h-12 px-6 rounded-2xl bg-rose-600 hover:bg-rose-700 text-white text-xs font-black transition-all duration-300 hover:scale-105 active:scale-95 flex items-center gap-2 shadow-[0_0_20px_rgba(225,29,72,0.4)] border border-rose-500/30"
             >
               <PhoneOff className="w-4 h-4" />
               <span>End Call</span>
