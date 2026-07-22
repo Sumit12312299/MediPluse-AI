@@ -10,7 +10,7 @@ export default function PatientDashboard({ appointments, prescriptions, payments
     <div className="space-y-6 animate-slide-up max-w-7xl mx-auto">
       
       {/* Bento Grid Header Hero Banner */}
-      <div className="p-6 sm:p-7 rounded-3xl bg-white border border-slate-200/90 shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-6">
+      <div className="glass-panel p-6 sm:p-7 flex flex-col md:flex-row md:items-center justify-between gap-6">
         <div className="space-y-2">
           <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-sky-50 text-sky-800 text-xs font-bold border border-sky-100">
             <HeartPulse className="w-4 h-4 text-sky-600 animate-pulse" />
@@ -37,7 +37,7 @@ export default function PatientDashboard({ appointments, prescriptions, payments
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
         
         {/* Bento Card 1: Live OPD Queue Token */}
-        <div className="p-5 rounded-2xl bg-white border border-slate-200/90 shadow-xs hover:border-sky-300 transition-all space-y-3">
+        <div className="glass-card p-5 space-y-3 animate-fade-in-up delay-100">
           <div className="flex items-center justify-between">
             <span className="text-xs font-bold uppercase tracking-wider text-slate-500 flex items-center gap-1.5">
               <Ticket className="w-4 h-4 text-sky-600" /> Live OPD Token
@@ -55,7 +55,7 @@ export default function PatientDashboard({ appointments, prescriptions, payments
         </div>
 
         {/* Bento Card 2: Lab Reports */}
-        <div className="p-5 rounded-2xl bg-white border border-slate-200/90 shadow-xs hover:border-teal-300 transition-all space-y-3">
+        <div className="glass-card p-5 space-y-3 animate-fade-in-up delay-200">
           <div className="flex items-center justify-between">
             <span className="text-xs font-bold uppercase tracking-wider text-slate-500 flex items-center gap-1.5">
               <FileSpreadsheet className="w-4 h-4 text-teal-600" /> Lab Reports
@@ -73,7 +73,7 @@ export default function PatientDashboard({ appointments, prescriptions, payments
         </div>
 
         {/* Bento Card 3: Upcoming Consultations */}
-        <div className="p-5 rounded-2xl bg-white border border-slate-200/90 shadow-xs hover:border-indigo-300 transition-all space-y-3">
+        <div className="glass-card p-5 space-y-3 animate-fade-in-up delay-300">
           <div className="flex items-center justify-between">
             <span className="text-xs font-bold uppercase tracking-wider text-slate-500 flex items-center gap-1.5">
               <Stethoscope className="w-4 h-4 text-indigo-600" /> Upcoming
@@ -91,7 +91,7 @@ export default function PatientDashboard({ appointments, prescriptions, payments
         </div>
 
         {/* Bento Card 4: AI Prescriptions */}
-        <div className="p-5 rounded-2xl bg-white border border-slate-200/90 shadow-xs hover:border-purple-300 transition-all space-y-3">
+        <div className="glass-card p-5 space-y-3 animate-fade-in-up delay-400">
           <div className="flex items-center justify-between">
             <span className="text-xs font-bold uppercase tracking-wider text-slate-500 flex items-center gap-1.5">
               <Brain className="w-4 h-4 text-purple-600" /> AI Prescriptions
@@ -154,7 +154,7 @@ export default function PatientDashboard({ appointments, prescriptions, payments
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
           {appointments && appointments.length > 0 ? (
             appointments.map(app => (
-              <div key={app.id} className="p-6 rounded-3xl bg-white border border-slate-200/90 shadow-xs hover:shadow-md transition-all space-y-4 font-sans">
+              <div key={app.id} className="glass-card p-6 space-y-4 font-sans">
                 <div className="flex items-start justify-between">
                   <div className="flex items-center space-x-3.5">
                     <div className="w-11 h-11 rounded-2xl bg-sky-50 text-sky-700 flex items-center justify-center font-bold text-sm border border-sky-100">
@@ -222,7 +222,7 @@ export default function PatientDashboard({ appointments, prescriptions, payments
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
           {prescriptions && prescriptions.length > 0 ? (
             prescriptions.map(rx => (
-              <div key={rx.id} className="p-6 rounded-3xl bg-white border border-slate-200/90 shadow-xs hover:shadow-md transition-all space-y-4">
+              <div key={rx.id} className="glass-card p-6 space-y-4">
                 <div className="flex items-start justify-between">
                   <div className="flex items-center space-x-3.5">
                     <div className="w-11 h-11 rounded-2xl bg-teal-50 text-teal-700 flex items-center justify-center font-bold text-sm border border-teal-100">
@@ -269,7 +269,7 @@ export default function PatientDashboard({ appointments, prescriptions, payments
 
       {/* Tab 3: Billing */}
       {activeTab === 'billing' && (
-        <div className="p-6 rounded-3xl bg-white border border-slate-200/90 shadow-xs space-y-4">
+        <div className="glass-panel p-6 space-y-4">
           <h3 className="font-extrabold text-slate-900 text-base flex items-center gap-2">
             <CreditCard className="w-4 h-4 text-sky-600" /> Transaction & Payment Audit Trail
           </h3>

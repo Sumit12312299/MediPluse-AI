@@ -56,7 +56,7 @@ export default function DoctorDashboard({ appointments, prescriptions, patients,
     <div className="space-y-6 animate-slide-up max-w-7xl mx-auto">
       
       {/* Doctor Header Banner */}
-      <div className="relative rounded-3xl p-6 sm:p-8 bg-white border border-slate-200/90 border-l-4 border-l-teal-600 shadow-xs overflow-hidden">
+      <div className="relative glass-panel p-6 sm:p-8 border-l-4 border-l-teal-600 overflow-hidden">
         <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-br from-teal-400/10 via-sky-400/5 to-transparent rounded-full blur-3xl -mr-20 -mt-20 pointer-events-none"></div>
 
         <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
@@ -83,7 +83,7 @@ export default function DoctorDashboard({ appointments, prescriptions, patients,
 
         {/* Doctor KPIs */}
         <div className="mt-8 grid grid-cols-2 sm:grid-cols-4 gap-4 pt-6 border-t border-slate-100">
-          <div className="p-4 rounded-2xl bg-white border border-slate-200/80 shadow-2xs space-y-1.5 group">
+          <div className="glass-card p-4 space-y-1.5 group animate-fade-in-up delay-100">
             <div className="flex items-center justify-between text-slate-500">
               <span className="text-xs font-bold uppercase tracking-wider text-slate-500">Consultations</span>
               <Calendar className="w-4 h-4 text-teal-600" />
@@ -94,7 +94,7 @@ export default function DoctorDashboard({ appointments, prescriptions, patients,
             <span className="text-xs text-slate-400 font-medium">Scheduled Today</span>
           </div>
 
-          <div className="p-4 rounded-2xl bg-white border border-slate-200/80 shadow-2xs space-y-1.5 group">
+          <div className="glass-card p-4 space-y-1.5 group animate-fade-in-up delay-200">
             <div className="flex items-center justify-between text-slate-500">
               <span className="text-xs font-bold uppercase tracking-wider text-slate-500">AI Prescriptions</span>
               <Brain className="w-4 h-4 text-indigo-600" />
@@ -105,7 +105,7 @@ export default function DoctorDashboard({ appointments, prescriptions, patients,
             <span className="text-xs text-indigo-700 font-bold">AI Summarized</span>
           </div>
 
-          <div className="p-4 rounded-2xl bg-white border border-slate-200/80 shadow-2xs space-y-1.5 group">
+          <div className="glass-card p-4 space-y-1.5 group animate-fade-in-up delay-300">
             <div className="flex items-center justify-between text-slate-500">
               <span className="text-xs font-bold uppercase tracking-wider text-slate-500">Active Patients</span>
               <User className="w-4 h-4 text-sky-600" />
@@ -116,7 +116,7 @@ export default function DoctorDashboard({ appointments, prescriptions, patients,
             <span className="text-xs text-slate-400 font-medium">Registered Records</span>
           </div>
 
-          <div className="p-4 rounded-2xl bg-white border border-slate-200/80 shadow-2xs space-y-1.5 group">
+          <div className="glass-card p-4 space-y-1.5 group animate-fade-in-up delay-400">
             <div className="flex items-center justify-between text-slate-500">
               <span className="text-xs font-bold uppercase tracking-wider text-slate-500">OPD Fee</span>
               <ShieldCheck className="w-4 h-4 text-emerald-600" />
@@ -138,7 +138,7 @@ export default function DoctorDashboard({ appointments, prescriptions, patients,
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
           {appointments && appointments.length > 0 ? (
             appointments.map(app => (
-              <div key={app.id} className="p-6 rounded-3xl bg-white border border-slate-200/90 shadow-xs hover:shadow-md transition-all space-y-4 font-sans">
+              <div key={app.id} className="glass-card p-6 space-y-4 font-sans">
                 <div className="flex items-start justify-between">
                   <div className="flex items-center space-x-3.5">
                     <div className="w-11 h-11 rounded-2xl bg-teal-50 border border-teal-200 text-teal-800 flex items-center justify-center font-bold text-base shadow-2xs">
@@ -206,7 +206,7 @@ export default function DoctorDashboard({ appointments, prescriptions, patients,
               </div>
             ))
           ) : (
-            <div className="col-span-2 text-center py-12 bg-white rounded-3xl border border-slate-200/80">
+            <div className="col-span-2 text-center py-12 glass-panel">
               <Calendar className="w-12 h-12 text-slate-300 mx-auto mb-3" />
               <p className="text-slate-600 text-sm font-semibold">No active appointments in queue.</p>
             </div>
@@ -216,7 +216,7 @@ export default function DoctorDashboard({ appointments, prescriptions, patients,
 
       {/* Upgraded AI Prescription Generator Drawer/Form */}
       {selectedAppt && (
-        <div className="p-6 sm:p-8 rounded-3xl bg-white border border-sky-200 shadow-xl space-y-6 animate-slide-up ring-4 ring-sky-500/10">
+        <div className="glass-panel p-6 sm:p-8 space-y-6 animate-slide-up ring-4 ring-sky-500/10">
           
           {/* Header */}
           <div className="flex items-center justify-between border-b border-slate-200 pb-4">
