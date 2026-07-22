@@ -2,6 +2,8 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Video, Mic, MicOff, VideoOff, PhoneOff, MessageSquare, Sparkles, ArrowLeft, ShieldCheck, Send, Brain, Stethoscope, User, Heart, Activity, FileText, Share2, Camera } from 'lucide-react';
 
 export default function TeleconsultationRoom({ appointment, onBackToDashboard }) {
+  const doctorName = appointment?.doctor_name || 'Dr. Rajesh Sharma';
+
   const [isMicMuted, setIsMicMuted] = useState(false);
   const [isVideoOff, setIsVideoOff] = useState(false);
   const [hasCameraPermission, setHasCameraPermission] = useState(false);
@@ -10,7 +12,7 @@ export default function TeleconsultationRoom({ appointment, onBackToDashboard })
   const [callDuration, setCallDuration] = useState(312); // 05:12 in seconds
   const [isDoctorTyping, setIsDoctorTyping] = useState(false);
   const [liveHeartRate, setLiveHeartRate] = useState(72);
-  const [liveSubtitles, setLiveSubtitles] = useState("Dr. Rajesh Sharma: 'Namaste Rahul! Let's check your current cardiological metrics.'");
+  const [liveSubtitles, setLiveSubtitles] = useState(`${doctorName}: "Namaste Rahul! Let's check your current cardiological metrics."`);
   const [showFlash, setShowFlash] = useState(false);
 
   // Fluctuating Heart Rate & Subtitles
@@ -24,11 +26,11 @@ export default function TeleconsultationRoom({ appointment, onBackToDashboard })
     }, 4000);
 
     const subtitleList = [
-      "Dr. Rajesh Sharma: 'Let's review your cardiology history. Any pain or discomfort today?'",
-      "Dr. Rajesh Sharma: 'Your heart rate and EKG rhythms show stable signals.'",
-      "Dr. Rajesh Sharma: 'Please continue monitoring your vitals after your morning walk.'",
-      "Dr. Rajesh Sharma: 'I am modifying your digital prescription dosage slightly.'",
-      "Dr. Rajesh Sharma: 'Let's schedule a follow-up consultation in about two weeks.'"
+      `${doctorName}: "Let's review your cardiology history. Any pain or discomfort today?"`,
+      `${doctorName}: "Your heart rate and EKG rhythms show stable signals."`,
+      `${doctorName}: "Please continue monitoring your vitals after your morning walk."`,
+      `${doctorName}: "I am modifying your digital prescription dosage slightly."`,
+      `${doctorName}: "Let's schedule a follow-up consultation in about two weeks."`
     ];
 
     const subInterval = setInterval(() => {
@@ -40,16 +42,16 @@ export default function TeleconsultationRoom({ appointment, onBackToDashboard })
       clearInterval(hrInterval);
       clearInterval(subInterval);
     };
-  }, []);
+  }, [doctorName]);
 
   const localVideoRef = useRef(null);
   const mediaStreamRef = useRef(null);
   const chatEndRef = useRef(null);
 
   const [liveTranscript, setLiveTranscript] = useState([
-    { sender: 'Dr. Rajesh Sharma', time: '10:31 AM', text: 'Namaste Rahul! How are you feeling after taking the prescribed cardiology medication?' },
-    { sender: 'Rahul Verma', time: '10:32 AM', text: 'Good morning Dr. Sharma. My blood pressure has stabilized at 120/78 today.' },
-    { sender: 'Dr. Rajesh Sharma', time: '10:32 AM', text: "That's excellent news! Please continue taking the dosage after meals and stay hydrated." }
+    { sender: doctorName, time: '10:31 AM', text: 'Namaste Rahul! How are you feeling after taking the prescribed cardiology medication?' },
+    { sender: 'Rahul Verma', time: '10:32 AM', text: `Good morning ${doctorName.split(' ')[1] || 'Doctor'}. My blood pressure has stabilized at 120/78 today.` },
+    { sender: doctorName, time: '10:32 AM', text: "That's excellent news! Please continue taking the dosage after meals and stay hydrated." }
   ]);
 
   // Handle Auto Scroll
@@ -131,7 +133,7 @@ export default function TeleconsultationRoom({ appointment, onBackToDashboard })
       const randomDocReply = doctorResponses[Math.floor(Math.random() * doctorResponses.length)];
       
       const docMsg = {
-        sender: 'Dr. Rajesh Sharma',
+        sender: doctorName,
         time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
         text: randomDocReply
       };
@@ -364,7 +366,7 @@ export default function TeleconsultationRoom({ appointment, onBackToDashboard })
                   
                   {isDoctorTyping && (
                     <div className="p-3.5 rounded-2xl text-xs bg-slate-800 text-slate-100 border border-slate-700 mr-6 animate-pulse flex items-center justify-between">
-                      <span className="font-extrabold text-[10px] text-sky-400">Dr. Rajesh Sharma is typing...</span>
+                      <span className="font-extrabold text-[10px] text-sky-400">{doctorName} is typing...</span>
                       <span className="flex space-x-1">
                         <span className="w-1.5 h-1.5 bg-sky-400 rounded-full animate-bounce [animation-delay:0s]"></span>
                         <span className="w-1.5 h-1.5 bg-sky-400 rounded-full animate-bounce [animation-delay:0.2s]"></span>
@@ -381,7 +383,7 @@ export default function TeleconsultationRoom({ appointment, onBackToDashboard })
                     type="text"
                     value={chatInput}
                     onChange={(e) => setChatInput(e.target.value)}
-                    placeholder="Type message to Dr. Rajesh Sharma..."
+                    placeholder={`Type message to ${doctorName}...`}
                     className="flex-1 px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-xs font-semibold text-white focus:outline-none focus:border-sky-500"
                   />
                   <button
