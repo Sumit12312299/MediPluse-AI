@@ -63,10 +63,14 @@ export default function AIChatBot() {
       {!isOpen && (
         <button
           onClick={() => setIsOpen(true)}
-          className="p-4 rounded-full bg-gradient-to-br from-slate-900 to-slate-950 text-sky-400 shadow-[0_0_20px_rgba(14,165,233,0.35)] hover:shadow-[0_0_25px_rgba(14,165,233,0.55)] transition-all duration-300 hover:scale-110 flex items-center justify-center border border-sky-500/50 hover:border-sky-450 relative group"
+          className="w-14 h-14 rounded-full bg-gradient-to-tr from-slate-900 via-sky-950 to-slate-900 text-sky-400 shadow-[0_8px_32px_rgba(14,165,233,0.4)] hover:shadow-[0_8px_40px_rgba(14,165,233,0.6)] hover:scale-110 flex items-center justify-center border border-sky-500/40 hover:border-sky-450 transition-all duration-300 relative group animate-float"
         >
-          <div className="absolute inset-0 rounded-full bg-sky-500/10 animate-ping group-hover:duration-500"></div>
-          <Bot className="w-6 h-6 text-sky-400 group-hover:text-sky-300 transition-colors" />
+          {/* Pulsing Backlight */}
+          <div className="absolute inset-0 rounded-full bg-sky-500/20 animate-pulse"></div>
+          {/* Rotating Ring */}
+          <div className="absolute -inset-1 rounded-full border border-dashed border-sky-500/30 group-hover:border-sky-400/50 animate-[spin_10s_linear_infinite] pointer-events-none"></div>
+          
+          <Bot className="w-6 h-6 text-sky-400 group-hover:text-white transition-colors relative z-10" />
         </button>
       )}
 

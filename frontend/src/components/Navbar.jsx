@@ -27,9 +27,6 @@ export default function Navbar({ currentUser, activeRole, onSwitchRole, onOpenAu
               <span className="font-black text-xl sm:text-2xl tracking-tight text-slate-900 dark:text-white">
                 MediPulse <span className="bg-clip-text text-transparent bg-gradient-to-r from-sky-600 to-teal-600">AI</span>
               </span>
-              <span className="px-2.5 py-0.5 text-[10px] sm:text-xs font-black uppercase tracking-wider bg-emerald-50 dark:bg-emerald-950/50 text-emerald-700 dark:text-emerald-300 rounded-full border border-emerald-200 dark:border-emerald-800 flex items-center gap-1">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-ping"></span> Live Engine
-              </span>
             </div>
             <p className="text-xs text-slate-500 dark:text-slate-400 font-bold hidden sm:block">Enterprise Clinical Operating System</p>
           </div>
