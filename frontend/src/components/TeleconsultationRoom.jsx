@@ -84,6 +84,9 @@ export default function TeleconsultationRoom({ appointment, onBackToDashboard })
         mediaStreamRef.current = stream;
         if (localVideoRef.current) {
           localVideoRef.current.srcObject = stream;
+          localVideoRef.current.play().catch(e => {
+            console.log("Webcam video stream play pending:", e);
+          });
         }
         setHasCameraPermission(true);
       }
@@ -236,14 +239,21 @@ export default function TeleconsultationRoom({ appointment, onBackToDashboard })
             )}
 
             {!isVideoOff ? (
-              <div className="text-center space-y-4">
-                <div className="w-24 h-24 rounded-full bg-sky-500/20 border-2 border-sky-400/50 text-sky-300 mx-auto flex items-center justify-center shadow-2xl animate-pulse">
-                  <Stethoscope className="w-12 h-12 text-sky-400" />
+              <div className="text-center space-y-4 relative z-10 animate-fade-in">
+                <div className="relative w-28 h-28 mx-auto flex items-center justify-center">
+                  {/* Ripple Ring 1 */}
+                  <div className="absolute inset-0 rounded-full bg-sky-500/10 border border-sky-400/30 animate-[ping_2s_ease-in-out_infinite]"></div>
+                  {/* Ripple Ring 2 */}
+                  <div className="absolute inset-2 rounded-full bg-sky-500/20 border border-sky-450/40 animate-[ping_2s_ease-in-out_infinite_0.5s]"></div>
+                  
+                  <div className="w-20 h-20 rounded-full bg-gradient-to-tr from-sky-600 to-sky-500 border border-sky-400/50 text-white flex items-center justify-center shadow-[0_0_30px_rgba(14,165,233,0.35)] relative z-10">
+                    <Stethoscope className="w-10 h-10 text-white animate-pulse" />
+                  </div>
                 </div>
                 <div>
-                  <h3 className="font-black text-2xl text-white">{doctorName}</h3>
-                  <span className="text-xs text-emerald-400 font-extrabold flex items-center justify-center gap-1.5 mt-1">
-                    <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping"></span> 1080p HD Encrypted Stream Active
+                  <h3 className="font-black text-2xl text-white tracking-tight">{doctorName}</h3>
+                  <span className="text-xs text-emerald-400 font-extrabold flex items-center justify-center gap-1.5 mt-1.5 bg-emerald-950/40 border border-emerald-900/35 px-3 py-1 rounded-full w-fit mx-auto">
+                    <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span> 1080p HD Encrypted Stream Active
                   </span>
                 </div>
               </div>
@@ -274,7 +284,7 @@ export default function TeleconsultationRoom({ appointment, onBackToDashboard })
 
             {/* Local Patient PIP Video Feed */}
             <div className={`absolute bottom-6 right-6 w-48 h-36 rounded-2xl bg-slate-900 border-2 shadow-2xl overflow-hidden flex items-center justify-center transition-all duration-300 ${
-              isVideoOff ? 'border-slate-800' : 'border-sky-450'
+              isVideoOff ? 'border-slate-800' : 'border-sky-400'
             }`}>
               {!isVideoOff ? (
                 hasCameraPermission ? (
