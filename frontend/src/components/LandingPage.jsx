@@ -26,9 +26,11 @@ export default function LandingPage({ currentUser, onOpenAuth, onNavigateToRole,
             <span>Smart Clinical Teleconsultation Suite</span>
           </div>
 
-          <h1 className="text-4xl sm:text-6xl font-black tracking-tight leading-none bg-clip-text text-transparent bg-gradient-to-r from-white via-slate-100 to-sky-400">
+          <h1 className="text-4xl sm:text-6xl font-black tracking-tight leading-tight text-white">
             Healthcare Reimagined <br />
-            <span className="text-transparent bg-gradient-to-r from-sky-400 to-teal-400">With AI Intelligence</span>
+            <span className="bg-clip-text text-transparent bg-gradient-to-r from-sky-400 to-teal-300">
+              With AI Intelligence
+            </span>
           </h1>
 
           <p className="max-w-2xl mx-auto text-slate-400 text-sm sm:text-base font-semibold leading-relaxed">
