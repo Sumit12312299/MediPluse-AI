@@ -328,9 +328,27 @@ export default function TeleconsultationRoom({ appointment, onBackToDashboard })
 
                     <div className="p-3 rounded-xl bg-slate-900 border border-slate-800">
                       <span className="text-[10px] text-slate-400 font-bold block uppercase">Heart Rate</span>
-                      <p className="text-xl font-black text-sky-400">72 BPM</p>
+                      <p className="text-xl font-black text-sky-400 flex items-center gap-1.5">
+                        <span>72 BPM</span>
+                        <span className="w-2 h-2 rounded-full bg-red-500 animate-ping inline-block"></span>
+                      </p>
                       <span className="text-[10px] text-slate-500 font-bold">Regular Rhythm</span>
                     </div>
+                  </div>
+
+                  <div className="relative h-12 w-full mt-2 bg-slate-900/60 rounded-xl overflow-hidden flex items-center border border-slate-800/80 px-2">
+                    <span className="text-[9px] font-bold text-slate-500 uppercase tracking-widest absolute left-3 top-2 z-10 flex items-center gap-1">
+                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span> EKG Monitor
+                    </span>
+                    <svg className="w-full h-8 stroke-emerald-400" viewBox="0 0 100 20" fill="none" preserveAspectRatio="none">
+                      <path
+                        className="animate-ecg-path"
+                        strokeWidth="1.5"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M0,10 L30,10 L35,2 L40,18 L45,10 L50,10 L52,7 L55,13 L57,10 L100,10"
+                      />
+                    </svg>
                   </div>
                 </div>
 

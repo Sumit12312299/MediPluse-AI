@@ -162,6 +162,18 @@
 .delay-300 { animation-delay: 300ms; }
 .delay-400 { animation-delay: 400ms; }
 
+@keyframes ecg-draw {
+  0% { stroke-dashoffset: 100; }
+  100% { stroke-dashoffset: 0; }
+}
+
+.animate-ecg-path {
+  stroke-dasharray: 100;
+  stroke-dashoffset: 100;
+  animation: ecg-draw 2.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+
 
 /* Tactile Button Feedback */
 .btn-minimal {
