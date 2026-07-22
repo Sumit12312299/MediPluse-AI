@@ -169,7 +169,7 @@ export default function TeleconsultationRoom({ appointment, onBackToDashboard })
         <div className="flex items-center space-x-4">
           <div className="px-4 py-2 rounded-xl bg-emerald-950/60 border border-emerald-800/80 text-emerald-300 text-xs font-extrabold flex items-center gap-2">
             <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping"></span>
-            <span>Live Call: <strong className="font-mono text-white text-sm">{formatTime(callDuration)}</strong></span>
+            <span>Live Call: <strong className="font-mono text-emerald-400 text-sm neon-glow-emerald">{formatTime(callDuration)}</strong></span>
           </div>
 
           <div className="hidden sm:flex items-center space-x-3 bg-slate-800/80 px-3.5 py-1.5 rounded-xl border border-slate-700">
@@ -191,7 +191,7 @@ export default function TeleconsultationRoom({ appointment, onBackToDashboard })
         <div className="lg:col-span-3 bg-slate-950 p-4 sm:p-6 relative flex flex-col justify-between">
           
           {/* Main Remote Video Stream Box */}
-          <div className="w-full h-full rounded-3xl bg-gradient-to-br from-slate-900 via-sky-950 to-slate-900 border border-slate-800 relative overflow-hidden flex items-center justify-center shadow-2xl">
+          <div className="w-full h-full rounded-3xl bg-gradient-to-br from-slate-900 via-sky-950 to-slate-900 border border-slate-800 relative overflow-hidden flex items-center justify-center shadow-2xl ambient-video-glow">
             
             {showFlash && (
               <div className="absolute inset-0 bg-white z-40 animate-pulse duration-100"></div>
@@ -248,6 +248,15 @@ export default function TeleconsultationRoom({ appointment, onBackToDashboard })
                 <div className="text-center p-2 text-red-400">
                   <VideoOff className="w-6 h-6 mx-auto" />
                   <span className="text-xs text-slate-400 font-extrabold block mt-1">Cam Muted</span>
+                </div>
+              )}
+
+              {/* Dynamic Mic Level Visualizer overlay */}
+              {!isMicMuted && (
+                <div className="absolute top-3 right-3 flex items-end gap-0.5 h-3.5 px-1.5 py-0.5 rounded bg-slate-950/85 backdrop-blur-xs border border-slate-800 shadow-lg">
+                  <span className="w-0.5 bg-emerald-400 rounded-full audio-bar-anim [animation-delay:-0.2s]"></span>
+                  <span className="w-0.5 bg-emerald-400 rounded-full audio-bar-anim [animation-delay:-0.4s]"></span>
+                  <span className="w-0.5 bg-emerald-400 rounded-full audio-bar-anim [animation-delay:-0.1s]"></span>
                 </div>
               )}
             </div>
@@ -388,19 +397,19 @@ export default function TeleconsultationRoom({ appointment, onBackToDashboard })
             {/* Tab 2: Patient Vitals Card */}
             {activeRightTab === 'vitals' && (
               <div className="space-y-4 animate-fade-in-up">
-                <div className="p-4 rounded-2xl bg-slate-950 border border-slate-800 space-y-3">
+                <div className="p-4 rounded-2xl bg-slate-950 border border-slate-800 space-y-3 glass-vitals-card">
                   <span className="text-xs font-bold uppercase text-slate-400 flex items-center gap-2">
                     <Heart className="w-4 h-4 text-red-500" /> Patient Physiological Metrics
                   </span>
                   
                   <div className="grid grid-cols-2 gap-3 pt-2">
-                    <div className="p-3 rounded-xl bg-slate-900 border border-slate-800">
+                    <div className="p-3 rounded-xl bg-slate-900/60 border border-slate-850 glass-vitals-card">
                       <span className="text-[10px] text-slate-400 font-bold block uppercase">Blood Pressure</span>
                       <p className="text-xl font-black text-emerald-400">120 / 78</p>
                       <span className="text-[10px] text-slate-500 font-bold">mmHg • Normal</span>
                     </div>
 
-                    <div className="p-3 rounded-xl bg-slate-900 border border-slate-800">
+                    <div className="p-3 rounded-xl bg-slate-900/60 border border-slate-850 glass-vitals-card">
                       <span className="text-[10px] text-slate-400 font-bold block uppercase">Heart Rate</span>
                       <p className="text-xl font-black text-sky-400 flex items-center gap-1.5">
                         <span>{liveHeartRate} BPM</span>
@@ -427,7 +436,7 @@ export default function TeleconsultationRoom({ appointment, onBackToDashboard })
                   </div>
                 </div>
 
-                <div className="p-4 rounded-2xl bg-slate-950 border border-slate-800 text-xs space-y-2">
+                <div className="p-4 rounded-2xl bg-slate-950 border border-slate-800 text-xs space-y-2 glass-vitals-card">
                   <span className="font-extrabold text-slate-300 block">Allergy & Health History</span>
                   <p className="text-slate-400 font-medium leading-relaxed">
                     No known drug allergies (NKDA). Mild hypertension under beta-blocker treatment.
