@@ -174,44 +174,48 @@ export default function TeleconsultationRoom({ appointment, onBackToDashboard })
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 text-white flex flex-col font-sans animate-slide-up">
+    <div className="min-h-screen bg-slate-950 text-white flex flex-col font-sans animate-slide-up relative overflow-hidden">
       
+      {/* Background Mesh Glows */}
+      <div className="absolute top-[-10%] left-[-5%] w-[45%] h-[45%] rounded-full bg-sky-500/8 blur-[130px] pointer-events-none z-0"></div>
+      <div className="absolute bottom-[-10%] right-[-5%] w-[45%] h-[45%] rounded-full bg-teal-500/8 blur-[130px] pointer-events-none z-0"></div>
+
       {/* Room Header Navigation Bar */}
-      <header className="h-18 px-6 bg-slate-900/90 border-b border-slate-800 backdrop-blur-md flex items-center justify-between z-20">
+      <header className="h-18 px-6 bg-slate-950/40 border-b border-slate-900/60 backdrop-blur-xl flex items-center justify-between z-20 relative">
         <div className="flex items-center space-x-4">
           <button
             onClick={onBackToDashboard}
-            className="px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-extrabold transition-all btn-minimal flex items-center space-x-2 border border-slate-700"
+            className="px-3.5 py-2 rounded-xl bg-slate-900/60 hover:bg-slate-850 text-slate-200 text-xs font-extrabold transition-all btn-minimal flex items-center space-x-2 border border-slate-800/65"
           >
             <ArrowLeft className="w-4 h-4 text-sky-400" />
             <span>Return to Dashboard</span>
           </button>
 
-          <div className="h-6 w-px bg-slate-800"></div>
+          <div className="h-6 w-px bg-slate-800/80"></div>
 
           <div>
             <h2 className="font-extrabold text-base text-white flex items-center gap-2">
-              Tele-Health WebRTC Video Room <span className="text-xs font-mono font-bold text-sky-400">#TC-8921</span>
+              Tele-Health WebRTC Video Room <span className="text-xs font-mono font-bold text-sky-400 bg-sky-950/40 px-2 py-0.5 rounded border border-sky-900/30">#TC-8921</span>
             </h2>
-            <p className="text-xs text-emerald-400 font-semibold flex items-center gap-1.5">
-              <ShieldCheck className="w-3.5 h-3.5" /> HIPAA Encrypted 256-bit Connection
+            <p className="text-xs text-emerald-400 font-semibold flex items-center gap-1.5 mt-0.5">
+              <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" /> HIPAA Encrypted 256-bit Connection
             </p>
           </div>
         </div>
 
         {/* Live Timer & Doctor Profile */}
         <div className="flex items-center space-x-4">
-          <div className="px-4 py-2 rounded-xl bg-emerald-950/60 border border-emerald-800/80 text-emerald-300 text-xs font-extrabold flex items-center gap-2">
-            <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping"></span>
-            <span>Live Call: <strong className="font-mono text-emerald-400 text-sm neon-glow-emerald">{formatTime(callDuration)}</strong></span>
+          <div className="px-4 py-2 rounded-xl bg-emerald-950/40 border border-emerald-900/40 text-emerald-300 text-xs font-extrabold flex items-center gap-2">
+            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+            <span>Live Call: <strong className="font-mono text-emerald-450 text-sm neon-glow-emerald">{formatTime(callDuration)}</strong></span>
           </div>
 
-          <div className="hidden sm:flex items-center space-x-3 bg-slate-800/80 px-3.5 py-1.5 rounded-xl border border-slate-700">
-            <div className="w-8 h-8 rounded-full bg-sky-600 text-white flex items-center justify-center font-bold text-xs">
+          <div className="hidden sm:flex items-center space-x-3 bg-slate-900/50 backdrop-blur-md px-3.5 py-1.5 rounded-xl border border-slate-800/60">
+            <div className="w-8 h-8 rounded-full bg-gradient-to-br from-sky-600 to-sky-700 text-white flex items-center justify-center font-bold text-xs shadow-md">
               <Stethoscope className="w-4 h-4 text-white" />
             </div>
             <div>
-              <p className="text-xs font-extrabold text-white">{appointment?.doctor_name || 'Dr. Rajesh Sharma'}</p>
+              <p className="text-xs font-extrabold text-white">{doctorName}</p>
               <p className="text-[10px] text-sky-400 font-semibold">Cardiology OPD</p>
             </div>
           </div>
@@ -219,10 +223,10 @@ export default function TeleconsultationRoom({ appointment, onBackToDashboard })
       </header>
 
       {/* Main Full Page Video Call Grid */}
-      <div className="flex-1 grid grid-cols-1 lg:grid-cols-4 gap-0 overflow-hidden">
+      <div className="flex-1 grid grid-cols-1 lg:grid-cols-4 gap-0 overflow-hidden relative z-10">
         
         {/* Left Side: Large Main Video Screen (3 Cols) */}
-        <div className="lg:col-span-3 bg-slate-950 p-4 sm:p-6 relative flex flex-col justify-between">
+        <div className="lg:col-span-3 bg-transparent p-4 sm:p-6 relative flex flex-col justify-between z-10">
           
           {/* Main Remote Video Stream Box */}
           <div className="w-full h-full rounded-3xl bg-gradient-to-br from-slate-900 via-sky-950 to-slate-900 border border-slate-800 relative overflow-hidden flex items-center justify-center shadow-2xl ambient-video-glow">
@@ -368,12 +372,12 @@ export default function TeleconsultationRoom({ appointment, onBackToDashboard })
         </div>
 
         {/* Right Side: Tabbed Direct Doctor-Patient Chat Workspace (1 Col) */}
-        <div className="bg-slate-900 border-l border-slate-800 p-5 flex flex-col justify-between space-y-4">
+        <div className="lg:col-span-1 bg-slate-950/25 backdrop-blur-xl border-l border-slate-900/60 p-5 flex flex-col justify-between space-y-4 relative z-10">
           
           {/* Segmented Sidebar Tabs */}
           <div className="space-y-4 flex-1 flex flex-col min-h-0">
             
-            <div className="flex items-center bg-slate-950 p-1 rounded-xl border border-slate-800 space-x-1">
+            <div className="flex items-center bg-slate-900/40 p-1 rounded-xl border border-slate-800/80 space-x-1">
               <button
                 onClick={() => setActiveRightTab('chat')}
                 className={`flex-1 py-2 rounded-lg text-[11px] font-extrabold transition-all btn-minimal flex items-center justify-center space-x-1 ${
@@ -437,17 +441,17 @@ export default function TeleconsultationRoom({ appointment, onBackToDashboard })
                   <div ref={chatEndRef} />
                 </div>
 
-                <form onSubmit={handleSendMessage} className="flex items-center gap-2 pt-2 border-t border-slate-800">
+                 <form onSubmit={handleSendMessage} className="flex items-center gap-2 pt-3 border-t border-slate-850">
                   <input
                     type="text"
                     value={chatInput}
                     onChange={(e) => setChatInput(e.target.value)}
-                    placeholder={`Type message to ${doctorName}...`}
-                    className="flex-1 px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-xs font-semibold text-white focus:outline-none focus:border-sky-500"
+                    placeholder={`Message ${doctorName}...`}
+                    className="flex-1 px-4 py-2.5 rounded-xl bg-slate-900/40 border border-slate-800 text-xs font-semibold text-white focus:outline-none focus:border-sky-500/80 transition-all placeholder-slate-500"
                   />
                   <button
                     type="submit"
-                    className="p-2.5 rounded-xl bg-sky-600 hover:bg-sky-700 text-white transition-all btn-minimal shadow-xs"
+                    className="p-2.5 rounded-xl bg-sky-600 hover:bg-sky-500 text-white transition-all duration-300 hover:scale-105 active:scale-95 shadow-[0_0_15px_rgba(14,165,233,0.3)] border border-sky-550/30 flex items-center justify-center"
                   >
                     <Send className="w-4 h-4" />
                   </button>
@@ -458,19 +462,19 @@ export default function TeleconsultationRoom({ appointment, onBackToDashboard })
             {/* Tab 2: Patient Vitals Card */}
             {activeRightTab === 'vitals' && (
               <div className="space-y-4 animate-fade-in-up">
-                <div className="p-4 rounded-2xl bg-slate-950 border border-slate-800 space-y-3 glass-vitals-card">
+                <div className="p-4 rounded-2xl bg-slate-950/45 border border-slate-900/60 space-y-3 glass-vitals-card">
                   <span className="text-xs font-bold uppercase text-slate-400 flex items-center gap-2">
-                    <Heart className="w-4 h-4 text-red-500" /> Patient Physiological Metrics
+                    <Heart className="w-4 h-4 text-rose-500 animate-pulse" /> Patient Physiological Metrics
                   </span>
                   
                   <div className="grid grid-cols-2 gap-3 pt-2">
-                    <div className="p-3 rounded-xl bg-slate-900/60 border border-slate-850 glass-vitals-card">
+                    <div className="p-3 rounded-xl bg-slate-900/40 border border-slate-800/80 glass-vitals-card hover:border-slate-700/40 transition-all">
                       <span className="text-[10px] text-slate-400 font-bold block uppercase">Blood Pressure</span>
                       <p className="text-xl font-black text-emerald-400">120 / 78</p>
                       <span className="text-[10px] text-slate-500 font-bold">mmHg • Normal</span>
                     </div>
 
-                    <div className="p-3 rounded-xl bg-slate-900/60 border border-slate-850 glass-vitals-card">
+                    <div className="p-3 rounded-xl bg-slate-900/40 border border-slate-800/80 glass-vitals-card hover:border-slate-700/40 transition-all">
                       <span className="text-[10px] text-slate-400 font-bold block uppercase">Heart Rate</span>
                       <p className="text-xl font-black text-sky-400 flex items-center gap-1.5">
                         <span>{liveHeartRate} BPM</span>
@@ -480,7 +484,7 @@ export default function TeleconsultationRoom({ appointment, onBackToDashboard })
                     </div>
                   </div>
 
-                  <div className="relative h-12 w-full mt-2 bg-slate-900/60 rounded-xl overflow-hidden flex items-center border border-slate-800/80 px-2">
+                  <div className="relative h-12 w-full mt-2 bg-slate-900/40 rounded-xl overflow-hidden flex items-center border border-slate-800/80 px-2">
                     <span className="text-[9px] font-bold text-slate-500 uppercase tracking-widest absolute left-3 top-2 z-10 flex items-center gap-1">
                       <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span> EKG Monitor
                     </span>
@@ -497,8 +501,8 @@ export default function TeleconsultationRoom({ appointment, onBackToDashboard })
                   </div>
                 </div>
 
-                <div className="p-4 rounded-2xl bg-slate-950 border border-slate-800 text-xs space-y-2 glass-vitals-card">
-                  <span className="font-extrabold text-slate-300 block">Allergy & Health History</span>
+                <div className="p-4 rounded-2xl bg-slate-950/45 border border-slate-900/60 text-xs space-y-2 glass-vitals-card">
+                  <span className="font-extrabold text-slate-350 block">Allergy & Health History</span>
                   <p className="text-slate-400 font-medium leading-relaxed">
                     No known drug allergies (NKDA). Mild hypertension under beta-blocker treatment.
                   </p>
@@ -508,10 +512,10 @@ export default function TeleconsultationRoom({ appointment, onBackToDashboard })
 
             {activeRightTab === 'prescription' && (
               <div className="space-y-4 animate-fade-in-up">
-                <div className="p-4 rounded-2xl bg-slate-950 border border-slate-800 space-y-3 glass-vitals-card">
-                  <div className="flex items-center justify-between border-b border-slate-850 pb-2">
+                <div className="p-4 rounded-2xl bg-slate-950/45 border border-slate-900/60 space-y-3 glass-vitals-card">
+                  <div className="flex items-center justify-between border-b border-slate-850/80 pb-2">
                     <span className="text-xs font-bold uppercase text-slate-400 flex items-center gap-2">
-                      <FileText className="w-4 h-4 text-sky-500" /> Rx Draft
+                      <FileText className="w-4 h-4 text-sky-550" /> Rx Draft
                     </span>
                     <span className="px-2 py-0.5 rounded-full text-[9px] font-black bg-sky-950/60 text-sky-400 border border-sky-900/60 animate-pulse">
                       ● Live Sync
@@ -524,7 +528,7 @@ export default function TeleconsultationRoom({ appointment, onBackToDashboard })
                       <p className="text-xs font-semibold text-slate-200">Hypertension & Cardiological Review</p>
                     </div>
 
-                    <div className="h-px bg-slate-850"></div>
+                    <div className="h-px bg-slate-850/80"></div>
 
                     <div>
                       <span className="text-[10px] text-slate-500 font-bold block uppercase">Prescribed Regimen</span>
@@ -544,7 +548,7 @@ export default function TeleconsultationRoom({ appointment, onBackToDashboard })
                       </ul>
                     </div>
 
-                    <div className="h-px bg-slate-850"></div>
+                    <div className="h-px bg-slate-850/80"></div>
 
                     <div>
                       <span className="text-[10px] text-slate-500 font-bold block uppercase flex items-center gap-1">
