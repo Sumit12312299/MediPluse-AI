@@ -10,6 +10,7 @@ export default function PaymentModal({ appointment, isOpen, onClose, onPaymentSu
   const [cardExpiry, setCardExpiry] = useState('08/28');
   const [cardCvv, setCardCvv] = useState('•••');
   const [isProcessing, setIsProcessing] = useState(false);
+  const [processingStep, setProcessingStep] = useState(0);
   const [isSuccess, setIsSuccess] = useState(false);
   const [txId, setTxId] = useState('');
   const [timerSeconds, setTimerSeconds] = useState(299);
@@ -40,28 +41,42 @@ export default function PaymentModal({ appointment, isOpen, onClose, onPaymentSu
   const handlePay = async (e) => {
     e.preventDefault();
     setIsProcessing(true);
+    setProcessingStep(0);
 
-    try {
-      const res = await onPaymentSuccess({
-        appointment_id: appointment.id,
-        amount: amount,
-        payment_method: paymentMethod === 'UPI' ? `UPI (${selectedUpiApp.toUpperCase()})` : paymentMethod === 'CARD' ? 'RuPay / Credit Card' : 'NetBanking',
-      });
+    // Simulate smooth payment gateway stages
+    const steps = [
+      () => setProcessingStep(1), // Kontakt Gateway
+      () => setProcessingStep(2), // Handshake
+      () => setProcessingStep(3)  // Finalizing
+    ];
 
-      const generatedTx = res?.transaction_id || `TXN_IND_${Math.floor(100000 + Math.random() * 900000)}`;
-      setTxId(generatedTx);
+    steps.forEach((runStep, index) => {
+      setTimeout(runStep, (index + 1) * 850);
+    });
 
-      setIsProcessing(false);
-      setIsSuccess(true);
-      triggerConfettiExplosion();
+    setTimeout(async () => {
+      try {
+        const res = await onPaymentSuccess({
+          appointment_id: appointment.id,
+          amount: amount,
+          payment_method: paymentMethod === 'UPI' ? `UPI (${selectedUpiApp.toUpperCase()})` : paymentMethod === 'CARD' ? 'RuPay / Credit Card' : 'NetBanking',
+        });
 
-      setTimeout(() => {
-        setIsSuccess(false);
-        onClose();
-      }, 3000);
-    } catch (err) {
-      setIsProcessing(false);
-    }
+        const generatedTx = res?.transaction_id || `TXN_IND_${Math.floor(100000 + Math.random() * 900000)}`;
+        setTxId(generatedTx);
+
+        setIsProcessing(false);
+        setIsSuccess(true);
+        triggerConfettiExplosion();
+
+        setTimeout(() => {
+          setIsSuccess(false);
+          onClose();
+        }, 4000);
+      } catch (err) {
+        setIsProcessing(false);
+      }
+    }, 3200);
   };
 
   const handleCopyTx = () => {
@@ -74,12 +89,12 @@ export default function PaymentModal({ appointment, isOpen, onClose, onPaymentSu
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
       {/* Backdrop */}
       <div 
-        className="fixed inset-0 bg-slate-950/70 backdrop-blur-md transition-opacity animate-slide-up"
+        className="fixed inset-0 bg-slate-950/80 backdrop-blur-md transition-opacity animate-slide-up"
         onClick={onClose}
       ></div>
 
       {/* Modal Dialog */}
-      <div className="relative w-full max-w-xl bg-white rounded-3xl border border-slate-200/90 shadow-2xl overflow-hidden z-10 animate-slide-up">
+      <div className="relative w-full max-w-xl bg-white/95 backdrop-blur-xl rounded-3xl border border-slate-200/90 shadow-2xl overflow-hidden z-10 animate-slide-up">
         
         {/* Sleek Header */}
         <div className="bg-gradient-to-r from-slate-900 via-sky-950 to-slate-900 p-5 sm:p-6 text-white flex items-center justify-between">
@@ -146,6 +161,55 @@ export default function PaymentModal({ appointment, isOpen, onClose, onPaymentSu
             </div>
 
           </div>
+        ) : isProcessing ? (
+          <div className="p-10 text-center space-y-8 animate-slide-up flex flex-col items-center">
+            {/* Spinning Glow Circle */}
+            <div className="relative w-20 h-20 flex items-center justify-center">
+              <div className="absolute inset-0 rounded-full border-4 border-sky-100 animate-pulse"></div>
+              <Loader2 className="w-14 h-14 text-sky-600 animate-spin" />
+            </div>
+
+            <div className="space-y-2">
+              <h4 className="text-xl font-black text-slate-900">Authorizing Payment...</h4>
+              <p className="text-xs text-slate-500 font-bold">Please do not refresh this page or close the window.</p>
+            </div>
+
+            {/* Simulated Live Stepper (Progressive verification) */}
+            <div className="w-full max-w-sm bg-slate-50 border border-slate-100 rounded-2xl p-5 space-y-4 text-left">
+              <div className="flex items-center gap-3">
+                <div className={`w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-black ${
+                  processingStep >= 1 ? 'bg-emerald-500 text-white' : 'bg-sky-100 text-sky-700 animate-pulse'
+                }`}>
+                  {processingStep >= 1 ? '✓' : '1'}
+                </div>
+                <span className={`text-xs font-bold ${processingStep >= 1 ? 'text-slate-900' : 'text-slate-400'}`}>
+                  Connecting to payment gateway...
+                </span>
+              </div>
+
+              <div className="flex items-center gap-3">
+                <div className={`w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-black ${
+                  processingStep >= 2 ? 'bg-emerald-500 text-white' : processingStep === 1 ? 'bg-sky-100 text-sky-700 animate-pulse' : 'bg-slate-200 text-slate-400'
+                }`}>
+                  {processingStep >= 2 ? '✓' : '2'}
+                </div>
+                <span className={`text-xs font-bold ${processingStep >= 2 ? 'text-slate-900' : 'text-slate-400'}`}>
+                  Establishing bank-level RBI handshake...
+                </span>
+              </div>
+
+              <div className="flex items-center gap-3">
+                <div className={`w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-black ${
+                  processingStep >= 3 ? 'bg-emerald-500 text-white' : processingStep === 2 ? 'bg-sky-100 text-sky-700 animate-pulse' : 'bg-slate-200 text-slate-400'
+                }`}>
+                  {processingStep >= 3 ? '✓' : '3'}
+                </div>
+                <span className={`text-xs font-bold ${processingStep >= 3 ? 'text-slate-900' : 'text-slate-400'}`}>
+                  Securing tokenized settlement...
+                </span>
+              </div>
+            </div>
+          </div>
         ) : (
           <form onSubmit={handlePay} className="p-6 sm:p-7 space-y-6">
             
@@ -195,22 +259,22 @@ export default function PaymentModal({ appointment, isOpen, onClose, onPaymentSu
                 <button
                   type="button"
                   onClick={() => setPaymentMethod('UPI')}
-                  className={`p-3 rounded-2xl border text-xs font-extrabold flex flex-col items-center justify-center space-y-1.5 transition-all btn-minimal ${
+                  className={`p-3 rounded-2xl border text-xs font-extrabold flex flex-col items-center justify-center space-y-1.5 transition-all btn-minimal hover:scale-102 hover:shadow-sm ${
                     paymentMethod === 'UPI'
-                      ? 'bg-sky-50 text-sky-900 border-sky-400 ring-2 ring-sky-400/20 shadow-xs'
+                      ? 'bg-sky-50 text-sky-905 border-sky-400 ring-2 ring-sky-400/20 shadow-xs'
                       : 'bg-white text-slate-600 border-slate-200 hover:bg-slate-50'
                   }`}
                 >
-                  <Smartphone className="w-5 h-5 text-sky-600" />
+                  <Smartphone className="w-5 h-5 text-sky-600 animate-pulse" />
                   <span>UPI / GPay</span>
                 </button>
 
                 <button
                   type="button"
                   onClick={() => setPaymentMethod('CARD')}
-                  className={`p-3 rounded-2xl border text-xs font-extrabold flex flex-col items-center justify-center space-y-1.5 transition-all btn-minimal ${
+                  className={`p-3 rounded-2xl border text-xs font-extrabold flex flex-col items-center justify-center space-y-1.5 transition-all btn-minimal hover:scale-102 hover:shadow-sm ${
                     paymentMethod === 'CARD'
-                      ? 'bg-sky-50 text-sky-900 border-sky-400 ring-2 ring-sky-400/20 shadow-xs'
+                      ? 'bg-sky-50 text-sky-905 border-sky-400 ring-2 ring-sky-400/20 shadow-xs'
                       : 'bg-white text-slate-600 border-slate-200 hover:bg-slate-50'
                   }`}
                 >
@@ -221,9 +285,9 @@ export default function PaymentModal({ appointment, isOpen, onClose, onPaymentSu
                 <button
                   type="button"
                   onClick={() => setPaymentMethod('NETBANKING')}
-                  className={`p-3 rounded-2xl border text-xs font-extrabold flex flex-col items-center justify-center space-y-1.5 transition-all btn-minimal ${
+                  className={`p-3 rounded-2xl border text-xs font-extrabold flex flex-col items-center justify-center space-y-1.5 transition-all btn-minimal hover:scale-102 hover:shadow-sm ${
                     paymentMethod === 'NETBANKING'
-                      ? 'bg-sky-50 text-sky-900 border-sky-400 ring-2 ring-sky-400/20 shadow-xs'
+                      ? 'bg-sky-50 text-sky-905 border-sky-400 ring-2 ring-sky-400/20 shadow-xs'
                       : 'bg-white text-slate-600 border-slate-200 hover:bg-slate-50'
                   }`}
                 >
@@ -246,7 +310,7 @@ export default function PaymentModal({ appointment, isOpen, onClose, onPaymentSu
                         type="button"
                         key={app}
                         onClick={() => setSelectedUpiApp(app)}
-                        className={`py-2 rounded-xl text-xs font-extrabold uppercase border transition-all btn-minimal ${
+                        className={`py-2 rounded-xl text-xs font-extrabold uppercase border transition-all btn-minimal hover:scale-102 ${
                           selectedUpiApp === app
                             ? 'bg-slate-900 text-white border-slate-900 shadow-2xs'
                             : 'bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100'
@@ -334,20 +398,10 @@ export default function PaymentModal({ appointment, isOpen, onClose, onPaymentSu
             {/* Action Submit */}
             <button
               type="submit"
-              disabled={isProcessing}
-              className="w-full py-3.5 rounded-2xl bg-gradient-to-r from-sky-600 via-teal-600 to-sky-700 hover:from-sky-700 hover:to-teal-700 text-white font-extrabold text-sm shadow-md transition-all btn-minimal flex items-center justify-center space-x-2"
+              className="w-full py-3.5 rounded-2xl bg-gradient-to-r from-sky-600 via-teal-600 to-sky-700 hover:from-sky-700 hover:to-teal-700 text-white font-extrabold text-sm shadow-md hover:shadow-lg transition-all btn-minimal flex items-center justify-center space-x-2 active:scale-98"
             >
-              {isProcessing ? (
-                <>
-                  <Loader2 className="w-5 h-5 animate-spin" />
-                  <span>Authorizing via Razorpay...</span>
-                </>
-              ) : (
-                <>
-                  <ShieldCheck className="w-5 h-5" />
-                  <span>Authorize & Pay ₹{parseFloat(amount).toFixed(2)}</span>
-                </>
-              )}
+              <ShieldCheck className="w-5 h-5" />
+              <span>Authorize & Pay ₹{parseFloat(amount).toFixed(2)}</span>
             </button>
 
             {/* Security Badges Footer */}
