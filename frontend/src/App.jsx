@@ -105,6 +105,8 @@ export default function App() {
   const handleLogout = () => {
     removeAuthToken();
     setCurrentUser(null);
+    setActiveView('landing');
+    window.history.pushState({}, '', '/');
   };
 
   const handleAuthSuccess = async (action, credentials) => {
