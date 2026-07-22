@@ -327,22 +327,32 @@ export default function TeleconsultationRoom({ appointment, onBackToDashboard })
             <div className="flex items-center bg-slate-950 p-1 rounded-xl border border-slate-800 space-x-1">
               <button
                 onClick={() => setActiveRightTab('chat')}
-                className={`flex-1 py-2 rounded-lg text-xs font-extrabold transition-all btn-minimal flex items-center justify-center space-x-1.5 ${
+                className={`flex-1 py-2 rounded-lg text-[11px] font-extrabold transition-all btn-minimal flex items-center justify-center space-x-1 ${
                   activeRightTab === 'chat' ? 'bg-sky-600 text-white shadow-xs' : 'text-slate-400 hover:text-white'
                 }`}
               >
                 <MessageSquare className="w-3.5 h-3.5" />
-                <span>Doctor Chat</span>
+                <span>Chat</span>
               </button>
 
               <button
                 onClick={() => setActiveRightTab('vitals')}
-                className={`flex-1 py-2 rounded-lg text-xs font-extrabold transition-all btn-minimal flex items-center justify-center space-x-1.5 ${
+                className={`flex-1 py-2 rounded-lg text-[11px] font-extrabold transition-all btn-minimal flex items-center justify-center space-x-1 ${
                   activeRightTab === 'vitals' ? 'bg-sky-600 text-white shadow-xs' : 'text-slate-400 hover:text-white'
                 }`}
               >
                 <Activity className="w-3.5 h-3.5" />
-                <span>Patient Vitals</span>
+                <span>Vitals</span>
+              </button>
+
+              <button
+                onClick={() => setActiveRightTab('prescription')}
+                className={`flex-1 py-2 rounded-lg text-[11px] font-extrabold transition-all btn-minimal flex items-center justify-center space-x-1 ${
+                  activeRightTab === 'prescription' ? 'bg-sky-600 text-white shadow-xs' : 'text-slate-400 hover:text-white'
+                }`}
+              >
+                <FileText className="w-3.5 h-3.5" />
+                <span>Rx Scribe</span>
               </button>
             </div>
 
@@ -443,6 +453,59 @@ export default function TeleconsultationRoom({ appointment, onBackToDashboard })
                   <p className="text-slate-400 font-medium leading-relaxed">
                     No known drug allergies (NKDA). Mild hypertension under beta-blocker treatment.
                   </p>
+                </div>
+              </div>
+            )}
+
+            {activeRightTab === 'prescription' && (
+              <div className="space-y-4 animate-fade-in-up">
+                <div className="p-4 rounded-2xl bg-slate-950 border border-slate-800 space-y-3 glass-vitals-card">
+                  <div className="flex items-center justify-between border-b border-slate-850 pb-2">
+                    <span className="text-xs font-bold uppercase text-slate-400 flex items-center gap-2">
+                      <FileText className="w-4 h-4 text-sky-500" /> Rx Draft
+                    </span>
+                    <span className="px-2 py-0.5 rounded-full text-[9px] font-black bg-sky-950/60 text-sky-400 border border-sky-900/60 animate-pulse">
+                      ● Live Sync
+                    </span>
+                  </div>
+
+                  <div className="space-y-3">
+                    <div>
+                      <span className="text-[10px] text-slate-500 font-bold block uppercase">Diagnosis</span>
+                      <p className="text-xs font-semibold text-slate-200">Hypertension & Cardiological Review</p>
+                    </div>
+
+                    <div className="h-px bg-slate-850"></div>
+
+                    <div>
+                      <span className="text-[10px] text-slate-500 font-bold block uppercase">Prescribed Regimen</span>
+                      <ul className="space-y-1.5 mt-1">
+                        <li className="text-[11px] font-medium text-slate-300 flex items-start gap-1.5">
+                          <span className="w-1.5 h-1.5 rounded-full bg-sky-400 mt-1.5"></span>
+                          <div>
+                            <strong className="text-white">Amlodipine 5mg</strong> — Once daily in the morning
+                          </div>
+                        </li>
+                        <li className="text-[11px] font-medium text-slate-300 flex items-start gap-1.5">
+                          <span className="w-1.5 h-1.5 rounded-full bg-sky-400 mt-1.5"></span>
+                          <div>
+                            <strong className="text-white">Metoprolol 25mg</strong> — Twice daily after meals
+                          </div>
+                        </li>
+                      </ul>
+                    </div>
+
+                    <div className="h-px bg-slate-850"></div>
+
+                    <div>
+                      <span className="text-[10px] text-slate-500 font-bold block uppercase flex items-center gap-1">
+                        <Brain className="w-3.5 h-3.5 text-purple-400" /> Live AI Summary Scribe
+                      </span>
+                      <p className="text-[11px] text-slate-400 leading-relaxed font-semibold italic mt-1 bg-purple-950/20 border border-purple-900/30 p-2.5 rounded-xl">
+                        "Patient Rahul Verma reports BP stabilization at 120/78. Continue current medication regimen with proper hydration. Scheduled follow-up in two weeks."
+                      </p>
+                    </div>
+                  </div>
                 </div>
               </div>
             )}
