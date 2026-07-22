@@ -9,7 +9,7 @@ export default function TeleconsultationRoom({ appointment, onBackToDashboard })
   const [hasCameraPermission, setHasCameraPermission] = useState(false);
   const [activeRightTab, setActiveRightTab] = useState('chat');
   const [chatInput, setChatInput] = useState('');
-  const [callDuration, setCallDuration] = useState(312); // 05:12 in seconds
+  const [callDuration, setCallDuration] = useState(0); // starts from 00:00
   const [isDoctorTyping, setIsDoctorTyping] = useState(false);
   const [liveHeartRate, setLiveHeartRate] = useState(72);
   const [liveSubtitles, setLiveSubtitles] = useState(`${doctorName}: "Namaste Rahul! Let's check your current cardiological metrics."`);
