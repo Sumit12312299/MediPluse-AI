@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { HeartPulse, Bell, User, ShieldPlus, Stethoscope, UserRoundCheck, LogOut, Sun, Moon, Search, Command, Activity, Sparkles } from 'lucide-react';
 
-export default function Navbar({ currentUser, activeRole, onSwitchRole, onOpenAuth, onLogout, notificationCount, onOpenNotifications }) {
+export default function Navbar({ currentUser, activeRole, onSwitchRole, onOpenAuth, onLogout, notificationCount, onOpenNotifications, activeView }) {
   const [isDark, setIsDark] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
 
@@ -18,7 +18,13 @@ export default function Navbar({ currentUser, activeRole, onSwitchRole, onOpenAu
       <div className="w-full px-4 sm:px-8 lg:px-12 h-18 flex items-center justify-between gap-4">
         
         {/* Brand Logo & Live Engine Chip */}
-        <div className="flex items-center space-x-3.5">
+        <div 
+          onClick={() => {
+            window.history.pushState({}, '', '/');
+            window.dispatchEvent(new PopStateEvent('popstate'));
+          }}
+          className="flex items-center space-x-3.5 cursor-pointer hover:opacity-90 transition-all select-none"
+        >
           <div className="w-11 h-11 rounded-2xl bg-gradient-to-tr from-slate-900 via-sky-950 to-slate-900 dark:from-sky-600 dark:to-teal-600 text-white flex items-center justify-center shadow-md border border-slate-800 dark:border-sky-500">
             <HeartPulse className="w-6 h-6 text-sky-400 dark:text-white animate-pulse" />
           </div>
@@ -50,43 +56,45 @@ export default function Navbar({ currentUser, activeRole, onSwitchRole, onOpenAu
         </div>
 
         {/* Floating Segmented Role Portal Switcher */}
-        <div className="hidden md:flex items-center bg-slate-100/90 dark:bg-slate-800/90 p-1.5 rounded-2xl border border-slate-200/90 dark:border-slate-700/90 space-x-1 shadow-2xs">
-          <button
-            onClick={() => onSwitchRole('PATIENT')}
-            className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-extrabold flex items-center space-x-2 transition-all btn-minimal ${
-              activeRole === 'PATIENT'
-                ? 'bg-white dark:bg-slate-900 text-sky-700 dark:text-white shadow-xs border border-slate-200 dark:border-slate-700'
-                : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
-            }`}
-          >
-            <UserRoundCheck className="w-4 h-4 text-sky-600" />
-            <span>Patient Portal</span>
-          </button>
+        {activeView !== 'landing' && (
+          <div className="hidden md:flex items-center bg-slate-100/90 dark:bg-slate-800/90 p-1.5 rounded-2xl border border-slate-200/90 dark:border-slate-700/90 space-x-1 shadow-2xs">
+            <button
+              onClick={() => onSwitchRole('PATIENT')}
+              className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-extrabold flex items-center space-x-2 transition-all btn-minimal ${
+                activeRole === 'PATIENT'
+                  ? 'bg-white dark:bg-slate-900 text-sky-700 dark:text-white shadow-xs border border-slate-200 dark:border-slate-700'
+                  : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+              }`}
+            >
+              <UserRoundCheck className="w-4 h-4 text-sky-600" />
+              <span>Patient Portal</span>
+            </button>
 
-          <button
-            onClick={() => onSwitchRole('DOCTOR')}
-            className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-extrabold flex items-center space-x-2 transition-all btn-minimal ${
-              activeRole === 'DOCTOR'
-                ? 'bg-white dark:bg-slate-900 text-teal-700 dark:text-white shadow-xs border border-slate-200 dark:border-slate-700'
-                : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
-            }`}
-          >
-            <Stethoscope className="w-4 h-4 text-teal-600" />
-            <span>Doctor Portal</span>
-          </button>
+            <button
+              onClick={() => onSwitchRole('DOCTOR')}
+              className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-extrabold flex items-center space-x-2 transition-all btn-minimal ${
+                activeRole === 'DOCTOR'
+                  ? 'bg-white dark:bg-slate-900 text-teal-700 dark:text-white shadow-xs border border-slate-200 dark:border-slate-700'
+                  : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+              }`}
+            >
+              <Stethoscope className="w-4 h-4 text-teal-600" />
+              <span>Doctor Portal</span>
+            </button>
 
-          <button
-            onClick={() => onSwitchRole('ADMIN')}
-            className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-extrabold flex items-center space-x-2 transition-all btn-minimal ${
-              activeRole === 'ADMIN'
-                ? 'bg-white dark:bg-slate-900 text-indigo-700 dark:text-white shadow-xs border border-slate-200 dark:border-slate-700'
-                : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
-            }`}
-          >
-            <ShieldPlus className="w-4 h-4 text-indigo-600" />
-            <span>Admin Console</span>
-          </button>
-        </div>
+            <button
+              onClick={() => onSwitchRole('ADMIN')}
+              className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-extrabold flex items-center space-x-2 transition-all btn-minimal ${
+                activeRole === 'ADMIN'
+                  ? 'bg-white dark:bg-slate-900 text-indigo-700 dark:text-white shadow-xs border border-slate-200 dark:border-slate-700'
+                  : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+              }`}
+            >
+              <ShieldPlus className="w-4 h-4 text-indigo-600" />
+              <span>Admin Console</span>
+            </button>
+          </div>
+        )}
 
         {/* Right Menu Controls */}
         <div className="flex items-center space-x-3">

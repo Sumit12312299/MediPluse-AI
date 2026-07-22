@@ -11,6 +11,7 @@ import NotificationCenter from './components/NotificationCenter';
 import AuthModal from './components/AuthModal';
 import Footer from './components/Footer';
 import AIChatBot from './components/AIChatBot';
+import LandingPage from './components/LandingPage';
 import { api, getCurrentUser, removeAuthToken } from './api';
 
 export default function App() {
@@ -25,10 +26,7 @@ export default function App() {
     } else if (path === '/patient') {
       return { role: 'PATIENT', view: 'dashboard' };
     } else {
-      if (path === '/') {
-        window.history.replaceState({}, '', '/patient');
-      }
-      return { role: 'PATIENT', view: 'dashboard' };
+      return { role: 'PATIENT', view: 'landing' };
     }
   };
 
@@ -63,6 +61,7 @@ export default function App() {
 
   const handleRoleChange = (role) => {
     setActiveRole(role);
+    setActiveView('dashboard');
     const newPath = `/${role.toLowerCase()}`;
     window.history.pushState({}, '', newPath);
   };
@@ -194,12 +193,22 @@ export default function App() {
         onLogout={handleLogout}
         notificationCount={notifications.length}
         onOpenNotifications={() => setIsNotificationsOpen(true)}
+        activeView={activeView}
       />
 
       {/* Main Full-Screen Fluid Container */}
       <main className="flex-1 w-full max-w-full px-4 sm:px-8 lg:px-12 py-6 sm:py-8">
         
-        {activeRole === 'PATIENT' && (
+        {activeView === 'landing' && (
+          <LandingPage
+            currentUser={currentUser}
+            onOpenAuth={() => setIsAuthOpen(true)}
+            onNavigateToRole={handleRoleChange}
+            doctors={doctors}
+          />
+        )}
+
+        {activeView === 'dashboard' && activeRole === 'PATIENT' && (
           <PatientDashboard
             appointments={appointments}
             prescriptions={prescriptions}
@@ -212,7 +221,7 @@ export default function App() {
           />
         )}
 
-        {activeRole === 'DOCTOR' && (
+        {activeView === 'dashboard' && activeRole === 'DOCTOR' && (
           <DoctorDashboard
             appointments={appointments}
             prescriptions={prescriptions}
@@ -223,7 +232,7 @@ export default function App() {
           />
         )}
 
-        {activeRole === 'ADMIN' && (
+        {activeView === 'dashboard' && activeRole === 'ADMIN' && (
           <AdminDashboard
             metrics={adminMetrics}
             doctors={doctors}
