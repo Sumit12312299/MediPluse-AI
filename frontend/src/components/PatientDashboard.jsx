@@ -151,7 +151,7 @@ export default function PatientDashboard({ appointments, prescriptions, payments
 
       {/* Tab 1: Appointments Grid */}
       {activeTab === 'appointments' && (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5 animate-fade-in-up">
           {appointments && appointments.length > 0 ? (
             appointments.map(app => (
               <div key={app.id} className="glass-card p-6 space-y-4 font-sans">
@@ -219,7 +219,7 @@ export default function PatientDashboard({ appointments, prescriptions, payments
 
       {/* Tab 2: AI Prescriptions */}
       {activeTab === 'prescriptions' && (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5 animate-fade-in-up">
           {prescriptions && prescriptions.length > 0 ? (
             prescriptions.map(rx => (
               <div key={rx.id} className="glass-card p-6 space-y-4">
@@ -269,7 +269,7 @@ export default function PatientDashboard({ appointments, prescriptions, payments
 
       {/* Tab 3: Billing */}
       {activeTab === 'billing' && (
-        <div className="glass-panel p-6 space-y-4">
+        <div className="glass-panel p-6 space-y-4 animate-fade-in-up">
           <h3 className="font-extrabold text-slate-900 text-base flex items-center gap-2">
             <CreditCard className="w-4 h-4 text-sky-600" /> Transaction & Payment Audit Trail
           </h3>

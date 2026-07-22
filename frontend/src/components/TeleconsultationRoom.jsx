@@ -275,7 +275,7 @@ export default function TeleconsultationRoom({ appointment, onBackToDashboard })
 
             {/* Direct Doctor-Patient Chat Session (Scrollable with Auto-Scroll) */}
             {activeRightTab === 'chat' && (
-              <div className="flex-1 flex flex-col justify-between space-y-3 min-h-0">
+              <div className="flex-1 flex flex-col justify-between space-y-3 min-h-0 animate-fade-in-up">
                 <div className="flex-1 overflow-y-auto space-y-3 pr-1 max-h-[380px] custom-scrollbar">
                   {liveTranscript.map((t, i) => (
                     <div key={i} className={`p-3.5 rounded-2xl text-xs space-y-1.5 ${
@@ -313,7 +313,7 @@ export default function TeleconsultationRoom({ appointment, onBackToDashboard })
 
             {/* Tab 2: Patient Vitals Card */}
             {activeRightTab === 'vitals' && (
-              <div className="space-y-4">
+              <div className="space-y-4 animate-fade-in-up">
                 <div className="p-4 rounded-2xl bg-slate-950 border border-slate-800 space-y-3">
                   <span className="text-xs font-bold uppercase text-slate-400 flex items-center gap-2">
                     <Heart className="w-4 h-4 text-red-500" /> Patient Physiological Metrics
