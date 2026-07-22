@@ -10,6 +10,7 @@ import AIPrescriptionModal from './components/AIPrescriptionModal';
 import NotificationCenter from './components/NotificationCenter';
 import AuthModal from './components/AuthModal';
 import Footer from './components/Footer';
+import AIChatBot from './components/AIChatBot';
 import { api, getCurrentUser, removeAuthToken } from './api';
 
 export default function App() {
@@ -246,6 +247,9 @@ export default function App() {
         onClose={() => setIsAuthOpen(false)}
         onAuthSuccess={handleAuthSuccess}
       />
+
+      {/* Floating Global RAG AI Chat Assistant */}
+      <AIChatBot />
 
     </div>
   );

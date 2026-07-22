@@ -298,5 +298,21 @@ export const api = {
     };
     MOCK_DOCTORS.push(newDoc);
     return newDoc;
+  },
+
+  async ragChat(query) {
+    try {
+      const res = await fetch(`${API_BASE}/rag-chat/`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', ...authHeader() },
+        body: JSON.stringify({ query })
+      });
+      if (res.ok) return await res.json();
+    } catch (e) {}
+    return {
+      answer: "Local RAG matching fallback: Your query '" + query + "' matches generic advice. Please configure GEMINI_API_KEY to activate generative responses.",
+      context: ["Local Client Fallback"],
+      powered_by: "Local Mock Client"
+    };
   }
 };

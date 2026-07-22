@@ -307,3 +307,14 @@ def admin_metrics(request):
         'ai_prescriptions_generated': Prescription.objects.count(),
         'notifications_sent': NotificationLog.objects.count()
     })
+
+from .rag_service import generate_rag_response
+
+@api_view(['POST'])
+@permission_classes([AllowAny])
+def rag_chat_api(request):
+    query = request.data.get('query')
+    if not query:
+        return Response({'error': 'Query is required'}, status=status.HTTP_400_BAD_REQUEST)
+    res = generate_rag_response(query)
+    return Response(res)

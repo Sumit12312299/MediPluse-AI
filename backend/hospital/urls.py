@@ -29,4 +29,7 @@ urlpatterns = [
     
     # Admin Metrics
     path('admin/metrics/', views.admin_metrics, name='admin_metrics'),
+    
+    # RAG Chat Endpoint
+    path('rag-chat/', views.rag_chat_api, name='rag_chat'),
 ]
