@@ -141,6 +141,38 @@ export default function TeleconsultationRoom({ appointment, onBackToDashboard })
     }, 2000);
   };
 
+  const handleCaptureSnapshot = () => {
+    // Trigger flash animation
+    setShowFlash(true);
+    setTimeout(() => setShowFlash(false), 250);
+
+    const videoEl = localVideoRef.current;
+    if (videoEl && hasCameraPermission && !isVideoOff) {
+      try {
+        const canvas = document.createElement('canvas');
+        canvas.width = videoEl.videoWidth || 640;
+        canvas.height = videoEl.videoHeight || 480;
+        const ctx = canvas.getContext('2d');
+        if (ctx) {
+          ctx.drawImage(videoEl, 0, 0, canvas.width, canvas.height);
+          const dataUrl = canvas.toDataURL('image/png');
+          
+          const downloadLink = document.createElement('a');
+          const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
+          downloadLink.href = dataUrl;
+          downloadLink.download = `MediPulse-Snapshot-${timestamp}.png`;
+          document.body.appendChild(downloadLink);
+          downloadLink.click();
+          document.body.removeChild(downloadLink);
+        }
+      } catch (err) {
+        console.error('Failed to capture snapshot:', err);
+      }
+    } else {
+      alert('Camera feed is muted or inactive. Please turn on your camera to capture a snapshot!');
+    }
+  };
+
   return (
     <div className="min-h-screen bg-slate-950 text-white flex flex-col font-sans animate-slide-up">
       
@@ -305,10 +337,7 @@ export default function TeleconsultationRoom({ appointment, onBackToDashboard })
 
             {/* Snapshot Button */}
             <button
-              onClick={() => {
-                setShowFlash(true);
-                setTimeout(() => setShowFlash(false), 250);
-              }}
+              onClick={handleCaptureSnapshot}
               className="w-12 h-12 rounded-full flex items-center justify-center bg-slate-800/80 text-teal-400 border border-slate-700/50 hover:bg-slate-700 hover:text-teal-350 transition-all duration-300 hover:scale-105 active:scale-95"
               title="Capture patient webcam snapshot"
             >
