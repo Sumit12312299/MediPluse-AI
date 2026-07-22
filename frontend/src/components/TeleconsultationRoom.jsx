@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Video, Mic, MicOff, VideoOff, PhoneOff, MessageSquare, Sparkles, ArrowLeft, ShieldCheck, Send, Brain, Stethoscope, User, Heart, Activity, FileText, Share2 } from 'lucide-react';
+import { Video, Mic, MicOff, VideoOff, PhoneOff, MessageSquare, Sparkles, ArrowLeft, ShieldCheck, Send, Brain, Stethoscope, User, Heart, Activity, FileText, Share2, Camera } from 'lucide-react';
 
 export default function TeleconsultationRoom({ appointment, onBackToDashboard }) {
   const [isMicMuted, setIsMicMuted] = useState(false);
@@ -8,7 +8,40 @@ export default function TeleconsultationRoom({ appointment, onBackToDashboard })
   const [activeRightTab, setActiveRightTab] = useState('chat');
   const [chatInput, setChatInput] = useState('');
   const [callDuration, setCallDuration] = useState(312); // 05:12 in seconds
-  
+  const [isDoctorTyping, setIsDoctorTyping] = useState(false);
+  const [liveHeartRate, setLiveHeartRate] = useState(72);
+  const [liveSubtitles, setLiveSubtitles] = useState("Dr. Rajesh Sharma: 'Namaste Rahul! Let's check your current cardiological metrics.'");
+  const [showFlash, setShowFlash] = useState(false);
+
+  // Fluctuating Heart Rate & Subtitles
+  useEffect(() => {
+    const hrInterval = setInterval(() => {
+      setLiveHeartRate(prev => {
+        const change = Math.random() > 0.5 ? 1 : -1;
+        const next = prev + change;
+        return next >= 68 && next <= 78 ? next : prev;
+      });
+    }, 4000);
+
+    const subtitleList = [
+      "Dr. Rajesh Sharma: 'Let's review your cardiology history. Any pain or discomfort today?'",
+      "Dr. Rajesh Sharma: 'Your heart rate and EKG rhythms show stable signals.'",
+      "Dr. Rajesh Sharma: 'Please continue monitoring your vitals after your morning walk.'",
+      "Dr. Rajesh Sharma: 'I am modifying your digital prescription dosage slightly.'",
+      "Dr. Rajesh Sharma: 'Let's schedule a follow-up consultation in about two weeks.'"
+    ];
+
+    const subInterval = setInterval(() => {
+      const randomSub = subtitleList[Math.floor(Math.random() * subtitleList.length)];
+      setLiveSubtitles(randomSub);
+    }, 8000);
+
+    return () => {
+      clearInterval(hrInterval);
+      clearInterval(subInterval);
+    };
+  }, []);
+
   const localVideoRef = useRef(null);
   const mediaStreamRef = useRef(null);
   const chatEndRef = useRef(null);
@@ -85,8 +118,11 @@ export default function TeleconsultationRoom({ appointment, onBackToDashboard })
     const currentInput = chatInput;
     setChatInput('');
 
+    setIsDoctorTyping(true);
+
     // Simulate Direct Doctor Response (Not AI!)
     setTimeout(() => {
+      setIsDoctorTyping(false);
       const doctorResponses = [
         `Rahul, I have noted your message ("${currentInput}"). Everything looks under control.`,
         `Thank you for the update Rahul. Please keep monitoring your vitals daily.`,
@@ -100,7 +136,7 @@ export default function TeleconsultationRoom({ appointment, onBackToDashboard })
         text: randomDocReply
       };
       setLiveTranscript(prev => [...prev, docMsg]);
-    }, 1200);
+    }, 2000);
   };
 
   return (
@@ -157,6 +193,10 @@ export default function TeleconsultationRoom({ appointment, onBackToDashboard })
           {/* Main Remote Video Stream Box */}
           <div className="w-full h-full rounded-3xl bg-gradient-to-br from-slate-900 via-sky-950 to-slate-900 border border-slate-800 relative overflow-hidden flex items-center justify-center shadow-2xl">
             
+            {showFlash && (
+              <div className="absolute inset-0 bg-white z-40 animate-pulse duration-100"></div>
+            )}
+
             {!isVideoOff ? (
               <div className="text-center space-y-4">
                 <div className="w-24 h-24 rounded-full bg-sky-500/20 border-2 border-sky-400/50 text-sky-300 mx-auto flex items-center justify-center shadow-2xl animate-pulse">
@@ -173,6 +213,16 @@ export default function TeleconsultationRoom({ appointment, onBackToDashboard })
               <div className="text-center text-slate-500 space-y-2">
                 <VideoOff className="w-12 h-12 text-red-500 mx-auto" />
                 <p className="text-white font-extrabold text-base">Video Feed Paused</p>
+              </div>
+            )}
+
+            {/* Real-time Subtitle/Caption Overlay */}
+            {!isVideoOff && (
+              <div className="absolute top-6 left-6 bg-slate-950/85 backdrop-blur-md px-4 py-2.5 rounded-xl border border-slate-800/80 max-w-sm shadow-lg animate-fade-in-up">
+                <span className="text-[9px] font-black text-sky-400 uppercase tracking-widest block mb-1">Live AI Subtitles</span>
+                <p className="text-xs font-bold text-slate-200 italic leading-relaxed">
+                  {liveSubtitles}
+                </p>
               </div>
             )}
 
@@ -224,6 +274,18 @@ export default function TeleconsultationRoom({ appointment, onBackToDashboard })
             >
               {isVideoOff ? <VideoOff className="w-4 h-4" /> : <Video className="w-4 h-4 text-white" />}
               <span>{isVideoOff ? 'Turn Camera On' : 'Turn Camera Off'}</span>
+            </button>
+
+            <button
+              onClick={() => {
+                setShowFlash(true);
+                setTimeout(() => setShowFlash(false), 250);
+              }}
+              className="px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-extrabold transition-all btn-minimal flex items-center space-x-2 border border-slate-700"
+              title="Capture patient webcam snapshot"
+            >
+              <Camera className="w-4 h-4 text-emerald-400 animate-pulse" />
+              <span>Snapshot</span>
             </button>
 
             <button
@@ -290,6 +352,18 @@ export default function TeleconsultationRoom({ appointment, onBackToDashboard })
                       <p className="font-semibold leading-relaxed">{t.text}</p>
                     </div>
                   ))}
+                  
+                  {isDoctorTyping && (
+                    <div className="p-3.5 rounded-2xl text-xs bg-slate-800 text-slate-100 border border-slate-700 mr-6 animate-pulse flex items-center justify-between">
+                      <span className="font-extrabold text-[10px] text-sky-400">Dr. Rajesh Sharma is typing...</span>
+                      <span className="flex space-x-1">
+                        <span className="w-1.5 h-1.5 bg-sky-400 rounded-full animate-bounce [animation-delay:0s]"></span>
+                        <span className="w-1.5 h-1.5 bg-sky-400 rounded-full animate-bounce [animation-delay:0.2s]"></span>
+                        <span className="w-1.5 h-1.5 bg-sky-400 rounded-full animate-bounce [animation-delay:0.4s]"></span>
+                      </span>
+                    </div>
+                  )}
+
                   <div ref={chatEndRef} />
                 </div>
 
@@ -329,7 +403,7 @@ export default function TeleconsultationRoom({ appointment, onBackToDashboard })
                     <div className="p-3 rounded-xl bg-slate-900 border border-slate-800">
                       <span className="text-[10px] text-slate-400 font-bold block uppercase">Heart Rate</span>
                       <p className="text-xl font-black text-sky-400 flex items-center gap-1.5">
-                        <span>72 BPM</span>
+                        <span>{liveHeartRate} BPM</span>
                         <span className="w-2 h-2 rounded-full bg-red-500 animate-ping inline-block"></span>
                       </p>
                       <span className="text-[10px] text-slate-500 font-bold">Regular Rhythm</span>
@@ -343,6 +417,7 @@ export default function TeleconsultationRoom({ appointment, onBackToDashboard })
                     <svg className="w-full h-8 stroke-emerald-400" viewBox="0 0 100 20" fill="none" preserveAspectRatio="none">
                       <path
                         className="animate-ecg-path"
+                        style={{ animationDuration: `${(60 / liveHeartRate) * 3}s` }}
                         strokeWidth="1.5"
                         strokeLinecap="round"
                         strokeLinejoin="round"
