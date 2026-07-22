@@ -14,9 +14,27 @@ import AIChatBot from './components/AIChatBot';
 import { api, getCurrentUser, removeAuthToken } from './api';
 
 export default function App() {
-  const isTeleconsultRoute = window.location.pathname === '/teleconsult';
-  const [activeRole, setActiveRole] = useState('PATIENT');
-  const [activeView, setActiveView] = useState(isTeleconsultRoute ? 'teleconsult' : 'dashboard');
+  const getInitialStateFromUrl = () => {
+    const path = window.location.pathname;
+    if (path === '/teleconsult') {
+      return { role: 'PATIENT', view: 'teleconsult' };
+    } else if (path === '/doctor') {
+      return { role: 'DOCTOR', view: 'dashboard' };
+    } else if (path === '/admin') {
+      return { role: 'ADMIN', view: 'dashboard' };
+    } else if (path === '/patient') {
+      return { role: 'PATIENT', view: 'dashboard' };
+    } else {
+      if (path === '/') {
+        window.history.replaceState({}, '', '/patient');
+      }
+      return { role: 'PATIENT', view: 'dashboard' };
+    }
+  };
+
+  const initialState = getInitialStateFromUrl();
+  const [activeRole, setActiveRole] = useState(initialState.role);
+  const [activeView, setActiveView] = useState(initialState.view);
   const [currentUser, setCurrentUser] = useState(getCurrentUser());
   const [appointments, setAppointments] = useState([]);
   const [prescriptions, setPrescriptions] = useState([]);
@@ -43,15 +61,19 @@ export default function App() {
   const [isNotificationsOpen, setIsNotificationsOpen] = useState(false);
   const [isAuthOpen, setIsAuthOpen] = useState(false);
 
+  const handleRoleChange = (role) => {
+    setActiveRole(role);
+    const newPath = `/${role.toLowerCase()}`;
+    window.history.pushState({}, '', newPath);
+  };
+
   useEffect(() => {
     loadData();
 
     const handlePopState = () => {
-      if (window.location.pathname === '/teleconsult') {
-        setActiveView('teleconsult');
-      } else {
-        setActiveView('dashboard');
-      }
+      const state = getInitialStateFromUrl();
+      setActiveRole(state.role);
+      setActiveView(state.view);
     };
     window.addEventListener('popstate', handlePopState);
     return () => window.removeEventListener('popstate', handlePopState);
@@ -91,7 +113,7 @@ export default function App() {
       const res = await api.login(credentials.username, credentials.password);
       if (res && res.user) {
         setCurrentUser(res.user);
-        setActiveRole(res.user.role);
+        handleRoleChange(res.user.role);
         loadData();
       }
     } else if (action === 'register') {
@@ -100,7 +122,7 @@ export default function App() {
         const loginRes = await api.login(credentials.username, credentials.password);
         if (loginRes && loginRes.user) {
           setCurrentUser(loginRes.user);
-          setActiveRole(loginRes.user.role);
+          handleRoleChange(loginRes.user.role);
           loadData();
         }
       }
@@ -167,7 +189,7 @@ export default function App() {
       <Navbar
         currentUser={currentUser}
         activeRole={activeRole}
-        onSwitchRole={setActiveRole}
+        onSwitchRole={handleRoleChange}
         onOpenAuth={() => setIsAuthOpen(true)}
         onLogout={handleLogout}
         notificationCount={notifications.length}
