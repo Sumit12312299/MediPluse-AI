@@ -63,10 +63,10 @@ export default function AIChatBot() {
       {!isOpen && (
         <button
           onClick={() => setIsOpen(true)}
-          className="p-4 rounded-full bg-gradient-to-r from-sky-600 to-teal-600 text-white shadow-2xl transition-all duration-300 hover:scale-110 flex items-center justify-center border border-sky-400/30 hover:border-sky-400 relative group"
+          className="p-4 rounded-full bg-gradient-to-br from-slate-900 to-slate-950 text-sky-400 shadow-[0_0_20px_rgba(14,165,233,0.35)] hover:shadow-[0_0_25px_rgba(14,165,233,0.55)] transition-all duration-300 hover:scale-110 flex items-center justify-center border border-sky-500/50 hover:border-sky-450 relative group"
         >
-          <div className="absolute inset-0 rounded-full bg-sky-500/20 animate-ping group-hover:duration-500"></div>
-          <Bot className="w-6 h-6" />
+          <div className="absolute inset-0 rounded-full bg-sky-500/10 animate-ping group-hover:duration-500"></div>
+          <Bot className="w-6 h-6 text-sky-400 group-hover:text-sky-300 transition-colors" />
         </button>
       )}
 

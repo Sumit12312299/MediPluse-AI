@@ -5,6 +5,7 @@ export default function PatientDashboard({ appointments, prescriptions, payments
   const [activeTab, setActiveTab] = useState('appointments');
 
   const upcomingAppointments = appointments?.filter(a => a.status === 'CONFIRMED' || a.status === 'PENDING') || [];
+  const nextAppt = upcomingAppointments[0];
 
   return (
     <div className="space-y-6 animate-slide-up max-w-7xl mx-auto">
@@ -20,7 +21,17 @@ export default function PatientDashboard({ appointments, prescriptions, payments
             Welcome back, Rahul Verma 👋
           </h1>
           <p className="text-sm text-slate-600 font-medium">
-            Next scheduled consultation: <strong className="text-slate-900 font-extrabold underline decoration-sky-400 decoration-2 underline-offset-4">Tomorrow at 10:30 AM</strong> with Dr. Rajesh Sharma (Cardiology).
+            {nextAppt ? (
+              <span>
+                Next scheduled consultation:{' '}
+                <strong className="text-slate-900 font-extrabold underline decoration-sky-400 decoration-2 underline-offset-4">
+                  {nextAppt.appointment_date} at {nextAppt.time_slot}
+                </strong>{' '}
+                with {nextAppt.doctor_name} ({nextAppt.doctor_specialization || 'OPD'}).
+              </span>
+            ) : (
+              <span>No upcoming consultations scheduled.</span>
+            )}
           </p>
         </div>
 
@@ -153,61 +164,71 @@ export default function PatientDashboard({ appointments, prescriptions, payments
       {activeTab === 'appointments' && (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5 animate-fade-in-up">
           {appointments && appointments.length > 0 ? (
-            appointments.map(app => (
-              <div key={app.id} className="glass-card p-6 space-y-4 font-sans">
-                <div className="flex items-start justify-between">
-                  <div className="flex items-center space-x-3.5">
-                    <div className="w-11 h-11 rounded-2xl bg-sky-50 text-sky-700 flex items-center justify-center font-bold text-sm border border-sky-100">
-                      <Stethoscope className="w-5 h-5 text-sky-600" />
+            appointments.map(app => {
+              const isPaid = payments?.some(p => (p.appointment === app.id || p.appointment_id === app.id) && (p.status === 'SUCCESS' || p.status === 'COMPLETED'));
+              return (
+                <div key={app.id} className="glass-card p-6 space-y-4 font-sans">
+                  <div className="flex items-start justify-between">
+                    <div className="flex items-center space-x-3.5">
+                      <div className="w-11 h-11 rounded-2xl bg-sky-50 text-sky-700 flex items-center justify-center font-bold text-sm border border-sky-100">
+                        <Stethoscope className="w-5 h-5 text-sky-600" />
+                      </div>
+                      <div>
+                        <h3 className="font-extrabold text-slate-900 text-base">{app.doctor_name || 'Dr. Rajesh Sharma'}</h3>
+                        <p className="text-xs text-sky-700 font-semibold">{app.doctor_specialization || 'Cardiology & Heart Care'}</p>
+                      </div>
                     </div>
-                    <div>
-                      <h3 className="font-extrabold text-slate-900 text-base">{app.doctor_name || 'Dr. Rajesh Sharma'}</h3>
-                      <p className="text-xs text-sky-700 font-semibold">{app.doctor_specialization || 'Cardiology & Heart Care'}</p>
-                    </div>
-                  </div>
 
-                  <span className={`px-3 py-1 rounded-full text-xs font-bold uppercase ${
-                    app.status === 'CONFIRMED'
-                      ? 'bg-emerald-50 text-emerald-700 border border-emerald-200'
-                      : app.status === 'COMPLETED'
-                      ? 'bg-slate-100 text-slate-600 border border-slate-200'
-                      : 'bg-amber-50 text-amber-700 border border-amber-200'
-                  }`}>
-                    {app.status}
-                  </span>
-                </div>
-
-                <div className="p-4 rounded-2xl bg-slate-50 border border-slate-100 text-xs sm:text-sm space-y-2">
-                  <div className="flex items-center justify-between text-slate-600">
-                    <span className="flex items-center gap-1.5 text-slate-500 font-medium">
-                      <Clock className="w-4 h-4 text-sky-600" /> Schedule:
+                    <span className={`px-3 py-1 rounded-full text-xs font-bold uppercase ${
+                      app.status === 'CONFIRMED'
+                        ? 'bg-emerald-50 text-emerald-700 border border-emerald-200'
+                        : app.status === 'COMPLETED'
+                        ? 'bg-slate-100 text-slate-600 border border-slate-200'
+                        : 'bg-amber-50 text-amber-700 border border-amber-200'
+                    }`}>
+                      {app.status}
                     </span>
-                    <strong className="text-slate-900 font-bold">{app.appointment_date} at {app.time_slot}</strong>
                   </div>
-                  <div className="text-slate-600 text-xs pt-2 border-t border-slate-200/60">
-                    Reason: <span className="text-slate-900 font-semibold">{app.reason}</span>
+
+                  <div className="p-4 rounded-2xl bg-slate-50 border border-slate-100 text-xs sm:text-sm space-y-2">
+                    <div className="flex items-center justify-between text-slate-600">
+                      <span className="flex items-center gap-1.5 text-slate-500 font-medium">
+                        <Clock className="w-4 h-4 text-sky-600" /> Schedule:
+                      </span>
+                      <strong className="text-slate-900 font-bold">{app.appointment_date} at {app.time_slot}</strong>
+                    </div>
+                    <div className="text-slate-600 text-xs pt-2 border-t border-slate-200/60">
+                      Reason: <span className="text-slate-900 font-semibold">{app.reason}</span>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center justify-end space-x-2.5 pt-1">
+                    <button
+                      onClick={() => onOpenTeleconsult(app)}
+                      className="px-4 py-2 rounded-xl bg-white hover:bg-emerald-50 text-slate-700 hover:text-emerald-700 border border-slate-200 text-xs font-bold flex items-center space-x-1.5 transition-all btn-minimal shadow-2xs"
+                    >
+                      <Video className="w-4 h-4 text-emerald-600" />
+                      <span>Teleconsult Call</span>
+                    </button>
+
+                    {isPaid ? (
+                      <span className="px-3.5 py-2 rounded-xl bg-emerald-50 text-emerald-700 border border-emerald-200 text-xs font-extrabold flex items-center gap-1.5 shadow-2xs">
+                        <CheckCircle2 className="w-4 h-4 text-emerald-600" />
+                        <span>Paid (₹800)</span>
+                      </span>
+                    ) : (
+                      <button
+                        onClick={() => onOpenPayment(app)}
+                        className="px-4 py-2 rounded-xl bg-sky-600 hover:bg-sky-700 text-white text-xs font-bold flex items-center space-x-1.5 transition-all btn-minimal shadow-xs"
+                      >
+                        <CreditCard className="w-4 h-4 text-white" />
+                        <span>Pay OPD Fee (₹800)</span>
+                      </button>
+                    )}
                   </div>
                 </div>
-
-                <div className="flex items-center justify-end space-x-2.5 pt-1">
-                  <button
-                    onClick={() => onOpenTeleconsult(app)}
-                    className="px-4 py-2 rounded-xl bg-white hover:bg-emerald-50 text-slate-700 hover:text-emerald-700 border border-slate-200 text-xs font-bold flex items-center space-x-1.5 transition-all btn-minimal shadow-2xs"
-                  >
-                    <Video className="w-4 h-4 text-emerald-600" />
-                    <span>Teleconsult Call</span>
-                  </button>
-
-                  <button
-                    onClick={() => onOpenPayment(app)}
-                    className="px-4 py-2 rounded-xl bg-sky-600 hover:bg-sky-700 text-white text-xs font-bold flex items-center space-x-1.5 transition-all btn-minimal shadow-xs"
-                  >
-                    <CreditCard className="w-4 h-4 text-white" />
-                    <span>Pay OPD Fee (₹800)</span>
-                  </button>
-                </div>
-              </div>
-            ))
+              );
+            })
           ) : (
             <div className="col-span-2 text-center py-12 bg-white rounded-3xl border border-slate-200/80">
               <Calendar className="w-12 h-12 text-slate-300 mx-auto mb-3" />
