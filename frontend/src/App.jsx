@@ -127,7 +127,7 @@ export default function App() {
   }
 
   return (
-    <div className="min-h-screen flex flex-col font-sans bg-slate-50 transition-colors duration-300">
+    <div className="min-h-screen flex flex-col font-sans bg-transparent transition-colors duration-300">
       
       {/* Sticky Header Navbar */}
       <Navbar
