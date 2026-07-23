@@ -1,5 +1,36 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ShieldAlert, Users, Stethoscope, Calendar, DollarSign, Activity, Plus, Mail, MessageSquare, Database, Sparkles, X, Check, Hospital, UserRoundCheck, Brain, Dna, ShieldCheck } from 'lucide-react';
+
+function AnimatedCounter({ value, prefix = '', suffix = '', decimals = 0, duration = 1200 }) {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    let startTimestamp = null;
+    const target = parseFloat(value) || 0;
+
+    const step = (timestamp) => {
+      if (!startTimestamp) startTimestamp = timestamp;
+      const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+      // Ease-out quad progress curve
+      const easeOut = 1 - (1 - progress) * (1 - progress);
+      setCount(target * easeOut);
+
+      if (progress < 1) {
+        window.requestAnimationFrame(step);
+      }
+    };
+
+    window.requestAnimationFrame(step);
+  }, [value, duration]);
+
+  return (
+    <span>
+      {prefix}
+      {count.toFixed(decimals)}
+      {suffix}
+    </span>
+  );
+}
 
 export default function AdminDashboard({ metrics, doctors, notifications, onAddDoctor }) {
   const [isAddDoctorOpen, setIsAddDoctorOpen] = useState(false);
@@ -67,7 +98,9 @@ export default function AdminDashboard({ metrics, doctors, notifications, onAddD
               <UserRoundCheck className="w-4 h-4" />
             </div>
           </div>
-          <p className="text-2xl font-black text-slate-900">{metrics?.total_patients || 2}</p>
+          <p className="text-2xl font-black text-slate-900">
+            <AnimatedCounter value={metrics?.total_patients || 2} />
+          </p>
           <p className="text-[11px] text-emerald-600 font-bold">+12% growth this month</p>
         </div>
 
@@ -78,7 +111,9 @@ export default function AdminDashboard({ metrics, doctors, notifications, onAddD
               <Stethoscope className="w-4 h-4" />
             </div>
           </div>
-          <p className="text-2xl font-black text-slate-900">{metrics?.total_doctors || doctors?.length || 4}</p>
+          <p className="text-2xl font-black text-slate-900">
+            <AnimatedCounter value={metrics?.total_doctors || doctors?.length || 4} />
+          </p>
           <p className="text-[11px] text-slate-500 font-bold">4 Specializations</p>
         </div>
 
@@ -89,7 +124,9 @@ export default function AdminDashboard({ metrics, doctors, notifications, onAddD
               <Brain className="w-4 h-4" />
             </div>
           </div>
-          <p className="text-2xl font-black text-slate-900">{metrics?.ai_prescriptions_generated || 2}</p>
+          <p className="text-2xl font-black text-slate-900">
+            <AnimatedCounter value={metrics?.ai_prescriptions_generated || 2} />
+          </p>
           <p className="text-[11px] text-purple-600 font-bold">98.4% AI Accuracy</p>
         </div>
 
@@ -100,8 +137,10 @@ export default function AdminDashboard({ metrics, doctors, notifications, onAddD
               <DollarSign className="w-4 h-4" />
             </div>
           </div>
-          <p className="text-2xl font-black text-slate-900">${metrics?.total_revenue?.toFixed(2) || '190.00'}</p>
-          <p className="text-[11px] text-emerald-600 font-bold">Razorpay / Stripe Live</p>
+          <p className="text-2xl font-black text-slate-900">
+            <AnimatedCounter value={metrics?.total_revenue || 1600.00} prefix="₹" decimals={2} />
+          </p>
+          <p className="text-[11px] text-emerald-600 font-bold">Razorpay / UPI Live</p>
         </div>
       </div>
 

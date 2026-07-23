@@ -286,6 +286,35 @@
   animation: float 3s ease-in-out infinite;
 }
 
+/* ⚡ UPI QR Code Scanning Beam Animation */
+@keyframes qr-scan-beam {
+  0% {
+    top: 0%;
+    opacity: 0.8;
+    box-shadow: 0 0 15px #0284c7, 0 0 25px #0f766e;
+  }
+  50% {
+    top: 92%;
+    opacity: 1;
+    box-shadow: 0 0 20px #38bdf8, 0 0 30px #10b981;
+  }
+  100% {
+    top: 0%;
+    opacity: 0.8;
+    box-shadow: 0 0 15px #0284c7, 0 0 25px #0f766e;
+  }
+}
+
+.animate-qr-scan {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, #38bdf8 20%, #10b981 80%, transparent);
+  animation: qr-scan-beam 2.2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+
 /* 🎙️ 5-Bar AI Voice Equalizer (@keyframes sound-wave) */
 @keyframes sound-wave {
   0%, 100% {

@@ -31,11 +31,39 @@ export default function PaymentModal({ appointment, isOpen, onClose, onPaymentSu
   const seconds = timerSeconds % 60;
 
   const triggerConfettiExplosion = () => {
-    confetti({ particleCount: 90, spread: 75, origin: { y: 0.6 } });
+    // Multi-stage high velocity confetti burst
+    confetti({
+      particleCount: 120,
+      spread: 90,
+      startVelocity: 45,
+      ticks: 200,
+      scalar: 1.25,
+      origin: { y: 0.6 },
+      colors: ['#0284c7', '#0f766e', '#10b981', '#38bdf8', '#fbbf24']
+    });
+
     setTimeout(() => {
-      confetti({ particleCount: 60, angle: 60, spread: 60, origin: { x: 0 } });
-      confetti({ particleCount: 60, angle: 120, spread: 60, origin: { x: 1 } });
-    }, 200);
+      confetti({
+        particleCount: 80,
+        angle: 60,
+        spread: 70,
+        startVelocity: 40,
+        ticks: 200,
+        scalar: 1.1,
+        origin: { x: 0 },
+        colors: ['#38bdf8', '#34d399', '#f59e0b']
+      });
+      confetti({
+        particleCount: 80,
+        angle: 120,
+        spread: 70,
+        startVelocity: 40,
+        ticks: 200,
+        scalar: 1.1,
+        origin: { x: 1 },
+        colors: ['#0284c7', '#10b981', '#fbbf24']
+      });
+    }, 250);
   };
 
   const handlePay = async (e) => {
@@ -301,6 +329,29 @@ export default function PaymentModal({ appointment, isOpen, onClose, onPaymentSu
             {paymentMethod === 'UPI' && (
               <div className="space-y-4 animate-slide-up">
                 
+                {/* ⚡ Sleek Dynamic UPI QR Code Scanner with Laser Beam */}
+                <div className="p-4 rounded-2xl bg-gradient-to-br from-slate-900 via-sky-950 to-slate-900 text-white flex items-center justify-between gap-4 border border-sky-500/30 shadow-md">
+                  <div className="space-y-1.5 max-w-[240px]">
+                    <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-500/20 border border-emerald-400/30 text-[10px] font-black text-emerald-300 uppercase">
+                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span> Live QR Active
+                    </span>
+                    <h5 className="text-sm font-extrabold text-white">Scan & Pay via Any UPI App</h5>
+                    <p className="text-[11px] text-sky-200 font-medium">GPay, PhonePe, Paytm, CRED, or BHIM</p>
+                  </div>
+
+                  {/* Animated Scanner Box */}
+                  <div className="relative w-24 h-24 p-2 rounded-xl bg-white/95 border border-sky-400/40 shadow-inner flex items-center justify-center overflow-hidden shrink-0">
+                    <QrCode className="w-16 h-16 text-slate-900" />
+                    {/* Laser Scanning Beam Line */}
+                    <div className="animate-qr-scan"></div>
+                    {/* HUD Corner Markers */}
+                    <div className="absolute top-1 left-1 w-2 h-2 border-t-2 border-l-2 border-sky-500"></div>
+                    <div className="absolute top-1 right-1 w-2 h-2 border-t-2 border-r-2 border-sky-500"></div>
+                    <div className="absolute bottom-1 left-1 w-2 h-2 border-b-2 border-l-2 border-sky-500"></div>
+                    <div className="absolute bottom-1 right-1 w-2 h-2 border-b-2 border-r-2 border-sky-500"></div>
+                  </div>
+                </div>
+
                 {/* UPI App Quick Pills */}
                 <div className="space-y-1.5">
                   <span className="text-[11px] font-bold text-slate-500 uppercase">Popular UPI Apps</span>
