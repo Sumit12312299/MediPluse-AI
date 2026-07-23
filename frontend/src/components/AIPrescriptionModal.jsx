@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Pill, Sparkles, Volume2, VolumeX, FileText, CheckCircle2, X, Brain, Stethoscope, User, Calendar, ShieldCheck } from 'lucide-react';
+import { Pill, Sparkles, Volume2, VolumeX, FileText, CheckCircle2, X, Brain, Stethoscope, User, Calendar, ShieldCheck, Download, Printer } from 'lucide-react';
+import { downloadPrescriptionPDF } from '../utils/pdfExporter';
 
 export default function AIPrescriptionModal({ prescription, isOpen, onClose }) {
   const [isPlaying, setIsPlaying] = useState(false);
@@ -151,12 +152,20 @@ export default function AIPrescriptionModal({ prescription, isOpen, onClose }) {
             </div>
           </div>
 
-          {/* Footer Note */}
-          <div className="pt-3 border-t border-slate-100 flex items-center justify-between text-xs text-slate-400 font-medium">
-            <span className="flex items-center gap-1 text-emerald-600 font-bold">
-              <ShieldCheck className="w-4 h-4" /> Verified Digital RX
+          {/* Footer Note & PDF Exporter Action */}
+          <div className="pt-4 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-400 font-medium">
+            <span className="flex items-center gap-1.5 text-emerald-600 font-bold">
+              <ShieldCheck className="w-4 h-4" /> Verified Digital RX • {new Date(prescription.created_at || Date.now()).toLocaleDateString()}
             </span>
-            <span>Issued on: {new Date(prescription.created_at || Date.now()).toLocaleDateString()}</span>
+
+            <button
+              type="button"
+              onClick={() => downloadPrescriptionPDF(prescription)}
+              className="w-full sm:w-auto px-4 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-extrabold text-xs transition-all btn-minimal flex items-center justify-center space-x-2 shadow-xs"
+            >
+              <Download className="w-4 h-4 text-sky-400" />
+              <span>Download Official PDF RX</span>
+            </button>
           </div>
 
         </div>

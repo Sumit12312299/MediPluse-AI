@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { CreditCard, QrCode, Building2, Smartphone, ShieldCheck, Lock, CheckCircle2, X, Sparkles, ArrowRight, Loader2, Receipt, Check, Copy, AlertCircle } from 'lucide-react';
+import { CreditCard, QrCode, Building2, Smartphone, ShieldCheck, Lock, CheckCircle2, X, Sparkles, ArrowRight, Loader2, Receipt, Check, Copy, AlertCircle, Download, FileText } from 'lucide-react';
 import confetti from 'canvas-confetti';
+import { downloadInvoicePDF } from '../utils/pdfExporter';
 
 export default function PaymentModal({ appointment, isOpen, onClose, onPaymentSuccess }) {
   const [paymentMethod, setPaymentMethod] = useState('UPI');
@@ -187,6 +188,15 @@ export default function PaymentModal({ appointment, isOpen, onClose, onPaymentSu
                 <span>✓ Sent to +91 98765 43210</span>
               </div>
             </div>
+
+            <button
+              type="button"
+              onClick={() => downloadInvoicePDF({ transaction_id: txId, amount: amount, payment_method: paymentMethod }, appointment)}
+              className="w-full py-3 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-xs transition-all btn-minimal flex items-center justify-center space-x-2 shadow-md"
+            >
+              <Download className="w-4 h-4 text-white" />
+              <span>Download Official Tax Invoice PDF</span>
+            </button>
 
           </div>
         ) : isProcessing ? (

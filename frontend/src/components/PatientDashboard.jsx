@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Calendar, Stethoscope, Sparkles, FileText, CreditCard, Clock, CheckCircle2, ChevronRight, HeartPulse, Plus, Video, Pill, Brain, Ticket, FileSpreadsheet, FileHeart, ShieldCheck } from 'lucide-react';
+import { Calendar, Stethoscope, Sparkles, FileText, CreditCard, Clock, CheckCircle2, ChevronRight, HeartPulse, Plus, Video, Pill, Brain, Ticket, FileSpreadsheet, FileHeart, ShieldCheck, Download, Printer } from 'lucide-react';
+import { downloadPrescriptionPDF, downloadInvoicePDF } from '../utils/pdfExporter';
 
 export default function PatientDashboard({ appointments, prescriptions, payments, doctors, onOpenBooking, onOpenAIModal, onOpenPayment, onOpenTeleconsult }) {
   const [activeTab, setActiveTab] = useState('appointments');
@@ -340,16 +341,27 @@ export default function PatientDashboard({ appointments, prescriptions, payments
                   </p>
                 </div>
 
-                <div className="flex items-center justify-between pt-1 border-t border-slate-100">
+                <div className="flex items-center justify-between pt-1 border-t border-slate-100 gap-2">
                   <span className="text-xs text-slate-400 font-medium">{new Date(rx.created_at || Date.now()).toLocaleDateString()}</span>
                   
-                  <button
-                    onClick={() => onOpenAIModal(rx)}
-                    className="px-4 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold transition-all btn-minimal flex items-center space-x-1.5 shadow-xs"
-                  >
-                    <Sparkles className="w-4 h-4 text-sky-400" />
-                    <span>View AI Summary & Speech</span>
-                  </button>
+                  <div className="flex items-center space-x-2">
+                    <button
+                      onClick={() => downloadPrescriptionPDF(rx)}
+                      className="p-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold transition-all btn-minimal flex items-center gap-1"
+                      title="Download Official PDF RX"
+                    >
+                      <Download className="w-3.5 h-3.5 text-sky-600" />
+                      <span className="hidden sm:inline">PDF RX</span>
+                    </button>
+
+                    <button
+                      onClick={() => onOpenAIModal(rx)}
+                      className="px-3.5 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold transition-all btn-minimal flex items-center space-x-1.5 shadow-xs"
+                    >
+                      <Sparkles className="w-3.5 h-3.5 text-sky-400" />
+                      <span>View AI Summary</span>
+                    </button>
+                  </div>
                 </div>
               </div>
             ))
@@ -376,7 +388,8 @@ export default function PatientDashboard({ appointments, prescriptions, payments
                   <th className="p-3.5">Method</th>
                   <th className="p-3.5">Amount</th>
                   <th className="p-3.5">Status</th>
-                  <th className="p-3.5 rounded-r-lg">Date</th>
+                  <th className="p-3.5">Date</th>
+                  <th className="p-3.5 rounded-r-lg text-right">Tax Invoice</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-100 font-medium">
@@ -392,11 +405,20 @@ export default function PatientDashboard({ appointments, prescriptions, payments
                         </span>
                       </td>
                       <td className="p-3.5 text-slate-500 font-medium">{new Date(pay.created_at || Date.now()).toLocaleDateString()}</td>
+                      <td className="p-3.5 text-right">
+                        <button
+                          onClick={() => downloadInvoicePDF(pay)}
+                          className="px-3 py-1.5 rounded-xl bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border border-emerald-200 text-xs font-bold transition-all btn-minimal inline-flex items-center gap-1.5"
+                        >
+                          <Download className="w-3.5 h-3.5 text-emerald-600" />
+                          <span>Download GST Receipt</span>
+                        </button>
+                      </td>
                     </tr>
                   ))
                 ) : (
                   <tr>
-                    <td colSpan="5" className="p-6 text-center text-slate-400 font-medium">No payment records found.</td>
+                    <td colSpan="6" className="p-6 text-center text-slate-400 font-medium">No payment records found.</td>
                   </tr>
                 )}
               </tbody>
