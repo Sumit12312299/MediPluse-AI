@@ -36,7 +36,7 @@ export default function AIPrescriptionModal({ prescription, isOpen, onClose }) {
       ></div>
 
       {/* Modal Dialog */}
-      <div className="relative w-full max-w-xl bg-white rounded-3xl border border-slate-200 shadow-2xl overflow-hidden z-10 animate-slide-up space-y-0">
+      <div className="relative w-full max-w-xl bg-white rounded-3xl border border-slate-200 shadow-2xl overflow-hidden z-10 animate-modal-pop space-y-0">
         
         {/* Header */}
         <div className="bg-gradient-to-r from-sky-900 via-sky-800 to-teal-900 p-6 text-white flex items-center justify-between">

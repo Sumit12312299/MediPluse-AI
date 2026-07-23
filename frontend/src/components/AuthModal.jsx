@@ -83,7 +83,7 @@ export default function AuthModal({ isOpen, onClose, onAuthSuccess }) {
     <div className="fixed inset-0 z-50 overflow-y-auto flex items-center justify-center p-4">
       <div className="fixed inset-0 bg-slate-900/40 backdrop-blur-xs" onClick={onClose}></div>
 
-      <div className="relative w-full max-w-md bg-white rounded-2xl border border-slate-200 shadow-2xl z-10 overflow-hidden my-8">
+      <div className="relative w-full max-w-md bg-white rounded-2xl border border-slate-200 shadow-2xl z-10 overflow-hidden my-8 animate-modal-pop">
         
         {/* Header */}
         <div className="p-6 bg-gradient-to-r from-sky-900 to-teal-900 text-white text-center space-y-1">

@@ -113,12 +113,12 @@ export default function TeleconsultationModal({ appointment, isOpen, onClose }) 
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
       {/* Backdrop */}
       <div 
-        className="fixed inset-0 bg-slate-950/70 backdrop-blur-md transition-opacity animate-slide-up"
+        className="fixed inset-0 bg-slate-950/70 backdrop-blur-md transition-opacity animate-modal-pop"
         onClick={onClose}
       ></div>
 
       {/* Modal Dialog */}
-      <div className="relative w-full max-w-5xl bg-white rounded-3xl border border-slate-200 shadow-2xl overflow-hidden z-10 animate-slide-up">
+      <div className="relative w-full max-w-5xl bg-slate-900 rounded-3xl border border-slate-800 shadow-2xl overflow-hidden z-10 animate-modal-pop space-y-0 text-white">
         
         {/* Header */}
         <div className="bg-gradient-to-r from-slate-900 via-sky-950 to-slate-900 p-5 text-white flex items-center justify-between">

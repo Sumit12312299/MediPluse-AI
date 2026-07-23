@@ -43,7 +43,7 @@ export default function BookAppointmentModal({ doctors, isOpen, onClose, onBookS
       ></div>
 
       {/* Modal Dialog */}
-      <div className="relative w-full max-w-lg bg-white rounded-3xl border border-slate-200 shadow-2xl overflow-hidden z-10 animate-slide-up">
+      <div className="relative w-full max-w-lg bg-white rounded-3xl border border-slate-200 shadow-2xl overflow-hidden z-10 animate-modal-pop">
         
         {/* Header */}
         <div className="bg-gradient-to-r from-slate-900 via-sky-950 to-slate-900 p-6 text-white flex items-center justify-between">

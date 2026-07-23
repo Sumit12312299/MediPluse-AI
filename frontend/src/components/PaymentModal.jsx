@@ -122,7 +122,7 @@ export default function PaymentModal({ appointment, isOpen, onClose, onPaymentSu
       ></div>
 
       {/* Modal Dialog */}
-      <div className="relative w-full max-w-xl bg-white/95 backdrop-blur-xl rounded-3xl border border-slate-200/90 shadow-2xl overflow-hidden z-10 animate-slide-up">
+      <div className="relative w-full max-w-xl bg-white/95 backdrop-blur-xl rounded-3xl border border-slate-200/90 shadow-2xl overflow-hidden z-10 animate-modal-pop">
         
         {/* Sleek Header */}
         <div className="bg-gradient-to-r from-slate-900 via-sky-950 to-slate-900 p-5 sm:p-6 text-white flex items-center justify-between">

@@ -103,6 +103,22 @@
 
 
 
+/* 🚀 GPU Hardware Acceleration & Smoothness Optimizations */
+.gpu-accelerated, 
+.glass-card, 
+.glass-panel, 
+.btn-minimal, 
+.neon-vital-card, 
+.glass-tilt-card,
+.sound-bar,
+.animate-slide-up,
+.animate-fade-in-up,
+.animate-modal-pop {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  will-change: transform, opacity;
+}
+
 /* Glassmorphism Utilities */
 .glass-panel {
   background: rgba(255, 255, 255, 0.85);
@@ -111,6 +127,7 @@
   border: 1px solid rgba(226, 232, 240, 0.95);
   box-shadow: 0 10px 30px -5px rgba(2, 132, 199, 0.04);
   border-radius: 1.5rem;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.3s ease;
 }
 
 .dark .glass-panel {
@@ -127,7 +144,7 @@
   border: 1px solid rgba(226, 232, 240, 0.95);
   box-shadow: 0 8px 24px -4px rgba(0, 0, 0, 0.03);
   border-radius: 1.25rem;
-  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease, background-color 0.3s ease;
   overflow: hidden;
 }
 
@@ -139,13 +156,13 @@
 
 .glass-card:hover {
   border-color: rgba(56, 189, 248, 0.5);
-  background: rgba(255, 255, 255, 0.85);
+  background: rgba(255, 255, 255, 0.92);
   box-shadow: 0 16px 36px -6px rgba(2, 132, 199, 0.12);
   transform: translateY(-4px) scale(1.01);
 }
 
 .dark .glass-card:hover {
-  background: rgba(30, 41, 59, 0.75);
+  background: rgba(30, 41, 59, 0.82);
   border-color: rgba(56, 189, 248, 0.5);
   box-shadow: 0 16px 36px -6px rgba(56, 189, 248, 0.15);
 }
@@ -156,7 +173,7 @@
   color: #0f172a;
   border-radius: 0.875rem;
   font-size: 0.9375rem;
-  transition: all 0.25s ease;
+  transition: border-color 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.25s ease;
 }
 
 .dark .glass-input {
@@ -168,17 +185,36 @@
 .glass-input:focus {
   border-color: #0284c7;
   outline: none;
-  box-shadow: 0 0 0 4px rgba(2, 132, 199, 0.15);
+  box-shadow: 0 0 0 4px rgba(2, 132, 199, 0.18);
 }
 
-/* Animations */
+/* 🍎 Apple-Style Spring & Fluid Animations */
 @keyframes slide-up-fade {
-  from { opacity: 0; transform: translateY(12px); }
+  from { opacity: 0; transform: translateY(16px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
 .animate-slide-up {
-  animation: slide-up-fade 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: slide-up-fade 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes spring-modal-pop {
+  0% {
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+  }
+  65% {
+    opacity: 0.95;
+    transform: translateY(-2px) scale(1.008);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.animate-modal-pop {
+  animation: spring-modal-pop 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 .animate-fade-in-up {
@@ -194,10 +230,10 @@
   }
 }
 
-.delay-100 { animation-delay: 100ms; }
-.delay-200 { animation-delay: 200ms; }
-.delay-300 { animation-delay: 300ms; }
-.delay-400 { animation-delay: 400ms; }
+.delay-100 { animation-delay: 80ms; }
+.delay-200 { animation-delay: 160ms; }
+.delay-300 { animation-delay: 240ms; }
+.delay-400 { animation-delay: 320ms; }
 
 @keyframes ecg-draw {
   0% { stroke-dashoffset: 100; }
@@ -210,20 +246,19 @@
   animation: ecg-draw 2.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
 }
 
-
-
-/* Tactile Button Feedback */
-.btn-minimal {
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+/* 🖱️ Tactile Elastic Button Micro-Feedback */
+.btn-minimal, .btn-smooth {
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.2s ease, color 0.2s ease;
 }
 
-.btn-minimal:hover {
-  transform: translateY(-1.5px);
-  box-shadow: 0 6px 16px -4px rgba(15, 23, 42, 0.12);
+.btn-minimal:hover, .btn-smooth:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px -4px rgba(2, 132, 199, 0.16);
 }
 
-.btn-minimal:active {
-  transform: translateY(0) scale(0.98);
+.btn-minimal:active, .btn-smooth:active {
+  transform: translateY(0) scale(0.96);
+  transition: transform 0.1s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 /* Custom Scrollbar */
