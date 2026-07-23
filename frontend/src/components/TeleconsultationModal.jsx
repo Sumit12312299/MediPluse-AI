@@ -150,16 +150,44 @@ export default function TeleconsultationModal({ appointment, isOpen, onClose }) 
           {/* Main Video Screen (2 Cols) */}
           <div className="lg:col-span-2 bg-slate-950 p-4 relative flex flex-col justify-between">
             
-            {/* Remote Doctor Stream Container */}
-            <div className="w-full h-full rounded-2xl bg-gradient-to-br from-slate-900 via-sky-950 to-slate-900 border border-slate-800 relative overflow-hidden flex items-center justify-center">
+            {/* Remote Doctor Stream Container with Futuristic HUD Corner Brackets */}
+            <div className="w-full h-full rounded-2xl bg-gradient-to-br from-slate-900 via-sky-950 to-slate-900 border border-slate-800 relative overflow-hidden flex items-center justify-center ambient-video-glow">
               
+              {/* ⚡ Glowing HUD Corner Accents */}
+              <div className="absolute top-3 left-3 w-5 h-5 border-l-2 border-t-2 border-cyan-400 z-10 pointer-events-none"></div>
+              <div className="absolute top-3 right-3 w-5 h-5 border-r-2 border-t-2 border-cyan-400 z-10 pointer-events-none"></div>
+              <div className="absolute bottom-3 left-3 w-5 h-5 border-l-2 border-b-2 border-cyan-400 z-10 pointer-events-none"></div>
+              <div className="absolute bottom-3 right-3 w-5 h-5 border-r-2 border-b-2 border-cyan-400 z-10 pointer-events-none"></div>
+
+              {/* 🟢 Pulsing Green ● LIVE TELE-CONSULTATION Status Pill */}
+              <div className="absolute top-4 left-4 z-20 px-3 py-1 rounded-full bg-slate-950/80 border border-emerald-500/50 backdrop-blur-md flex items-center space-x-2 shadow-lg">
+                <span className="relative flex h-2.5 w-2.5">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
+                </span>
+                <span className="text-[11px] font-black text-emerald-300 tracking-wider uppercase">● LIVE TELE-CONSULTATION</span>
+              </div>
+
               {!isVideoOff ? (
                 <div className="text-center space-y-3">
                   <div className="w-20 h-20 rounded-full bg-sky-500/20 border border-sky-400/40 text-sky-300 mx-auto flex items-center justify-center text-xl font-extrabold shadow-xl animate-pulse">
                     <Stethoscope className="w-10 h-10 text-sky-400" />
                   </div>
                   <div>
-                    <h4 className="font-extrabold text-white text-lg">{appointment.doctor_name || 'Dr. Rajesh Sharma'}</h4>
+                    <h4 className="font-extrabold text-white text-lg flex items-center justify-center gap-2">
+                      {appointment.doctor_name || 'Dr. Rajesh Sharma'}
+                      
+                      {/* 🎙️ Clinical Tele-Scribe Live Waveform Indicator (Doctor) */}
+                      {!isMicMuted && (
+                        <div className="flex items-end space-x-0.5 h-3 px-1.5 py-0.5 rounded-full bg-cyan-950/80 border border-cyan-500/40">
+                          <span className="sound-bar text-cyan-400" style={{ width: '2px' }}></span>
+                          <span className="sound-bar text-teal-300" style={{ width: '2px' }}></span>
+                          <span className="sound-bar text-emerald-400" style={{ width: '2px' }}></span>
+                          <span className="sound-bar text-sky-300" style={{ width: '2px' }}></span>
+                          <span className="sound-bar text-cyan-300" style={{ width: '2px' }}></span>
+                        </div>
+                      )}
+                    </h4>
                     <span className="text-xs text-emerald-400 font-bold flex items-center justify-center gap-1">
                       <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span> Live Video Stream Connected
                     </span>
@@ -172,8 +200,12 @@ export default function TeleconsultationModal({ appointment, isOpen, onClose }) 
                 </div>
               )}
 
-              {/* Local Patient PIP Webcam Video Element */}
-              <div className="absolute bottom-4 right-4 w-36 h-28 rounded-2xl bg-slate-900 border-2 border-sky-400 shadow-2xl overflow-hidden flex items-center justify-center">
+              {/* Local Patient PIP Webcam Video Element with HUD Border & Tele-Scribe Waveform */}
+              <div className="absolute bottom-4 right-4 w-36 h-28 rounded-2xl bg-slate-900 border-2 border-cyan-400 shadow-2xl overflow-hidden flex items-center justify-center group">
+                {/* HUD PIP Corner Brackets */}
+                <div className="absolute top-1 left-1 w-2.5 h-2.5 border-l border-t border-cyan-400 z-10 pointer-events-none"></div>
+                <div className="absolute bottom-1 right-1 w-2.5 h-2.5 border-r border-b border-cyan-400 z-10 pointer-events-none"></div>
+
                 {!isVideoOff ? (
                   hasCameraPermission ? (
                     <video
@@ -186,7 +218,16 @@ export default function TeleconsultationModal({ appointment, isOpen, onClose }) 
                   ) : (
                     <div className="text-center p-2 space-y-1">
                       <User className="w-6 h-6 text-sky-400 mx-auto" />
-                      <span className="text-[10px] text-white font-extrabold block">Rahul Verma</span>
+                      <span className="text-[10px] text-white font-extrabold flex items-center justify-center gap-1">
+                        Rahul Verma
+                        {!isMicMuted && (
+                          <span className="flex items-end space-x-0.5 h-2.5">
+                            <span className="sound-bar text-emerald-300" style={{ width: '1.5px' }}></span>
+                            <span className="sound-bar text-cyan-300" style={{ width: '1.5px' }}></span>
+                            <span className="sound-bar text-sky-300" style={{ width: '1.5px' }}></span>
+                          </span>
+                        )}
+                      </span>
                       <span className="text-[9px] text-emerald-400 font-bold block">● Live Feed</span>
                     </div>
                   )
