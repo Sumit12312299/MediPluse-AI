@@ -60,7 +60,7 @@ export default function AdminDashboard({ metrics, doctors, notifications, onAddD
 
       {/* Analytics KPI Grid */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-        <div className="glass-card p-5 rounded-2xl space-y-2">
+        <div className="glass-card glass-tilt-card p-5 rounded-2xl space-y-2">
           <div className="flex items-center justify-between">
             <span className="text-xs font-extrabold text-slate-500 uppercase tracking-wider">Total Patients</span>
             <div className="p-2 rounded-xl bg-sky-50 text-sky-600">
@@ -71,7 +71,7 @@ export default function AdminDashboard({ metrics, doctors, notifications, onAddD
           <p className="text-[11px] text-emerald-600 font-bold">+12% growth this month</p>
         </div>
 
-        <div className="glass-card p-5 rounded-2xl space-y-2">
+        <div className="glass-card glass-tilt-card p-5 rounded-2xl space-y-2">
           <div className="flex items-center justify-between">
             <span className="text-xs font-extrabold text-slate-500 uppercase tracking-wider">Active Doctors</span>
             <div className="p-2 rounded-xl bg-teal-50 text-teal-600">
@@ -82,7 +82,7 @@ export default function AdminDashboard({ metrics, doctors, notifications, onAddD
           <p className="text-[11px] text-slate-500 font-bold">4 Specializations</p>
         </div>
 
-        <div className="glass-card p-5 rounded-2xl space-y-2">
+        <div className="glass-card glass-tilt-card p-5 rounded-2xl space-y-2">
           <div className="flex items-center justify-between">
             <span className="text-xs font-extrabold text-slate-500 uppercase tracking-wider">AI Summaries</span>
             <div className="p-2 rounded-xl bg-purple-50 text-purple-600">
@@ -93,7 +93,7 @@ export default function AdminDashboard({ metrics, doctors, notifications, onAddD
           <p className="text-[11px] text-purple-600 font-bold">98.4% AI Accuracy</p>
         </div>
 
-        <div className="glass-card p-5 rounded-2xl space-y-2">
+        <div className="glass-card glass-tilt-card p-5 rounded-2xl space-y-2">
           <div className="flex items-center justify-between">
             <span className="text-xs font-extrabold text-slate-500 uppercase tracking-wider">Hospital Revenue</span>
             <div className="p-2 rounded-xl bg-amber-50 text-amber-600">

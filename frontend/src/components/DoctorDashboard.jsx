@@ -83,7 +83,7 @@ export default function DoctorDashboard({ appointments, prescriptions, patients,
 
         {/* Doctor KPIs */}
         <div className="mt-8 grid grid-cols-2 sm:grid-cols-4 gap-4 pt-6 border-t border-slate-100">
-          <div className="glass-card p-4 space-y-1.5 group animate-fade-in-up delay-100">
+          <div className="glass-card glass-tilt-card p-4 space-y-1.5 group animate-fade-in-up delay-100">
             <div className="flex items-center justify-between text-slate-500">
               <span className="text-xs font-bold uppercase tracking-wider text-slate-500">Consultations</span>
               <Calendar className="w-4 h-4 text-teal-600" />
@@ -94,7 +94,7 @@ export default function DoctorDashboard({ appointments, prescriptions, patients,
             <span className="text-xs text-slate-400 font-medium">Scheduled Today</span>
           </div>
 
-          <div className="glass-card p-4 space-y-1.5 group animate-fade-in-up delay-200">
+          <div className="glass-card glass-tilt-card p-4 space-y-1.5 group animate-fade-in-up delay-200">
             <div className="flex items-center justify-between text-slate-500">
               <span className="text-xs font-bold uppercase tracking-wider text-slate-500">AI Prescriptions</span>
               <Brain className="w-4 h-4 text-indigo-600" />
@@ -105,7 +105,7 @@ export default function DoctorDashboard({ appointments, prescriptions, patients,
             <span className="text-xs text-indigo-700 font-bold">AI Summarized</span>
           </div>
 
-          <div className="glass-card p-4 space-y-1.5 group animate-fade-in-up delay-300">
+          <div className="glass-card glass-tilt-card p-4 space-y-1.5 group animate-fade-in-up delay-300">
             <div className="flex items-center justify-between text-slate-500">
               <span className="text-xs font-bold uppercase tracking-wider text-slate-500">Active Patients</span>
               <User className="w-4 h-4 text-sky-600" />
@@ -116,7 +116,7 @@ export default function DoctorDashboard({ appointments, prescriptions, patients,
             <span className="text-xs text-slate-400 font-medium">Registered Records</span>
           </div>
 
-          <div className="glass-card p-4 space-y-1.5 group animate-fade-in-up delay-400">
+          <div className="glass-card glass-tilt-card p-4 space-y-1.5 group animate-fade-in-up delay-400">
             <div className="flex items-center justify-between text-slate-500">
               <span className="text-xs font-bold uppercase tracking-wider text-slate-500">OPD Fee</span>
               <ShieldCheck className="w-4 h-4 text-emerald-600" />

@@ -78,30 +78,57 @@ export default function AIPrescriptionModal({ prescription, isOpen, onClose }) {
           </div>
 
           {/* AI Layman Summary with Equalizer Animation */}
-          <div className="p-4.5 rounded-2xl bg-sky-50/60 border border-sky-200/80 space-y-3">
+          <div className={`p-4.5 rounded-2xl transition-all duration-300 space-y-3 ${
+            isPlaying 
+              ? 'bg-gradient-to-r from-sky-50 via-teal-50 to-emerald-50 border-2 border-sky-400 shadow-md' 
+              : 'bg-sky-50/60 border border-sky-200/80'
+          }`}>
             <div className="flex items-center justify-between">
               <span className="text-xs font-extrabold text-sky-900 flex items-center gap-1.5">
-                <Sparkles className="w-4 h-4 text-sky-600" /> AI Patient Guidance Summary
+                <Sparkles className="w-4 h-4 text-sky-600 animate-pulse" /> AI Patient Guidance Summary
               </span>
 
               <button
                 onClick={handleSpeechSynthesis}
-                className="px-3.5 py-1.5 rounded-xl bg-sky-600 hover:bg-sky-700 text-white text-xs font-bold transition-all btn-minimal flex items-center space-x-2 shadow-2xs"
+                className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all btn-minimal flex items-center space-x-2 shadow-2xs ${
+                  isPlaying ? 'bg-rose-600 hover:bg-rose-700 text-white' : 'bg-sky-600 hover:bg-sky-700 text-white'
+                }`}
               >
                 {isPlaying ? <VolumeX className="w-3.5 h-3.5" /> : <Volume2 className="w-3.5 h-3.5" />}
                 <span>{isPlaying ? 'Stop Speech' : 'Listen AI Voice'}</span>
                 
-                {/* Animated Audio Equalizer Bars */}
+                {/* 5-Bar Animated Audio Equalizer Bars (@keyframes sound-wave) */}
                 {isPlaying && (
-                  <div className="flex items-end space-x-0.5 h-4 ml-1">
-                    <span className="w-1 bg-white rounded-full animate-eq-1"></span>
-                    <span className="w-1 bg-white rounded-full animate-eq-2"></span>
-                    <span className="w-1 bg-white rounded-full animate-eq-3"></span>
-                    <span className="w-1 bg-white rounded-full animate-eq-4"></span>
+                  <div className="flex items-end space-x-1 h-5 ml-1.5 px-1 py-0.5 rounded-md bg-black/20">
+                    <span className="sound-bar text-emerald-300"></span>
+                    <span className="sound-bar text-cyan-300"></span>
+                    <span className="sound-bar text-sky-200"></span>
+                    <span className="sound-bar text-teal-300"></span>
+                    <span className="sound-bar text-emerald-200"></span>
                   </div>
                 )}
               </button>
             </div>
+
+            {/* Active Speech Audio Waveform Indicator */}
+            {isPlaying && (
+              <div className="flex items-center justify-between px-3 py-1.5 rounded-xl bg-sky-100/80 border border-sky-300/60 text-sky-900 text-xs font-bold animate-fade-in-up">
+                <span className="flex items-center gap-2">
+                  <span className="relative flex h-2 w-2">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                  </span>
+                  AI Voice Synthesizer Active...
+                </span>
+                <div className="flex items-end space-x-1 h-4">
+                  <span className="sound-bar text-sky-700"></span>
+                  <span className="sound-bar text-teal-700"></span>
+                  <span className="sound-bar text-emerald-700"></span>
+                  <span className="sound-bar text-cyan-700"></span>
+                  <span className="sound-bar text-sky-800"></span>
+                </div>
+              </div>
+            )}
 
             <p className="text-xs sm:text-sm text-slate-700 font-medium leading-relaxed">
               {summaryText}

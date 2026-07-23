@@ -44,6 +44,80 @@ export default function PatientDashboard({ appointments, prescriptions, payments
         </button>
       </div>
 
+      {/* 🌟 Neon Medical Telemetry Vitals Row (Glowing Inner Borders) */}
+      <div className="space-y-2">
+        <div className="flex items-center justify-between px-1">
+          <h3 className="text-xs font-black uppercase tracking-wider text-slate-500 flex items-center gap-1.5">
+            <HeartPulse className="w-4 h-4 text-rose-500 animate-pulse" /> Live Telemetry Vitals & ECG Waveform
+          </h3>
+          <span className="text-xs text-emerald-600 font-extrabold flex items-center gap-1">
+            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span> Realtime Bluetooth Stream
+          </span>
+        </div>
+
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="glass-card neon-vital-card p-4 rounded-2xl space-y-2 border border-sky-300/60">
+            <div className="flex items-center justify-between text-xs font-bold text-slate-500">
+              <span>Heart Rate (ECG)</span>
+              <HeartPulse className="w-4 h-4 text-rose-500 animate-heart-beat" />
+            </div>
+            <div className="flex items-baseline space-x-1.5">
+              <span className="text-3xl font-black text-slate-900">72</span>
+              <span className="text-xs font-extrabold text-slate-500">BPM</span>
+            </div>
+            <div className="flex items-center justify-between text-[11px] font-semibold text-emerald-600">
+              <span>Normal Sinus Rhythm</span>
+              <span className="text-slate-400 font-mono">⚡ 1.2ms</span>
+            </div>
+          </div>
+
+          <div className="glass-card neon-vital-card p-4 rounded-2xl space-y-2 border border-sky-300/60">
+            <div className="flex items-center justify-between text-xs font-bold text-slate-500">
+              <span>Oxygen Saturation</span>
+              <Activity className="w-4 h-4 text-cyan-500" />
+            </div>
+            <div className="flex items-baseline space-x-1.5">
+              <span className="text-3xl font-black text-slate-900">98%</span>
+              <span className="text-xs font-extrabold text-slate-500">SpO2</span>
+            </div>
+            <div className="flex items-center justify-between text-[11px] font-semibold text-cyan-700">
+              <span>Optimal Oxygenation</span>
+              <span className="text-slate-400 font-mono">O₂ Normal</span>
+            </div>
+          </div>
+
+          <div className="glass-card neon-vital-card p-4 rounded-2xl space-y-2 border border-sky-300/60">
+            <div className="flex items-center justify-between text-xs font-bold text-slate-500">
+              <span>Blood Pressure</span>
+              <ShieldCheck className="w-4 h-4 text-emerald-500" />
+            </div>
+            <div className="flex items-baseline space-x-1.5">
+              <span className="text-2xl sm:text-3xl font-black text-slate-900">120/80</span>
+              <span className="text-xs font-extrabold text-slate-500">mmHg</span>
+            </div>
+            <div className="flex items-center justify-between text-[11px] font-semibold text-emerald-600">
+              <span>Normotensive</span>
+              <span className="text-slate-400 font-mono">SYS/DIA</span>
+            </div>
+          </div>
+
+          <div className="glass-card neon-vital-card p-4 rounded-2xl space-y-2 border border-sky-300/60">
+            <div className="flex items-center justify-between text-xs font-bold text-slate-500">
+              <span>Body Temperature</span>
+              <Sparkles className="w-4 h-4 text-amber-500" />
+            </div>
+            <div className="flex items-baseline space-x-1.5">
+              <span className="text-3xl font-black text-slate-900">98.6</span>
+              <span className="text-xs font-extrabold text-slate-500">°F</span>
+            </div>
+            <div className="flex items-center justify-between text-[11px] font-semibold text-amber-700">
+              <span>Afebrile • Normal</span>
+              <span className="text-slate-400 font-mono">37.0 °C</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
       {/* Bento Grid KPI Metrics (Balanced Proportional Typography) */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
         
