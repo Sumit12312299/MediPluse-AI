@@ -9,8 +9,12 @@ export const removeAuthToken = () => {
 };
 
 export const getCurrentUser = () => {
-  const u = localStorage.getItem('user');
-  return u ? JSON.parse(u) : { id: 1, username: 'patient@medipulse.ai', first_name: 'Rahul', role: 'PATIENT' };
+  try {
+    const u = localStorage.getItem('user');
+    return u ? JSON.parse(u) : { id: 1, username: 'patient@medipulse.ai', first_name: 'Rahul', role: 'PATIENT' };
+  } catch (err) {
+    return { id: 1, username: 'patient@medipulse.ai', first_name: 'Rahul', role: 'PATIENT' };
+  }
 };
 
 const authHeader = () => {
