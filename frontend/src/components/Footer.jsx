@@ -72,7 +72,7 @@ export default function Footer() {
 
         {/* Bottom Bar */}
         <div className="pt-6 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-3 text-slate-400 font-medium text-[11px]">
-          <p>© 2026 MediPulse AI Health Systems Inc. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} MediPulse AI Health Systems Inc. All rights reserved.</p>
           <div className="flex items-center space-x-4">
             <span className="hover:text-slate-600 cursor-pointer transition-colors">Privacy Policy</span>
             <span>•</span>
