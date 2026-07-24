@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Calendar, Stethoscope, Sparkles, FileText, CreditCard, Clock, CheckCircle2, ChevronRight, HeartPulse, Plus, Video, Pill, Brain, Ticket, FileSpreadsheet, FileHeart, ShieldCheck, Download, Printer } from 'lucide-react';
 import { downloadPrescriptionPDF, downloadInvoicePDF } from '../utils/pdfExporter';
 
-export default function PatientDashboard({ appointments, prescriptions, payments, doctors, onOpenBooking, onOpenAIModal, onOpenPayment, onOpenTeleconsult }) {
+export default function PatientDashboard({ currentUser, appointments, prescriptions, payments, doctors, onOpenBooking, onOpenAIModal, onOpenPayment, onOpenTeleconsult }) {
   const [activeTab, setActiveTab] = useState('appointments');
 
   const upcomingAppointments = appointments?.filter(a => a.status === 'CONFIRMED' || a.status === 'PENDING') || [];
@@ -19,7 +19,7 @@ export default function PatientDashboard({ appointments, prescriptions, payments
             <span>MediPulse AI Patient Workspace</span>
           </div>
           <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
-            Welcome back, Rahul Verma 👋
+            Welcome back, {currentUser?.first_name || 'Rahul Verma'} 👋
           </h1>
           <p className="text-sm text-slate-600 font-medium">
             {nextAppt ? (

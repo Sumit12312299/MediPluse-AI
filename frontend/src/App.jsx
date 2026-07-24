@@ -227,6 +227,7 @@ export default function App() {
 
         {activeView === 'dashboard' && activeRole === 'PATIENT' && (
           <PatientDashboard
+            currentUser={currentUser}
             appointments={appointments}
             prescriptions={prescriptions}
             payments={payments}
