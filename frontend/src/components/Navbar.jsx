@@ -104,6 +104,7 @@ export default function Navbar({ currentUser, activeRole, onSwitchRole, onOpenAu
             onClick={() => setIsDark(!isDark)}
             className="p-2.5 rounded-xl bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-amber-400 transition-all btn-minimal shadow-2xs"
             title="Toggle Dark/Light Mode"
+            aria-label="Toggle Dark or Light Mode"
           >
             {isDark ? <Sun className="w-4.5 h-4.5 text-amber-400" /> : <Moon className="w-4.5 h-4.5 text-slate-700" />}
           </button>
@@ -113,6 +114,7 @@ export default function Navbar({ currentUser, activeRole, onSwitchRole, onOpenAu
             onClick={onOpenNotifications}
             className="relative p-2.5 rounded-xl bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 transition-all btn-minimal shadow-2xs"
             title="Notifications"
+            aria-label="Open Notifications Drawer"
           >
             <Bell className="w-4.5 h-4.5" />
             {notificationCount > 0 && (
@@ -136,6 +138,7 @@ export default function Navbar({ currentUser, activeRole, onSwitchRole, onOpenAu
                 onClick={onLogout}
                 className="p-2.5 rounded-xl bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 hover:text-red-600 border border-slate-200 dark:border-slate-700 transition-all btn-minimal"
                 title="Logout"
+                aria-label="Logout user session"
               >
                 <LogOut className="w-4.5 h-4.5" />
               </button>
