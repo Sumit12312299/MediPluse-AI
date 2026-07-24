@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 
 class UserProfile(models.Model):
+    """Extended user profile storing role designation, contact phone, and avatar URL."""
     ROLE_CHOICES = (
         ('PATIENT', 'Patient'),
         ('DOCTOR', 'Doctor'),
