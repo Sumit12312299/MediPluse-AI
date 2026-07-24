@@ -49,7 +49,7 @@ export default function NotificationCenter({ isOpen, onClose, notifications = []
     { id: 104, title: 'Vitals Alert: Normal Rhythm', message: 'Realtime Bluetooth Telemetry reported normal sinus rhythm at 72 BPM.', type: 'EMERGENCY', channel: 'EMAIL', sent_at: new Date(Date.now() - 7200000) }
   ];
 
-  const itemsList = notifications.length > 0 ? notifications : defaultItems;
+  const itemsList = (notifications && notifications.length > 0) ? notifications : defaultItems;
 
   // Play chime on open if not muted
   useEffect(() => {
