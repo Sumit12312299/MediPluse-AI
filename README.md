@@ -167,6 +167,13 @@ Use the following pre-seeded credentials to test different user roles:
 | `GET` / `POST` | `/api/payments/` | Process UPI / Card Payment Settlements |
 | `GET` | `/api/admin-metrics/` | Fetch Hospital KPIs & Revenue |
 
+## 🌟 Key Highlights & Audio Synthesis
+
+- 🎙️ **Gemini Clinical Speech Synthesis**: High-clarity Web Speech synthesis with automatic audio unmount cleanup.
+- 🔔 **Web Audio API Chimes**: Native dual-frequency (E5/B5 sine wave) sound synthesizer for real-time notification alerts.
+- 📄 **PDF Exporters**: One-Click Digital RX & Razorpay GST Tax Invoice generator with canvas printing.
+- ⚡ **60fps Fluid UI**: Glassmorphism cards, spring modal pop transitions, and hardware-accelerated animations.
+
 ---
 
 ## 📄 License
