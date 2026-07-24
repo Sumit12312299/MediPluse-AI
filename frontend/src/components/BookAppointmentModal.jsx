@@ -4,7 +4,7 @@ import confetti from 'canvas-confetti';
 
 export default function BookAppointmentModal({ doctors, isOpen, onClose, onBookSuccess }) {
   const [selectedDoctorId, setSelectedDoctorId] = useState(doctors?.[0]?.id || 1);
-  const [appointmentDate, setAppointmentDate] = useState('2026-07-22');
+  const [appointmentDate, setAppointmentDate] = useState(new Date().toISOString().split('T')[0]);
   const [timeSlot, setTimeSlot] = useState('10:30 AM');
   const [reason, setReason] = useState('Routine cardiovascular checkup & wellness review.');
   const [isSubmitting, setIsSubmitting] = useState(false);
