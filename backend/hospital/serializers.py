@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from .models import UserProfile, Doctor, Patient, Appointment, Prescription, Payment, NotificationLog
 
 class UserSerializer(serializers.ModelSerializer):
+    """DRF Serializer for auth User objects with profile role, phone, and avatar fields."""
     role = serializers.SerializerMethodField()
     phone = serializers.SerializerMethodField()
     avatar = serializers.SerializerMethodField()
