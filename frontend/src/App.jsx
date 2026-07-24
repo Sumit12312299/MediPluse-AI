@@ -59,6 +59,21 @@ export default function App() {
   const [isNotificationsOpen, setIsNotificationsOpen] = useState(false);
   const [isAuthOpen, setIsAuthOpen] = useState(false);
 
+  // Handle ESC key press to close active modal popups
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') {
+        setIsBookingOpen(false);
+        setPaymentAppointment(null);
+        setAiRxModalData(null);
+        setIsNotificationsOpen(false);
+        setIsAuthOpen(false);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
+
   const handleRoleChange = (role) => {
     setActiveRole(role);
     setActiveView('dashboard');
