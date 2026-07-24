@@ -28,6 +28,16 @@ export default function DoctorDashboard({ appointments, prescriptions, patients,
     setMeds(updated);
   };
 
+  const handleResetRxForm = () => {
+    setSelectedAppt(null);
+    setDiagnosis('');
+    setNotes('');
+    setMeds([
+      { name: 'Naproxen', dosage: '500mg', frequency: 'Twice daily after meals', duration: '5 Days' },
+      { name: 'Pantoprazole', dosage: '40mg', frequency: 'Once daily before breakfast', duration: '5 Days' }
+    ]);
+  };
+
   const handleCreateRxSubmit = async (e) => {
     e.preventDefault();
     if (!selectedAppt || !diagnosis) return;
@@ -44,9 +54,7 @@ export default function DoctorDashboard({ appointments, prescriptions, patients,
       });
 
       setIsSubmittingRx(false);
-      setSelectedAppt(null);
-      setDiagnosis('');
-      setNotes('');
+      handleResetRxForm();
     } catch (err) {
       setIsSubmittingRx(false);
     }
