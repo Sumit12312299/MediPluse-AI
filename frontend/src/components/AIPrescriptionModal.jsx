@@ -5,6 +5,14 @@ import { downloadPrescriptionPDF } from '../utils/pdfExporter';
 export default function AIPrescriptionModal({ prescription, isOpen, onClose }) {
   const [isPlaying, setIsPlaying] = useState(false);
 
+  React.useEffect(() => {
+    return () => {
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+      }
+    };
+  }, []);
+
   if (!isOpen || !prescription) return null;
 
   const summaryText = prescription.ai_summary?.summary || 'Targeted medical intervention for rapid symptom resolution.';
