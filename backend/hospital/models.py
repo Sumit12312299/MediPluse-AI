@@ -30,6 +30,9 @@ class Doctor(models.Model):
     bio = models.TextField(blank=True, null=True)
     rating = models.FloatField(default=4.8)
 
+    class Meta:
+        ordering = ['-rating']
+
     def __str__(self):
         return f"Dr. {self.user.get_full_name() or self.user.username} - {self.specialization}"
 
