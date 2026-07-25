@@ -23,6 +23,7 @@ class UserSerializer(serializers.ModelSerializer):
 
 
 class UserProfileSerializer(serializers.ModelSerializer):
+    """Serializer for user profile settings and contact details."""
     user = UserSerializer(read_only=True)
 
     class Meta:
@@ -31,6 +32,7 @@ class UserProfileSerializer(serializers.ModelSerializer):
 
 
 class DoctorSerializer(serializers.ModelSerializer):
+    """Serializer for medical specialist profiles, ratings, and consultation fees."""
     name = serializers.SerializerMethodField()
     email = serializers.SerializerMethodField()
     phone = serializers.SerializerMethodField()
@@ -51,6 +53,7 @@ class DoctorSerializer(serializers.ModelSerializer):
 
 
 class PatientSerializer(serializers.ModelSerializer):
+    """Serializer for patient records including blood group and medical history."""
     name = serializers.SerializerMethodField()
     email = serializers.SerializerMethodField()
     phone = serializers.SerializerMethodField()
@@ -71,6 +74,7 @@ class PatientSerializer(serializers.ModelSerializer):
 
 
 class AppointmentSerializer(serializers.ModelSerializer):
+    """Serializer for OPD consultation bookings with doctor and patient display names."""
     doctor_name = serializers.SerializerMethodField()
     doctor_specialization = serializers.SerializerMethodField()
     patient_name = serializers.SerializerMethodField()
@@ -92,6 +96,7 @@ class AppointmentSerializer(serializers.ModelSerializer):
 
 
 class PrescriptionSerializer(serializers.ModelSerializer):
+    """Serializer for digital prescriptions containing medication lists and AI summaries."""
     doctor_name = serializers.SerializerMethodField()
     patient_name = serializers.SerializerMethodField()
 
@@ -107,6 +112,7 @@ class PrescriptionSerializer(serializers.ModelSerializer):
 
 
 class PaymentSerializer(serializers.ModelSerializer):
+    """Serializer for Razorpay / UPI consultation payments."""
     patient_name = serializers.SerializerMethodField()
 
     class Meta:
@@ -118,6 +124,16 @@ class PaymentSerializer(serializers.ModelSerializer):
 
 
 class NotificationLogSerializer(serializers.ModelSerializer):
+    """Serializer for SMS, Email, and System audit notification logs."""
+    recipient_username = serializers.SerializerMethodField()
+
+    class Meta:
+        model = NotificationLog
+        fields = '__all__'
+
+    def get_recipient_username(self, obj):
+        return obj.recipient.username
+
     recipient_name = serializers.SerializerMethodField()
 
     class Meta:
