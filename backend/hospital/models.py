@@ -20,6 +20,7 @@ class UserProfile(models.Model):
 
 
 class Doctor(models.Model):
+    """Represents a medical specialist doctor registered in the hospital system."""
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='doctor_profile')
     specialization = models.CharField(max_length=100)
     department = models.CharField(max_length=100)
@@ -38,6 +39,7 @@ class Doctor(models.Model):
 
 
 class Patient(models.Model):
+    """Represents a patient record containing medical history, blood group, and emergency contact."""
     GENDER_CHOICES = (
         ('MALE', 'Male'),
         ('FEMALE', 'Female'),
@@ -56,6 +58,7 @@ class Patient(models.Model):
 
 
 class Appointment(models.Model):
+    """Represents an OPD consultation booking between a patient and a doctor."""
     STATUS_CHOICES = (
         ('PENDING', 'Pending Approval'),
         ('CONFIRMED', 'Confirmed'),
@@ -76,6 +79,7 @@ class Appointment(models.Model):
 
 
 class Prescription(models.Model):
+    """Digital prescription containing diagnosis, medications JSON, and AI layman summaries."""
     appointment = models.OneToOneField(Appointment, on_delete=models.CASCADE, related_name='prescription', null=True, blank=True)
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE, related_name='prescriptions')
     doctor = models.ForeignKey(Doctor, on_delete=models.CASCADE, related_name='prescriptions')
@@ -90,6 +94,7 @@ class Prescription(models.Model):
 
 
 class Payment(models.Model):
+    """Tracks UPI, NetBanking, and Card transactions for OPD consultation fees."""
     STATUS_CHOICES = (
         ('PENDING', 'Pending'),
         ('SUCCESS', 'Success'),
@@ -108,6 +113,7 @@ class Payment(models.Model):
 
 
 class NotificationLog(models.Model):
+    """Audit trail of SMS, Email, and System notification alerts dispatched to users."""
     CHANNEL_CHOICES = (
         ('EMAIL', 'Email'),
         ('SMS', 'SMS'),
@@ -122,3 +128,4 @@ class NotificationLog(models.Model):
 
     def __str__(self):
         return f"[{self.channel}] to {self.recipient.username}: {self.title}"
+
