@@ -1,0 +1,58 @@
+/**
+ * Utility formatting functions for MediPulse AI UI
+ */
+
+/**
+ * Formats a numeric amount to Indian Rupee (INR ₹) format.
+ * @param {number|string} amount
+ * @returns {string} Formatted currency string (e.g. ₹1,200)
+ */
+export const formatCurrencyINR = (amount) => {
+  const numericVal = Number(amount) || 0;
+  return new Intl.NumberFormat('en-IN', {
+    style: 'currency',
+    currency: 'INR',
+    maximumFractionDigits: 0,
+  }).format(numericVal);
+};
+
+/**
+ * Formats an ISO date string or Date object to a readable Indian format.
+ * @param {string|Date} dateInput
+ * @returns {string} Formatted date (e.g., "25 Jul 2026")
+ */
+export const formatDateReadable = (dateInput) => {
+  if (!dateInput) return 'N/A';
+  const dateObj = new Date(dateInput);
+  if (isNaN(dateObj.getTime())) return String(dateInput);
+
+  return new Intl.DateTimeFormat('en-IN', {
+    day: '2-digit',
+    month: 'short',
+    year: 'numeric',
+  }).format(dateObj);
+};
+
+/**
+ * Returns color badge styling classes for medical appointment & prescription statuses.
+ * @param {string} status
+ * @returns {string} Tailwind CSS class string
+ */
+export const getStatusBadgeStyle = (status) => {
+  const normalized = (status || '').toUpperCase();
+  switch (normalized) {
+    case 'CONFIRMED':
+    case 'COMPLETED':
+    case 'PAID':
+    case 'SUCCESS':
+      return 'bg-emerald-500/10 text-emerald-400 border-emerald-500/30';
+    case 'PENDING':
+    case 'SCHEDULED':
+      return 'bg-amber-500/10 text-amber-400 border-amber-500/30';
+    case 'CANCELLED':
+    case 'FAILED':
+      return 'bg-rose-500/10 text-rose-400 border-rose-500/30';
+    default:
+      return 'bg-slate-500/10 text-slate-400 border-slate-500/30';
+  }
+};
