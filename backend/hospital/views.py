@@ -17,6 +17,9 @@ from .ai_engine import generate_ai_prescription_summary
 @api_view(['POST'])
 @permission_classes([AllowAny])
 def login_view(request):
+    """
+    Authenticates a user and returns JWT access/refresh tokens alongside user role metadata.
+    """
     username = request.data.get('username')
     password = request.data.get('password', 'password123')
     
@@ -43,6 +46,9 @@ def login_view(request):
 @api_view(['POST'])
 @permission_classes([AllowAny])
 def register_view(request):
+    """
+    Registers a new user (Patient, Doctor, or Admin) and creates corresponding profile records.
+    """
     username = request.data.get('username')
     email = request.data.get('email')
     password = request.data.get('password')
@@ -58,6 +64,7 @@ def register_view(request):
         username=username,
         email=email,
         password=password,
+
         first_name=first_name,
         last_name=last_name
     )
