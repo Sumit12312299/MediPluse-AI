@@ -83,3 +83,17 @@ export const truncateText = (str, maxLength = 50) => {
   return `${str.substring(0, maxLength)}...`;
 };
 
+/**
+ * Formats a transaction ID into a clean display format.
+ * @param {string} txId
+ * @returns {string} Masked or formatted transaction string
+ */
+export const formatTransactionId = (txId) => {
+  if (!txId) return 'N/A';
+  if (txId.length > 12) {
+    return `${txId.substring(0, 8)}...${txId.substring(txId.length - 4)}`;
+  }
+  return txId;
+};
+
+
