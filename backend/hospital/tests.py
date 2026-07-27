@@ -1,3 +1,54 @@
 from django.test import TestCase
+from django.contrib.auth.models import User
+from .models import UserProfile, Doctor, Patient
 
-# Create your tests here.
+
+class ModelTestCase(TestCase):
+    """Unit tests for hospital app data models."""
+
+    def setUp(self):
+        self.patient_user = User.objects.create_user(
+            username='testpatient',
+            email='patient@medipulse.ai',
+            password='Password123!',
+            first_name='Rahul',
+            last_name='Sharma'
+        )
+        self.doctor_user = User.objects.create_user(
+            username='testdoctor',
+            email='doctor@medipulse.ai',
+            password='Password123!',
+            first_name='Ananya',
+            last_name='Roy'
+        )
+
+    def test_user_profile_creation(self):
+        profile = UserProfile.objects.create(
+            user=self.patient_user,
+            role='PATIENT',
+            phone='+919876543210'
+        )
+        self.assertEqual(str(profile), 'testpatient (PATIENT)')
+        self.assertEqual(profile.role, 'PATIENT')
+
+    def test_doctor_profile_creation(self):
+        doctor = Doctor.objects.create(
+            user=self.doctor_user,
+            specialization='Cardiology',
+            department='Cardiovascular Sciences',
+            qualification='MBBS, MD, DM',
+            consultation_fee=750.00
+        )
+        self.assertIn('Ananya Roy', str(doctor))
+        self.assertEqual(doctor.specialization, 'Cardiology')
+
+    def test_patient_profile_creation(self):
+        patient = Patient.objects.create(
+            user=self.patient_user,
+            gender='MALE',
+            blood_group='O+',
+            allergies='Penicillin'
+        )
+        self.assertEqual(str(patient), 'Rahul Sharma')
+        self.assertEqual(patient.blood_group, 'O+')
+
