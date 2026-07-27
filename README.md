@@ -1,10 +1,12 @@
 # 🏥 MediPulse AI — Smart Clinical & Tele-Health Cloud Platform
 
 ![MediPulse AI Banner](https://img.shields.io/badge/MediPulse-AI_Healthcare_Cloud-0284c7?style=for-the-badge&logo=heartpulse&logoColor=white)
+![Build Status](https://img.shields.io/badge/Build-Passing-brightgreen?style=for-the-badge)
 ![React](https://img.shields.io/badge/Frontend-React_18_%7C_Vite-61DAFB?style=for-the-badge&logo=react&logoColor=black)
 ![Django](https://img.shields.io/badge/Backend-Django_5_%7C_DRF-092E20?style=for-the-badge&logo=django&logoColor=white)
 ![Tailwind CSS](https://img.shields.io/badge/Styling-Tailwind_v4-38BDF8?style=for-the-badge&logo=tailwindcss&logoColor=white)
 ![Python](https://img.shields.io/badge/Language-Python_3.12-3776AB?style=for-the-badge&logo=python&logoColor=white)
+
 
 **MediPulse AI** is an enterprise-grade, AI-driven healthcare cloud platform designed to streamline doctor-patient interactions, automate medical prescription summarization with voice synthesis, facilitate WebRTC tele-consultations, and manage Indian UPI/Razorpay payment settlements.
 
