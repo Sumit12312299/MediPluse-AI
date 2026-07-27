@@ -51,6 +51,12 @@ class DoctorSerializer(serializers.ModelSerializer):
     def get_phone(self, obj):
         return getattr(getattr(obj.user, 'profile', None), 'phone', '')
 
+    def validate_consultation_fee(self, value):
+        if value < 0:
+            raise serializers.ValidationError("Consultation fee must be a positive value.")
+        return value
+
+
 
 class PatientSerializer(serializers.ModelSerializer):
     """Serializer for patient records including blood group and medical history."""
