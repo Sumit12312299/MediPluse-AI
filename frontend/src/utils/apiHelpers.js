@@ -56,3 +56,17 @@ export const withTimeout = (promise, timeoutMs = 10000) => {
       });
   });
 };
+
+/**
+ * Extracts a user-friendly error string from unknown error objects or API exceptions.
+ * @param {Error|Object|string} error
+ * @returns {string} Clean human-readable error message
+ */
+export const getErrorMessage = (error) => {
+  if (!error) return 'An unexpected error occurred.';
+  if (typeof error === 'string') return error;
+  if (error.message) return error.message;
+  if (error.detail) return error.detail;
+  return 'Network or server error. Please try again.';
+};
+
