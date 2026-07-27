@@ -159,6 +159,7 @@ Use the following pre-seeded credentials to test different user roles:
 
 | Method | Endpoint | Description |
 | :--- | :--- | :--- |
+| `GET` | `/api/health/` | Health check endpoint for system uptime & database status |
 | `POST` | `/api/token/` | Obtain JWT Access & Refresh Tokens |
 | `GET` / `POST` | `/api/doctors/` | List or Onboard Doctors |
 | `GET` / `POST` | `/api/appointments/` | List or Book Patient Appointments |
@@ -166,6 +167,19 @@ Use the following pre-seeded credentials to test different user roles:
 | `GET` / `POST` | `/api/prescriptions/` | List or Create AI Prescriptions |
 | `GET` / `POST` | `/api/payments/` | Process UPI / Card Payment Settlements |
 | `GET` | `/api/admin-metrics/` | Fetch Hospital KPIs & Revenue |
+
+---
+
+## 🧪 Running Unit Tests
+
+Run Django backend automated model and view test suite:
+```bash
+cd backend
+python manage.py test hospital
+```
+
+---
+
 
 ## 🌟 Key Highlights & Audio Synthesis
 
