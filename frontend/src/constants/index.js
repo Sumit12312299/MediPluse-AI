@@ -32,3 +32,10 @@ export const APP_CONFIG = {
   version: '1.0.0',
   defaultConsultationFeeINR: 800,
 };
+
+export const LOCAL_STORAGE_KEYS = {
+  AUTH_TOKEN: 'medipulse_auth_token',
+  USER_DATA: 'medipulse_user',
+  THEME_MODE: 'medipulse_theme',
+};
+
