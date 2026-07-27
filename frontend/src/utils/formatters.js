@@ -56,3 +56,30 @@ export const getStatusBadgeStyle = (status) => {
       return 'bg-slate-500/10 text-slate-400 border-slate-500/30';
   }
 };
+
+/**
+ * Formats a 10-digit raw phone string to standardized Indian format (+91 XXXXX-XXXXX).
+ * @param {string} phone
+ * @returns {string} Formatted phone number
+ */
+export const formatPhoneNumber = (phone) => {
+  if (!phone) return 'N/A';
+  const cleaned = String(phone).replace(/\D/g, '');
+  if (cleaned.length === 10) {
+    return `+91 ${cleaned.slice(0, 5)}-${cleaned.slice(5)}`;
+  }
+  return String(phone);
+};
+
+/**
+ * Truncates text string to maximum length with ellipsis.
+ * @param {string} str
+ * @param {number} maxLength
+ * @returns {string} Truncated string
+ */
+export const truncateText = (str, maxLength = 50) => {
+  if (!str) return '';
+  if (str.length <= maxLength) return str;
+  return `${str.substring(0, maxLength)}...`;
+};
+
