@@ -139,6 +139,9 @@ npm install
 
 # Start Vite dev server on http://localhost:3000
 npm run dev
+
+# Build production bundle
+npm run build
 ```
 
 ---
