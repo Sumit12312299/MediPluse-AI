@@ -1,9 +1,13 @@
-/**
- * MediPulse AI - Official Digital RX & GST Invoice PDF Exporter
- * Generates print-ready medical prescriptions & GST tax receipts.
- */
+export const PDF_EXPORT_CONFIG = {
+  fontFamily: 'Inter, sans-serif',
+  primaryColor: '#0284c7',
+  badgeColor: '#0f766e',
+  pageSize: 'A4',
+  margin: '40px',
+};
 
 export function downloadPrescriptionPDF(prescription) {
+
   if (!prescription) return;
 
   const doctorName = prescription.doctor_name || 'Dr. Rajesh Sharma, MD';
