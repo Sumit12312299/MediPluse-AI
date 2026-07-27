@@ -1,6 +1,9 @@
 import os
 import json
 import re
+import logging
+
+logger = logging.getLogger(__name__)
 
 def generate_ai_prescription_summary(diagnosis, medications, raw_text=""):
     """
@@ -30,7 +33,8 @@ def generate_ai_prescription_summary(diagnosis, medications, raw_text=""):
             if match:
                 return json.loads(match.group())
         except Exception as e:
-            print(f"Gemini API call fallback due to: {e}")
+            logger.warning(f"Gemini API prescription synthesis fallback: {e}")
+
 
     # High-quality intelligent fallback AI synthesis
     med_names = [m.get('name', '') if isinstance(m, dict) else str(m) for m in medications]
