@@ -1,5 +1,9 @@
 import os
 import re
+import logging
+
+logger = logging.getLogger(__name__)
+
 
 KNOWLEDGE_BASE = [
     {
@@ -68,7 +72,8 @@ def generate_rag_response(query):
                 "powered_by": "Gemini AI"
             }
         except Exception as e:
-            print(f"Gemini RAG fallback: {e}")
+            logger.warning(f"Gemini RAG API error, falling back to local search: {e}")
+
             
     # Intelligent fall-back generation
     best_match = relevant_chunks[0]
