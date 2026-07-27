@@ -74,8 +74,12 @@ class Appointment(models.Model):
     notes = models.TextField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
+    class Meta:
+        ordering = ['-appointment_date', '-created_at']
+
     def __str__(self):
         return f"Appointment #{self.id} - {self.patient} with {self.doctor} on {self.appointment_date}"
+
 
 
 class Prescription(models.Model):
