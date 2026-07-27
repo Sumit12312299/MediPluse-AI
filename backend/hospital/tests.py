@@ -58,4 +58,12 @@ class ModelTestCase(TestCase):
         self.assertFalse(serializer.is_valid())
         self.assertIn('consultation_fee', serializer.errors)
 
+    def test_appointment_serializer_status_validation(self):
+        from .serializers import AppointmentSerializer
+        serializer = AppointmentSerializer(data={'status': 'INVALID_STATUS'})
+        self.assertFalse(serializer.is_valid())
+        self.assertIn('status', serializer.errors)
+
+
+
 
