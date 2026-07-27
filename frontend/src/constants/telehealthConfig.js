@@ -25,3 +25,19 @@ export const AI_SCRIBE_SETTINGS = {
   model: 'medipulse-clinical-scribe-v1',
   confidenceThreshold: 0.85,
 };
+
+export const TELEHEALTH_SESSION_STATUS = {
+  CONNECTING: 'CONNECTING',
+  CONNECTED: 'CONNECTED',
+  RECONNECTING: 'RECONNECTING',
+  ENDED: 'ENDED',
+  FAILED: 'FAILED',
+};
+
+export const WEBRTC_ERROR_MESSAGES = {
+  PERMISSION_DENIED: 'Camera or microphone access was denied. Please check your browser permissions.',
+  DEVICE_NOT_FOUND: 'No camera or microphone input hardware was detected on this device.',
+  PEER_DISCONNECTED: 'The remote participant disconnected from the tele-consultation room.',
+  CONNECTION_TIMEOUT: 'WebRTC ICE connection timed out. Please check your internet connection.',
+};
+
