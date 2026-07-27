@@ -100,6 +100,13 @@ class AppointmentSerializer(serializers.ModelSerializer):
         full = obj.patient.user.get_full_name()
         return full if full else obj.patient.user.username
 
+    def validate_status(self, value):
+        valid_statuses = ['PENDING', 'CONFIRMED', 'COMPLETED', 'CANCELLED']
+        if value not in valid_statuses:
+            raise serializers.ValidationError(f"Invalid status '{value}'. Allowed: {valid_statuses}")
+        return value
+
+
 
 class PrescriptionSerializer(serializers.ModelSerializer):
     """Serializer for digital prescriptions containing medication lists and AI summaries."""
