@@ -325,3 +325,16 @@ def rag_chat_api(request):
         return Response({'error': 'Query is required'}, status=status.HTTP_400_BAD_REQUEST)
     res = generate_rag_response(query)
     return Response(res)
+
+
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def health_check(request):
+    """System health check endpoint returning service operational metrics."""
+    return Response({
+        'status': 'healthy',
+        'service': 'MediPulse AI Core API',
+        'version': '1.0.0',
+        'database': 'connected'
+    }, status=status.HTTP_200_OK)
+

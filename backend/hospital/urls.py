@@ -32,4 +32,7 @@ urlpatterns = [
     
     # RAG Chat Endpoint
     path('rag-chat/', views.rag_chat_api, name='rag_chat'),
+    
+    # System Health Check
+    path('health/', views.health_check, name='health_check'),
 ]
