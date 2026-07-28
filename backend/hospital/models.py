@@ -15,7 +15,13 @@ class UserProfile(models.Model):
     address = models.TextField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
+    class Meta:
+        ordering = ['-created_at']
+        verbose_name = 'User Profile'
+        verbose_name_plural = 'User Profiles'
+
     def __str__(self):
+
         return f"{self.user.username} ({self.role})"
 
 
