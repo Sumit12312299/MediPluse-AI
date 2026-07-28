@@ -50,4 +50,10 @@ export const getWebRtcErrorMessage = (code) => {
   return WEBRTC_ERROR_MESSAGES[code] || 'An unexpected video consultation error occurred. Please try again.';
 };
 
+export const DEFAULT_MEDIA_STREAM_OPTIONS = {
+  video: true,
+  audio: true,
+};
+
+
 
