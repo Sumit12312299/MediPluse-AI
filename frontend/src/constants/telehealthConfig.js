@@ -41,3 +41,13 @@ export const WEBRTC_ERROR_MESSAGES = {
   CONNECTION_TIMEOUT: 'WebRTC ICE connection timed out. Please check your internet connection.',
 };
 
+/**
+ * Returns user-friendly error message for a given WebRTC error code.
+ * @param {string} code
+ * @returns {string} Human readable error message
+ */
+export const getWebRtcErrorMessage = (code) => {
+  return WEBRTC_ERROR_MESSAGES[code] || 'An unexpected video consultation error occurred. Please try again.';
+};
+
+
