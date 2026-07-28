@@ -56,6 +56,12 @@ class DoctorSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError("Consultation fee must be a positive value.")
         return value
 
+    def validate_rating(self, value):
+        if value < 0.0 or value > 5.0:
+            raise serializers.ValidationError("Doctor rating must be between 0.0 and 5.0.")
+        return value
+
+
 
 
 class PatientSerializer(serializers.ModelSerializer):
