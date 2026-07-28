@@ -182,3 +182,14 @@
     border-right-color: var(--border);
   }
 }
+
+@media print {
+  header, footer, nav, button {
+    display: none !important;
+  }
+  body {
+    background: #ffffff !important;
+    color: #000000 !important;
+  }
+}
+
