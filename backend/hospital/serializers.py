@@ -78,6 +78,13 @@ class PatientSerializer(serializers.ModelSerializer):
         full = obj.user.get_full_name()
         return full if full else obj.user.username
 
+    def validate_blood_group(self, value):
+        valid_groups = ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-']
+        if value and value.upper() not in valid_groups:
+            raise serializers.ValidationError(f"Invalid blood group. Allowed: {', '.join(valid_groups)}")
+        return value.upper() if value else 'O+'
+
+
     def get_email(self, obj):
         return obj.user.email
 
