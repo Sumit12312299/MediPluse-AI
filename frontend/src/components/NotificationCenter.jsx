@@ -86,8 +86,9 @@ export default function NotificationCenter({ isOpen, onClose, notifications = []
   });
 
   return (
-    <div className="fixed inset-0 z-50 overflow-hidden flex justify-end">
+    <div className="fixed inset-0 z-50 overflow-hidden flex justify-end" role="dialog" aria-modal="true" aria-labelledby="notification-center-title">
       {/* Backdrop */}
+
       <div 
         className="absolute inset-0 bg-slate-950/60 backdrop-blur-md transition-opacity animate-slide-up"
         onClick={onClose}
