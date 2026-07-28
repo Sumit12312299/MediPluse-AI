@@ -35,8 +35,9 @@ export default function BookAppointmentModal({ doctors, isOpen, onClose, onBookS
   const selectedDoctor = doctors?.find(d => d.id === parseInt(selectedDoctorId)) || doctors?.[0];
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4" role="dialog" aria-modal="true" aria-labelledby="modal-title-appointment">
       {/* Backdrop */}
+
       <div 
         className="fixed inset-0 bg-slate-900/60 backdrop-blur-md transition-opacity animate-slide-up"
         onClick={onClose}
