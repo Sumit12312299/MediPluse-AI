@@ -69,7 +69,18 @@ We follow conventional commit formatting:
 
 ---
 
+## ✅ Pull Request Checklist
+
+Before submitting a Pull Request, please ensure:
+- [ ] Code builds without errors or warnings.
+- [ ] Automated tests pass (`python manage.py test hospital`).
+- [ ] Commit messages follow the conventional commit specification.
+- [ ] New UI features maintain dark mode & glassmorphic design consistency.
+
+---
+
 ## 📬 Reporting Issues & Requesting Features
+
 
 When opening an issue:
 1. Provide a clear and descriptive title.
