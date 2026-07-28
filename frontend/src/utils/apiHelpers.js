@@ -70,3 +70,15 @@ export const getErrorMessage = (error) => {
   return 'Network or server error. Please try again.';
 };
 
+/**
+ * Determines whether an error is caused by a network disconnection.
+ * @param {Error|Object} error
+ * @returns {boolean} True if network failure detected
+ */
+export const isNetworkError = (error) => {
+  if (!error) return false;
+  const msg = String(error.message || error).toLowerCase();
+  return msg.includes('failed to fetch') || msg.includes('networkerror') || msg.includes('timeout');
+};
+
+
