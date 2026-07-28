@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { X, Mail, MessageSquare, CheckCircle, Bell, RefreshCw, Volume2, VolumeX, ShieldAlert, CreditCard, Pill, Calendar, CheckCheck, Sparkles, Filter } from 'lucide-react';
 
-// Web Audio API Synthesizer Chime for Live Notifications
+/**
+ * Plays a pleasant native Web Audio dual-tone notification chime (E5/B5 sine wave).
+ */
 function playNotificationChime() {
   try {
+
     const AudioContext = window.AudioContext || window.webkitAudioContext;
     if (!AudioContext) return;
     const ctx = new AudioContext();
