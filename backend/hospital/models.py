@@ -104,7 +104,13 @@ class Prescription(models.Model):
     ai_summary = models.JSONField(blank=True, null=True)  # AI structured summary
     created_at = models.DateTimeField(auto_now_add=True)
 
+    class Meta:
+        ordering = ['-created_at']
+        verbose_name = 'Prescription'
+        verbose_name_plural = 'Prescriptions'
+
     def __str__(self):
+
         return f"Rx for {self.patient} by {self.doctor} ({self.diagnosis})"
 
 
