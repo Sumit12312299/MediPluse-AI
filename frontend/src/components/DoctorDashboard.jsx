@@ -1,7 +1,11 @@
 import React, { useState } from 'react';
 import { Stethoscope, Calendar, Clock, CheckCircle2, XCircle, Brain, Pill, Plus, User, Sparkles, FileText, AlertCircle, Video, Activity, ShieldCheck, HeartPulse, Trash2, X, ChevronRight } from 'lucide-react';
 
+/**
+ * Doctor OPD Workstation dashboard component for managing patient OPD queues and AI prescription generation.
+ */
 export default function DoctorDashboard({ appointments, prescriptions, patients, onUpdateAppointmentStatus, onCreatePrescription, onOpenTeleconsult }) {
+
   const [selectedAppt, setSelectedAppt] = useState(null);
   const [diagnosis, setDiagnosis] = useState('');
   const [meds, setMeds] = useState([
