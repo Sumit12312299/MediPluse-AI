@@ -88,6 +88,11 @@ export const truncateText = (str, maxLength = 50) => {
  * @param {string} txId
  * @returns {string} Masked or formatted transaction string
  */
+/**
+ * Formats a transaction ID into a clean display format.
+ * @param {string} txId
+ * @returns {string} Masked or formatted transaction string
+ */
 export const formatTransactionId = (txId) => {
   if (!txId) return 'N/A';
   if (txId.length > 12) {
@@ -95,5 +100,23 @@ export const formatTransactionId = (txId) => {
   }
   return txId;
 };
+
+/**
+ * Calculates a relative human-readable timestamp.
+ * @param {string|Date} dateInput
+ * @returns {string} Relative time string (e.g. "Just now", "5m ago", "2h ago")
+ */
+export const formatTimeAgo = (dateInput) => {
+  if (!dateInput) return 'N/A';
+  const date = new Date(dateInput);
+  const now = new Date();
+  const diffInSeconds = Math.floor((now - date) / 1000);
+
+  if (diffInSeconds < 60) return 'Just now';
+  if (diffInSeconds < 3600) return `${Math.floor(diffInSeconds / 60)}m ago`;
+  if (diffInSeconds < 86400) return `${Math.floor(diffInSeconds / 3600)}h ago`;
+  return `${Math.floor(diffInSeconds / 86400)}d ago`;
+};
+
 
 
