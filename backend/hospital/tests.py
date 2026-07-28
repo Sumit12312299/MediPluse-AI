@@ -75,6 +75,13 @@ class ModelTestCase(TestCase):
         self.assertFalse(serializer.is_valid())
         self.assertIn('status', serializer.errors)
 
+    def test_patient_serializer_blood_group_validation(self):
+        from .serializers import PatientSerializer
+        serializer = PatientSerializer(data={'blood_group': 'Z+'})
+        self.assertFalse(serializer.is_valid())
+        self.assertIn('blood_group', serializer.errors)
+
+
 
 
 
