@@ -81,4 +81,16 @@ export const isNetworkError = (error) => {
   return msg.includes('failed to fetch') || msg.includes('networkerror') || msg.includes('timeout');
 };
 
+/**
+ * Validates email format using regex pattern.
+ * @param {string} email
+ * @returns {boolean} True if email is valid
+ */
+export const isValidEmail = (email) => {
+  if (!email || typeof email !== 'string') return false;
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return emailRegex.test(email.trim());
+};
+
+
 
