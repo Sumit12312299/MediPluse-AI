@@ -84,8 +84,11 @@ class Appointment(models.Model):
 
     class Meta:
         ordering = ['-appointment_date', '-created_at']
+        verbose_name = 'Appointment'
+        verbose_name_plural = 'Appointments'
 
     def __str__(self):
+
         return f"Appointment #{self.id} - {self.patient} with {self.doctor} on {self.appointment_date}"
 
 
