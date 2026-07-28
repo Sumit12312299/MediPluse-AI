@@ -129,7 +129,13 @@ class Payment(models.Model):
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='SUCCESS')
     created_at = models.DateTimeField(auto_now_add=True)
 
+    class Meta:
+        ordering = ['-created_at']
+        verbose_name = 'Payment'
+        verbose_name_plural = 'Payments'
+
     def __str__(self):
+
         return f"Payment {self.transaction_id} - {self.amount} ({self.status})"
 
 
