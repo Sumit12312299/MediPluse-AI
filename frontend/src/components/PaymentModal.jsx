@@ -115,8 +115,9 @@ export default function PaymentModal({ appointment, isOpen, onClose, onPaymentSu
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4" role="dialog" aria-modal="true" aria-labelledby="payment-modal-title">
       {/* Backdrop */}
+
       <div 
         className="fixed inset-0 bg-slate-950/80 backdrop-blur-md transition-opacity animate-slide-up"
         onClick={onClose}
