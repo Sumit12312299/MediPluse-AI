@@ -105,6 +105,38 @@ class ModelTestCase(TestCase):
         self.assertIn('Rahul Sharma', str(appointment))
         self.assertIn('2026-08-15', str(appointment))
 
+    def test_prescription_model_string_representation(self):
+        from .models import Appointment, Prescription
+        doctor = Doctor.objects.create(
+            user=self.doctor_user,
+            specialization='Dermatology',
+            department='Skin Care',
+            qualification='MBBS, MD',
+            consultation_fee=700.00
+        )
+        patient = Patient.objects.create(
+            user=self.patient_user,
+            gender='FEMALE',
+            blood_group='B+'
+        )
+        appointment = Appointment.objects.create(
+            patient=patient,
+            doctor=doctor,
+            appointment_date='2026-08-20',
+            time_slot='03:00 PM',
+            reason='Dermatitis consultation'
+        )
+        prescription = Prescription.objects.create(
+            appointment=appointment,
+            patient=patient,
+            doctor=doctor,
+            diagnosis='Acute Dermatitis',
+            medications_json=[{'name': 'Hydrocortisone', 'dosage': '1%'}]
+        )
+        self.assertIn('Rx for', str(prescription))
+        self.assertIn('Acute Dermatitis', str(prescription))
+
+
 
 
 
