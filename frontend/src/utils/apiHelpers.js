@@ -92,5 +92,17 @@ export const isValidEmail = (email) => {
   return emailRegex.test(email.trim());
 };
 
+/**
+ * Validates 10-digit Indian mobile number format.
+ * @param {string} phone
+ * @returns {boolean} True if phone format is valid
+ */
+export const isValidPhoneNumber = (phone) => {
+  if (!phone) return false;
+  const digitsOnly = String(phone).replace(/\D/g, '');
+  return digitsOnly.length === 10;
+};
+
+
 
 
