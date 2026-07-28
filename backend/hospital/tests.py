@@ -168,6 +168,13 @@ class ModelTestCase(TestCase):
         self.assertIn('TXN_IND_998877', str(payment))
         self.assertIn('SUCCESS', str(payment))
 
+    def test_payment_serializer_status_validation(self):
+        from .serializers import PaymentSerializer
+        serializer = PaymentSerializer(data={'status': 'UNKNOWN_STATUS', 'amount': 500.00})
+        self.assertFalse(serializer.is_valid())
+        self.assertIn('status', serializer.errors)
+
+
 
 
 
