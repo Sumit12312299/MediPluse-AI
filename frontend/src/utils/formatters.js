@@ -17,6 +17,23 @@ export const formatCurrencyINR = (amount) => {
 };
 
 /**
+ * Returns currency symbol for ISO code (defaults to ₹).
+ * @param {string} code
+ * @returns {string} Currency symbol
+ */
+export const getCurrencySymbol = (code = 'INR') => {
+  switch ((code || '').toUpperCase()) {
+    case 'USD': return '$';
+    case 'EUR': return '€';
+    case 'GBP': return '£';
+    case 'INR':
+    default:
+      return '₹';
+  }
+};
+
+
+/**
  * Formats an ISO date string or Date object to a readable Indian format.
  * @param {string|Date} dateInput
  * @returns {string} Formatted date (e.g., "25 Jul 2026")
