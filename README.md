@@ -195,7 +195,19 @@ python manage.py test hospital
 
 ---
 
+## 🌐 Browser Compatibility
+
+| Browser | Status | Supported Features |
+| :--- | :--- | :--- |
+| **Google Chrome** | ✅ Supported (v90+) | Full Support (WebRTC, Web Audio API, SpeechSynthesis) |
+| **Microsoft Edge** | ✅ Supported (v90+) | Full Support (WebRTC, Web Audio API, SpeechSynthesis) |
+| **Mozilla Firefox** | ✅ Supported (v88+) | WebRTC Video, Audio Chimes, PDF Export |
+| **Apple Safari** | ✅ Supported (v14+) | Canvas ECG Graph, Glassmorphic UI, JWT Auth |
+
+---
+
 ## 🔒 Security & Data Privacy
+
 
 MediPulse AI is designed with privacy-first architectural practices:
 - **Data Protection**: All sensitive medical logs and prescription details are handled with standard encryption guidelines.
