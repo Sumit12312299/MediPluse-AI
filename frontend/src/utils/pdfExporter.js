@@ -6,6 +6,16 @@ export const PDF_EXPORT_CONFIG = {
   margin: '40px',
 };
 
+/**
+ * Sanitizes strings for safe filename usage during export downloads.
+ * @param {string} name
+ * @returns {string} Cleaned filename string
+ */
+export const sanitizeFileName = (name) => {
+  return String(name || 'document').replace(/[^a-zA-Z0-0_-]/g, '_');
+};
+
+
 export function downloadPrescriptionPDF(prescription) {
 
   if (!prescription) return;
