@@ -52,6 +52,17 @@ class ModelTestCase(TestCase):
         self.assertEqual(str(patient), 'Rahul Sharma')
         self.assertEqual(patient.blood_group, 'O+')
 
+    def test_doctor_default_rating(self):
+        doctor = Doctor.objects.create(
+            user=self.doctor_user,
+            specialization='Neurology',
+            department='Neurosciences',
+            qualification='MBBS, MCh',
+            consultation_fee=1000.00
+        )
+        self.assertEqual(float(doctor.rating), 5.0)
+
+
     def test_doctor_serializer_fee_validation(self):
         from .serializers import DoctorSerializer
         serializer = DoctorSerializer(data={'consultation_fee': -10.00})
