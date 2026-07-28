@@ -47,6 +47,7 @@ export default function Navbar({ currentUser, activeRole, onSwitchRole, onOpenAu
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search OPD token, doctor, test..."
+              aria-label="Search OPD token, doctor, or medical test"
               className="w-full pl-10 pr-10 py-2 rounded-2xl glass-input text-xs font-semibold"
             />
             <span className="absolute right-3 top-1/2 -translate-y-1/2 px-1.5 py-0.5 rounded-md bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-[10px] font-mono font-bold text-slate-400">
