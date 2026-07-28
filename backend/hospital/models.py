@@ -33,6 +33,9 @@ class Doctor(models.Model):
 
     class Meta:
         ordering = ['-rating']
+        verbose_name = 'Doctor'
+        verbose_name_plural = 'Doctors'
+
 
     def __str__(self):
         return f"Dr. {self.user.get_full_name() or self.user.username} - {self.specialization}"
