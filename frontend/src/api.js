@@ -1,8 +1,10 @@
 const API_BASE = 'http://localhost:8000/api';
 
 export const getAuthToken = () => localStorage.getItem('access_token');
+export const isUserLoggedIn = () => Boolean(getAuthToken());
 export const setAuthToken = (token) => localStorage.setItem('access_token', token);
 export const removeAuthToken = () => {
+
   localStorage.removeItem('access_token');
   localStorage.removeItem('refresh_token');
   localStorage.removeItem('user');
