@@ -81,6 +81,31 @@ class ModelTestCase(TestCase):
         self.assertFalse(serializer.is_valid())
         self.assertIn('blood_group', serializer.errors)
 
+    def test_appointment_model_string_representation(self):
+        from .models import Appointment
+        doctor = Doctor.objects.create(
+            user=self.doctor_user,
+            specialization='General Medicine',
+            department='General OPD',
+            qualification='MBBS',
+            consultation_fee=500.00
+        )
+        patient = Patient.objects.create(
+            user=self.patient_user,
+            gender='MALE',
+            blood_group='A+'
+        )
+        appointment = Appointment.objects.create(
+            patient=patient,
+            doctor=doctor,
+            appointment_date='2026-08-15',
+            time_slot='11:00 AM',
+            reason='General checkup'
+        )
+        self.assertIn('Rahul Sharma', str(appointment))
+        self.assertIn('2026-08-15', str(appointment))
+
+
 
 
 
