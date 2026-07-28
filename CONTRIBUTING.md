@@ -81,7 +81,16 @@ Before submitting a Pull Request, please ensure:
 
 ---
 
+## 🛠️ Local Development Troubleshooting
+
+- **Port Conflict (`8000` / `5173`)**: Kill active processes using `netstat -ano | findstr :8000` or specify a custom port (`python manage.py runserver 8001`).
+- **Database Reset**: To re-seed initial doctor & patient mock records, delete `db.sqlite3` and run `python manage.py migrate` followed by `python manage.py seed_db`.
+- **CORS Errors**: Verify `CORS_ALLOWED_ORIGINS` in `backend/api_core/settings.py` includes `http://localhost:5173`.
+
+---
+
 ## 📬 Reporting Issues & Requesting Features
+
 
 
 When opening an issue:
