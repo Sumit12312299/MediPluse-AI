@@ -136,6 +136,39 @@ class ModelTestCase(TestCase):
         self.assertIn('Rx for', str(prescription))
         self.assertIn('Acute Dermatitis', str(prescription))
 
+    def test_payment_model_string_representation(self):
+        from .models import Appointment, Payment
+        doctor = Doctor.objects.create(
+            user=self.doctor_user,
+            specialization='Orthopedics',
+            department='Bone & Joint',
+            qualification='MBBS, MS',
+            consultation_fee=900.00
+        )
+        patient = Patient.objects.create(
+            user=self.patient_user,
+            gender='MALE',
+            blood_group='O-'
+        )
+        appointment = Appointment.objects.create(
+            patient=patient,
+            doctor=doctor,
+            appointment_date='2026-08-25',
+            time_slot='04:30 PM',
+            reason='Knee joint evaluation'
+        )
+        payment = Payment.objects.create(
+            appointment=appointment,
+            patient=patient,
+            amount=900.00,
+            payment_method='UPI',
+            transaction_id='TXN_IND_998877',
+            status='SUCCESS'
+        )
+        self.assertIn('TXN_IND_998877', str(payment))
+        self.assertIn('SUCCESS', str(payment))
+
+
 
 
 
