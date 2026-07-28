@@ -50,7 +50,9 @@ We follow conventional commit formatting:
 - `style:` Formatting, missing semi-colons, white spaces, etc.
 - `refactor:` Code refactoring without changing functionality.
 - `test:` Adding missing tests or refactoring existing tests.
+- `accessibility:` Improving keyboard navigation, ARIA attributes, or screen reader support.
 - `chore:` Maintenance tasks, build configuration, or dependency updates.
+
 
 ---
 
