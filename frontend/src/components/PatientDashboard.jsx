@@ -2,7 +2,11 @@ import React, { useState } from 'react';
 import { Calendar, Stethoscope, Sparkles, FileText, CreditCard, Clock, CheckCircle2, ChevronRight, HeartPulse, Plus, Video, Pill, Brain, Ticket, FileSpreadsheet, FileHeart, ShieldCheck, Download, Printer } from 'lucide-react';
 import { downloadPrescriptionPDF, downloadInvoicePDF } from '../utils/pdfExporter';
 
+/**
+ * Patient Health Workspace dashboard displaying vitals, appointments, AI digital prescriptions, and payment history.
+ */
 export default function PatientDashboard({ currentUser, appointments, prescriptions, payments, doctors, onOpenBooking, onOpenAIModal, onOpenPayment, onOpenTeleconsult }) {
+
   const [activeTab, setActiveTab] = useState('appointments');
 
   const upcomingAppointments = appointments?.filter(a => a.status === 'CONFIRMED' || a.status === 'PENDING') || [];
