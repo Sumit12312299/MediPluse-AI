@@ -337,10 +337,13 @@ def rag_chat_api(request):
 @permission_classes([AllowAny])
 def health_check(request):
     """System health check endpoint returning service operational metrics."""
+    from django.utils import timezone
     return Response({
         'status': 'healthy',
         'service': 'MediPulse AI Core API',
         'version': '1.0.0',
-        'database': 'connected'
+        'database': 'connected',
+        'timestamp': timezone.now().isoformat()
     }, status=status.HTTP_200_OK)
+
 
