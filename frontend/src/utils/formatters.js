@@ -148,6 +148,19 @@ export const formatDurationInMinutes = (minutes = 0) => {
   return mins > 0 ? `${hrs}h ${mins}m` : `${hrs}h`;
 };
 
+/**
+ * Formats a decimal ratio as a percentage string (e.g. 0.85 -> "85%").
+ * @param {number} ratio
+ * @param {number} decimals
+ * @returns {string} Formatted percentage
+ */
+export const formatPercentage = (ratio = 0, decimals = 0) => {
+  const val = Number(ratio) || 0;
+  const percentage = val <= 1 ? val * 100 : val;
+  return `${percentage.toFixed(decimals)}%`;
+};
+
+
 
 
 
