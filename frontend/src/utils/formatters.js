@@ -135,5 +135,19 @@ export const formatTimeAgo = (dateInput) => {
   return `${Math.floor(diffInSeconds / 86400)}d ago`;
 };
 
+/**
+ * Formats a duration in minutes to a readable string (e.g., "1h 30m").
+ * @param {number} minutes
+ * @returns {string} Formatted duration string
+ */
+export const formatDurationInMinutes = (minutes = 0) => {
+  const m = Number(minutes) || 0;
+  if (m < 60) return `${m} mins`;
+  const hrs = Math.floor(m / 60);
+  const mins = m % 60;
+  return mins > 0 ? `${hrs}h ${mins}m` : `${hrs}h`;
+};
+
+
 
 
