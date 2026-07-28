@@ -195,7 +195,17 @@ python manage.py test hospital
 
 ---
 
+## 🔒 Security & Data Privacy
+
+MediPulse AI is designed with privacy-first architectural practices:
+- **Data Protection**: All sensitive medical logs and prescription details are handled with standard encryption guidelines.
+- **Role-Based Access Control**: Strict segregation between Patient, Doctor, and Admin workspaces via JWT authentication.
+- **Audit Logging**: Comprehensive activity logs for all clinical operations and payment settlements.
+
+---
+
 ## 📄 License
 Distributed under the MIT License. See `LICENSE` for details.
 
 © 2026 MediPulse AI Health Systems Inc. All rights reserved.
+
