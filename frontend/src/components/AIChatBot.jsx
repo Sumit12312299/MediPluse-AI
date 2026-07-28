@@ -2,7 +2,11 @@ import React, { useState, useRef, useEffect } from 'react';
 import { MessageSquare, Send, X, Bot, Sparkles, HelpCircle, Mic, MicOff, Volume2, Globe, FileText, Stethoscope } from 'lucide-react';
 import { api } from '../api';
 
+/**
+ * MediPulse AI RAG Chatbot widget providing voice-enabled medical Q&A and prescription support.
+ */
 export default function AIChatBot() {
+
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([
     {
