@@ -173,7 +173,10 @@ Use the following pre-seeded credentials to test different user roles:
 | `GET` / `POST` | `/api/payments/` | Process UPI / Card Payment Settlements |
 | `GET` | `/api/admin-metrics/` | Fetch Hospital KPIs & Revenue |
 
+> **Note**: Authenticated endpoints require the `Authorization: Bearer <access_token>` HTTP header.
+
 ---
+
 
 ## 🧪 Running Unit Tests
 
