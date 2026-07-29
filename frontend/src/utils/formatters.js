@@ -160,6 +160,21 @@ export const formatPercentage = (ratio = 0, decimals = 0) => {
   return `${percentage.toFixed(decimals)}%`;
 };
 
+/**
+ * Capitalizes the first letter of each word in a string.
+ * @param {string} str
+ * @returns {string} Capitalized string
+ */
+export const capitalizeWords = (str) => {
+  if (!str || typeof str !== 'string') return '';
+  return str
+    .toLowerCase()
+    .split(' ')
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(' ');
+};
+
+
 
 
 
