@@ -110,8 +110,9 @@ export default function TeleconsultationModal({ appointment, isOpen, onClose }) 
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4" role="dialog" aria-modal="true" aria-labelledby="teleconsult-modal-title">
       {/* Backdrop */}
+
       <div 
         className="fixed inset-0 bg-slate-950/70 backdrop-blur-md transition-opacity animate-modal-pop"
         onClick={onClose}
