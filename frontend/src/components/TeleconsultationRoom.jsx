@@ -1,7 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Video, Mic, MicOff, VideoOff, PhoneOff, MessageSquare, Sparkles, ArrowLeft, ShieldCheck, Send, Brain, Stethoscope, User, Heart, Activity, FileText, Share2, Camera } from 'lucide-react';
 
+/**
+ * WebRTC Tele-consultation Video Room suite with live AI Clinical Scribe transcript.
+ */
 export default function TeleconsultationRoom({ appointment, onBackToDashboard }) {
+
   const doctorName = appointment?.doctor_name || 'Dr. Rajesh Sharma';
 
   const [isMicMuted, setIsMicMuted] = useState(false);
