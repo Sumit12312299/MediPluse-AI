@@ -148,6 +148,12 @@ class PaymentSerializer(serializers.ModelSerializer):
     def get_patient_name(self, obj):
         return obj.patient.user.get_full_name() or obj.patient.user.username
 
+    def validate_amount(self, value):
+        if value <= 0:
+            raise serializers.ValidationError("Payment amount must be greater than zero.")
+        return value
+
+
 
 class NotificationLogSerializer(serializers.ModelSerializer):
     """Serializer for SMS, Email, and System audit notification logs."""
