@@ -174,6 +174,13 @@ class ModelTestCase(TestCase):
         self.assertFalse(serializer.is_valid())
         self.assertIn('status', serializer.errors)
 
+    def test_payment_serializer_negative_amount_validation(self):
+        from .serializers import PaymentSerializer
+        serializer = PaymentSerializer(data={'amount': -100.00, 'status': 'SUCCESS'})
+        self.assertFalse(serializer.is_valid())
+        self.assertIn('amount', serializer.errors)
+
+
 
 
 
