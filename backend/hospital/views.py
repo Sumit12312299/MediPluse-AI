@@ -2,6 +2,9 @@
 MediPulse AI Hospital Views & API Endpoint Handlers
 Provides authentication, doctor management, appointments, prescriptions, payments, and system health endpoints.
 """
+import logging
+
+logger = logging.getLogger(__name__)
 
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny, IsAuthenticated
@@ -37,6 +40,7 @@ def login_view(request: Request) -> Response:
             user = User.objects.filter(email=username).first()
 
     if not user:
+        logger.warning(f"Login failed: Invalid credentials for username/email '{username}'")
         return Response({'error': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)
 
     refresh = RefreshToken.for_user(user)
@@ -64,6 +68,7 @@ def register_view(request: Request) -> Response:
     phone = request.data.get('phone', '')
 
     if User.objects.filter(username=username).exists():
+        logger.warning(f"Registration failed: Username '{username}' already exists")
         return Response({'error': 'Username already exists'}, status=status.HTTP_400_BAD_REQUEST)
 
     user = User.objects.create_user(
