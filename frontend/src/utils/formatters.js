@@ -174,6 +174,20 @@ export const capitalizeWords = (str) => {
     .join(' ');
 };
 
+/**
+ * Prepends "Dr. " to a name if not already present.
+ * @param {string} name
+ * @returns {string} Standardized doctor name
+ */
+export const formatDoctorName = (name) => {
+  if (!name || typeof name !== 'string') return '';
+  const trimmed = name.trim();
+  if (/^dr\.?/i.test(trimmed)) {
+    return trimmed.replace(/^dr\.?\s*/i, 'Dr. ');
+  }
+  return `Dr. ${trimmed}`;
+};
+
 
 
 
