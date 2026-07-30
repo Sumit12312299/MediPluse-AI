@@ -154,23 +154,17 @@ class PaymentSerializer(serializers.ModelSerializer):
         return value
 
 
-
 class NotificationLogSerializer(serializers.ModelSerializer):
     """Serializer for SMS, Email, and System audit notification logs."""
     recipient_username = serializers.SerializerMethodField()
-
-    class Meta:
-        model = NotificationLog
-        fields = '__all__'
-
-    def get_recipient_username(self, obj):
-        return obj.recipient.username
-
     recipient_name = serializers.SerializerMethodField()
 
     class Meta:
         model = NotificationLog
-        fields = '__all__'
+        fields = ['id', 'recipient', 'title', 'message', 'channel', 'status', 'sent_at', 'recipient_username', 'recipient_name']
+
+    def get_recipient_username(self, obj):
+        return obj.recipient.username
 
     def get_recipient_name(self, obj):
         return obj.recipient.get_full_name() or obj.recipient.username
