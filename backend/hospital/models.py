@@ -70,6 +70,11 @@ class Patient(models.Model):
 
         return self.user.get_full_name() or self.user.username
 
+    def save(self, *args, **kwargs):
+        if self.allergies:
+            self.allergies = self.allergies.strip()
+        super().save(*args, **kwargs)
+
 
 class Appointment(models.Model):
     """Represents an OPD consultation booking between a patient and a doctor."""
