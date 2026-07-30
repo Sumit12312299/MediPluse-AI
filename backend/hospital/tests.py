@@ -201,6 +201,12 @@ class ModelTestCase(TestCase):
         self.assertIn('[EMAIL]', str(log))
         self.assertIn('testpatient', str(log))
 
+    def test_patient_serializer_blood_group_case_insensitivity(self):
+        from .serializers import PatientSerializer
+        serializer = PatientSerializer(data={'blood_group': 'a+', 'gender': 'MALE', 'user': self.patient_user.id})
+        self.assertTrue(serializer.is_valid())
+        self.assertEqual(serializer.validated_data['blood_group'], 'A+')
+
 
 
 
