@@ -117,6 +117,21 @@ export const isValidPassword = (password) => {
   return hasLetter && hasNumber && hasSpecial;
 };
 
+/**
+ * Converts arbitrary text into a URL-safe lowercase slug format.
+ * @param {string} text Input text
+ * @returns {string} URL-safe slug
+ */
+export const slugifyText = (text) => {
+  if (!text || typeof text !== 'string') return '';
+  return text
+    .toLowerCase()
+    .trim()
+    .replace(/[^\w\s-]/g, '')
+    .replace(/[\s_-]+/g, '-')
+    .replace(/^-+|-+$/g, '');
+};
+
 
 
 
