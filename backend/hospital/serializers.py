@@ -71,6 +71,11 @@ class DoctorSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError("Doctor rating must be between 0.0 and 5.0.")
         return value
 
+    def validate_experience_years(self, value):
+        if value < 0:
+            raise serializers.ValidationError("Experience years cannot be negative.")
+        return value
+
 
 
 
