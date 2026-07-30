@@ -103,6 +103,20 @@ export const isValidPhoneNumber = (phone) => {
   return digitsOnly.length === 10;
 };
 
+/**
+ * Validates password strength (min 8 characters, at least 1 letter, 1 number, and 1 special character).
+ * @param {string} password
+ * @returns {boolean} True if password meets strength requirements
+ */
+export const isValidPassword = (password) => {
+  if (!password || typeof password !== 'string') return false;
+  if (password.length < 8) return false;
+  const hasLetter = /[a-zA-Z]/.test(password);
+  const hasNumber = /[0-9]/.test(password);
+  const hasSpecial = /[^a-zA-Z0-9]/.test(password);
+  return hasLetter && hasNumber && hasSpecial;
+};
+
 
 
 
