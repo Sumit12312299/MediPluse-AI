@@ -207,6 +207,12 @@ class ModelTestCase(TestCase):
         self.assertTrue(serializer.is_valid())
         self.assertEqual(serializer.validated_data['blood_group'], 'A+')
 
+    def test_doctor_experience_years_validation(self):
+        from .serializers import DoctorSerializer
+        serializer = DoctorSerializer(data={'experience_years': -3, 'consultation_fee': 500.00})
+        self.assertFalse(serializer.is_valid())
+        self.assertIn('experience_years', serializer.errors)
+
 
 
 
