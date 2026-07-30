@@ -46,6 +46,12 @@ class Doctor(models.Model):
     def __str__(self):
         return f"Dr. {self.user.get_full_name() or self.user.username} - {self.specialization}"
 
+    def clean(self):
+        super().clean()
+        from django.core.exceptions import ValidationError
+        if self.consultation_fee < 0:
+            raise ValidationError({'consultation_fee': 'Consultation fee must be non-negative.'})
+
 
 class Patient(models.Model):
     """Represents a patient record containing medical history, blood group, and emergency contact."""
