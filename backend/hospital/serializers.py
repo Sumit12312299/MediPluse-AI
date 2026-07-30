@@ -106,6 +106,13 @@ class PatientSerializer(serializers.ModelSerializer):
     def get_phone(self, obj):
         return getattr(getattr(obj.user, 'profile', None), 'phone', '')
 
+    def validate_emergency_contact(self, value):
+        if value:
+            import re
+            if not re.match(r'^\+?[0-9\s\-]+$', value):
+                raise serializers.ValidationError("Emergency contact must contain only digits, spaces, dashes, or a leading plus sign.")
+        return value
+
 
 class AppointmentSerializer(serializers.ModelSerializer):
     """Serializer for OPD consultation bookings with doctor and patient display names."""
