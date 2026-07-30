@@ -188,6 +188,21 @@ export const formatDoctorName = (name) => {
   return `Dr. ${trimmed}`;
 };
 
+/**
+ * Formats file size in bytes to human-readable strings (e.g. 1.25 MB).
+ * @param {number} bytes Number of bytes
+ * @param {number} decimals Number of decimal digits (default 2)
+ * @returns {string} Formatted string
+ */
+export const formatBytes = (bytes, decimals = 2) => {
+  if (bytes === 0) return '0 Bytes';
+  const k = 1024;
+  const dm = decimals < 0 ? 0 : decimals;
+  const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
+  const i = Math.floor(Math.log(bytes) / Math.log(k));
+  return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
+};
+
 
 
 
