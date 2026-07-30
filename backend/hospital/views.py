@@ -3,7 +3,6 @@ MediPulse AI Hospital Views & API Endpoint Handlers
 Provides authentication, doctor management, appointments, prescriptions, payments, and system health endpoints.
 """
 
-import uuid
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.request import Request
