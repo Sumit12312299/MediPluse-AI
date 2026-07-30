@@ -1,6 +1,6 @@
 from django.test import TestCase
 from django.contrib.auth.models import User
-from .models import UserProfile, Doctor, Patient
+from .models import UserProfile, Doctor, Patient, NotificationLog
 
 
 class ModelTestCase(TestCase):
@@ -190,10 +190,16 @@ class ModelTestCase(TestCase):
         self.assertFalse(serializer2.is_valid())
         self.assertIn('rating', serializer2.errors)
 
-
-
-
-
+    def test_notification_log_str(self):
+        log = NotificationLog.objects.create(
+            recipient=self.patient_user,
+            title='Test Title',
+            message='Test Message',
+            channel='EMAIL',
+            status='SENT'
+        )
+        self.assertIn('[EMAIL]', str(log))
+        self.assertIn('testpatient', str(log))
 
 
 
