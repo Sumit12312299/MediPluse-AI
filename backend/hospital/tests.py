@@ -180,6 +180,16 @@ class ModelTestCase(TestCase):
         self.assertFalse(serializer.is_valid())
         self.assertIn('amount', serializer.errors)
 
+    def test_doctor_serializer_rating_validation(self):
+        from .serializers import DoctorSerializer
+        serializer = DoctorSerializer(data={'rating': 5.5, 'consultation_fee': 500.00})
+        self.assertFalse(serializer.is_valid())
+        self.assertIn('rating', serializer.errors)
+
+        serializer2 = DoctorSerializer(data={'rating': -0.5, 'consultation_fee': 500.00})
+        self.assertFalse(serializer2.is_valid())
+        self.assertIn('rating', serializer2.errors)
+
 
 
 
