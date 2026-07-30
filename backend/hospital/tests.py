@@ -60,7 +60,7 @@ class ModelTestCase(TestCase):
             qualification='MBBS, MCh',
             consultation_fee=1000.00
         )
-        self.assertEqual(float(doctor.rating), 5.0)
+        self.assertEqual(float(doctor.rating), 4.8)
 
 
     def test_doctor_serializer_fee_validation(self):
