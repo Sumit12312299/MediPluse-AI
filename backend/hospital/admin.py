@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import UserProfile, Doctor, Patient, Appointment, Prescription, Payment
+from .models import UserProfile, Doctor, Patient, Appointment, Prescription, Payment, NotificationLog
 
 
 @admin.register(UserProfile)
@@ -41,4 +41,11 @@ class PaymentAdmin(admin.ModelAdmin):
     list_display = ('transaction_id', 'appointment', 'amount', 'payment_method', 'status', 'created_at')
     list_filter = ('status', 'payment_method')
     search_fields = ('transaction_id',)
+
+
+@admin.register(NotificationLog)
+class NotificationLogAdmin(admin.ModelAdmin):
+    list_display = ('id', 'recipient', 'title', 'channel', 'status', 'sent_at')
+    list_filter = ('channel', 'status')
+    search_fields = ('recipient__username', 'title', 'message')
 
