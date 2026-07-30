@@ -30,6 +30,16 @@ class UserProfileSerializer(serializers.ModelSerializer):
         model = UserProfile
         fields = '__all__'
 
+    def validate_phone(self, value):
+        if value:
+            import re
+            if not re.match(r'^\+?[0-9\s\-]+$', value):
+                raise serializers.ValidationError("Phone number must contain only digits, spaces, dashes, or a leading plus sign.")
+            digits = re.sub(r'\D', '', value)
+            if len(digits) < 10 or len(digits) > 15:
+                raise serializers.ValidationError("Phone number must contain between 10 and 15 digits.")
+        return value
+
 
 class DoctorSerializer(serializers.ModelSerializer):
     """Serializer for medical specialist profiles, ratings, and consultation fees."""
