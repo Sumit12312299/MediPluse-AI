@@ -203,6 +203,25 @@ export const formatBytes = (bytes, decimals = 2) => {
   return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
 };
 
+/**
+ * Formats a 24-hour time string (e.g. "14:30") into a 12-hour AM/PM format (e.g. "02:30 PM").
+ * @param {string} time24 24-hour time string
+ * @returns {string} 12-hour AM/PM time string
+ */
+export const formatTime24to12 = (time24) => {
+  if (!time24 || typeof time24 !== 'string') return '';
+  const parts = time24.split(':');
+  if (parts.length < 2) return time24;
+  let hours = parseInt(parts[0], 10);
+  const minutes = parts[1].trim();
+  if (isNaN(hours)) return time24;
+  const ampm = hours >= 12 ? 'PM' : 'AM';
+  hours = hours % 12;
+  hours = hours ? hours : 12;
+  const strHours = hours < 10 ? `0${hours}` : hours;
+  return `${strHours}:${minutes} ${ampm}`;
+};
+
 
 
 
