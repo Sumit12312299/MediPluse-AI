@@ -12,3 +12,8 @@ The platform consists of a Django REST Framework backend and a Vite+React fronte
 - Lucide Icons
 - Canvas Confetti
 
+### Backend Stack
+- Django 5.x
+- Django REST Framework
+- SQLite3 for local dev
+
