@@ -45,3 +45,6 @@ The platform consists of a Django REST Framework backend and a Vite+React fronte
 - Tokens stored securely in localStorage/cookies
 - Handled via AuthModal and state context
 
+### Role-Based Access Control
+- Navbar features a switcher to toggle Doctor, Patient, and Admin interfaces
+
