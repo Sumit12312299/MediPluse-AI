@@ -29,3 +29,7 @@ The platform consists of a Django REST Framework backend and a Vite+React fronte
 - UPI / Razorpay payment simulator in PaymentModal
 - Handles success and confetti animations
 
+### Tele-Consultation
+- Simulated WebRTC connection inside TeleconsultationModal
+- AI Clinical Scribe transcript generation
+
