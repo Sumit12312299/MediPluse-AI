@@ -83,3 +83,7 @@ The platform consists of a Django REST Framework backend and a Vite+React fronte
 ### Troubleshooting
 - Resolve node_modules issues by clean reinstall: `npm ci`
 
+### Future Scope
+- Native WebRTC signal server
+- Production database integration (PostgreSQL)
+
