@@ -57,3 +57,6 @@ The platform consists of a Django REST Framework backend and a Vite+React fronte
 ### Database Migrations
 - Use `./manage.py makemigrations` and `migrate` inside backend directory
 
+### Modal State Management
+- Managed centrally at App.jsx level to prevent overlay conflicts
+
