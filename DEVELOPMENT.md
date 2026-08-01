@@ -25,3 +25,7 @@ The platform consists of a Django REST Framework backend and a Vite+React fronte
 - CORS headers enabled for frontend access
 - JWT-based auth via SimpleJWT
 
+### Payments Integration
+- UPI / Razorpay payment simulator in PaymentModal
+- Handles success and confetti animations
+
