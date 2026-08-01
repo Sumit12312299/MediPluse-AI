@@ -63,3 +63,6 @@ The platform consists of a Django REST Framework backend and a Vite+React fronte
 ### Notifications Center
 - Audit trail of critical system logs, emails, and SMS dispatches
 
+### Seeding Database
+- Custom manage.py command: `python manage.py seed_db`
+
