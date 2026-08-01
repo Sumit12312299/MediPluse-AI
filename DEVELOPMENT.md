@@ -37,3 +37,7 @@ The platform consists of a Django REST Framework backend and a Vite+React fronte
 - HTML5 Canvas-based live ECG wave renderer
 - Updates dynamically to simulate active heartbeat (e.g. 72 BPM)
 
+### AI Prescription Synthesizer
+- Translates clinical terms to layperson-friendly layout
+- Integrated SpeechSynthesis for text-to-speech reading
+
