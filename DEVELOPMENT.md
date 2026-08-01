@@ -41,3 +41,7 @@ The platform consists of a Django REST Framework backend and a Vite+React fronte
 - Translates clinical terms to layperson-friendly layout
 - Integrated SpeechSynthesis for text-to-speech reading
 
+### Authentication Flow
+- Tokens stored securely in localStorage/cookies
+- Handled via AuthModal and state context
+
