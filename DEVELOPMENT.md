@@ -73,3 +73,6 @@ The platform consists of a Django REST Framework backend and a Vite+React fronte
 ### Themes & Styling
 - Tailwind CSS v4 custom variables inside index.css
 
+### UI Design System
+- Heavy use of glassmorphism utility classes and custom keyframe animations
+
