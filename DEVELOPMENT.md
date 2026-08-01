@@ -33,3 +33,7 @@ The platform consists of a Django REST Framework backend and a Vite+React fronte
 - Simulated WebRTC connection inside TeleconsultationModal
 - AI Clinical Scribe transcript generation
 
+### ECG Visualization
+- HTML5 Canvas-based live ECG wave renderer
+- Updates dynamically to simulate active heartbeat (e.g. 72 BPM)
+
