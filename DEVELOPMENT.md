@@ -17,3 +17,7 @@ The platform consists of a Django REST Framework backend and a Vite+React fronte
 - Django REST Framework
 - SQLite3 for local dev
 
+### Backend Requirements
+- Python 3.12+
+- pip dependencies in backend/requirements.txt
+
