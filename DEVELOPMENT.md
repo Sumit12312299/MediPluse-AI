@@ -70,3 +70,6 @@ The platform consists of a Django REST Framework backend and a Vite+React fronte
 - `/api/auth/` for JWT token exchange
 - `/api/appointments/` for booking management
 
+### Themes & Styling
+- Tailwind CSS v4 custom variables inside index.css
+
