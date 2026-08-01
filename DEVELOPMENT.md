@@ -48,3 +48,6 @@ The platform consists of a Django REST Framework backend and a Vite+React fronte
 ### Role-Based Access Control
 - Navbar features a switcher to toggle Doctor, Patient, and Admin interfaces
 
+### Admin Analytics Dashboard
+- KPIs for total patients, active doctors, and AI prescriptions issued
+
