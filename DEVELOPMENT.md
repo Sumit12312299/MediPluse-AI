@@ -54,3 +54,6 @@ The platform consists of a Django REST Framework backend and a Vite+React fronte
 ### Doctor Onboarding
 - Input validations for specialty, fees, department, and contact information
 
+### Database Migrations
+- Use `./manage.py makemigrations` and `migrate` inside backend directory
+
