@@ -80,3 +80,6 @@ The platform consists of a Django REST Framework backend and a Vite+React fronte
 1. Run Django: `python manage.py runserver`
 2. Run Frontend: `npm run dev`
 
+### Troubleshooting
+- Resolve node_modules issues by clean reinstall: `npm ci`
+
