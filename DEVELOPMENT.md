@@ -66,3 +66,7 @@ The platform consists of a Django REST Framework backend and a Vite+React fronte
 ### Seeding Database
 - Custom manage.py command: `python manage.py seed_db`
 
+### Key API Endpoints
+- `/api/auth/` for JWT token exchange
+- `/api/appointments/` for booking management
+
