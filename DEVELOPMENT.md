@@ -51,3 +51,6 @@ The platform consists of a Django REST Framework backend and a Vite+React fronte
 ### Admin Analytics Dashboard
 - KPIs for total patients, active doctors, and AI prescriptions issued
 
+### Doctor Onboarding
+- Input validations for specialty, fees, department, and contact information
+
