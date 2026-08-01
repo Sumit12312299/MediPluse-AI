@@ -60,3 +60,6 @@ The platform consists of a Django REST Framework backend and a Vite+React fronte
 ### Modal State Management
 - Managed centrally at App.jsx level to prevent overlay conflicts
 
+### Notifications Center
+- Audit trail of critical system logs, emails, and SMS dispatches
+
