@@ -21,3 +21,7 @@ The platform consists of a Django REST Framework backend and a Vite+React fronte
 - Python 3.12+
 - pip dependencies in backend/requirements.txt
 
+### Security & Auth
+- CORS headers enabled for frontend access
+- JWT-based auth via SimpleJWT
+
