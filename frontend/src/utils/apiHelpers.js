@@ -132,6 +132,20 @@ export const slugifyText = (text) => {
     .replace(/^-+|-+$/g, '');
 };
 
+/**
+ * Constructs a query parameter string from a key-value object.
+ * @param {Object} params Key-value pairs of parameters
+ * @returns {string} Formatted query string starting with '?'
+ */
+export const buildQueryString = (params) => {
+  if (!params || typeof params !== 'object') return '';
+  const parts = Object.entries(params)
+    .filter(([_, val]) => val !== undefined && val !== null && val !== '')
+    .map(([key, val]) => `${encodeURIComponent(key)}=${encodeURIComponent(val)}`);
+  return parts.length ? `?${parts.join('&')}` : '';
+};
+
+
 
 
 
