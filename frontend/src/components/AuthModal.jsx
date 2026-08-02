@@ -1,6 +1,15 @@
 import React, { useState } from 'react';
 import { X, Lock, Mail, User, ShieldCheck, Key, Sparkles, Loader2, HelpCircle } from 'lucide-react';
 
+/**
+ * AuthModal component manages user registration and secure JWT login.
+ * Integrates quick demo account fill-ins and simulations for Google OAuth flows.
+ * 
+ * @param {Object} props
+ * @param {boolean} props.isOpen Controls the modal dialog visibility state
+ * @param {Function} props.onClose Callback handler to close the modal dialog
+ * @param {Function} props.onAuthSuccess Callback triggered upon successful login or registration
+ */
 export default function AuthModal({ isOpen, onClose, onAuthSuccess }) {
   const [isRegister, setIsRegister] = useState(false);
   const [username, setUsername] = useState('patient@medipulse.ai');
