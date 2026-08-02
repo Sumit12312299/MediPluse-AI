@@ -2,6 +2,16 @@ import React, { useState } from 'react';
 import { Calendar, Clock, Stethoscope, User, FileText, CheckCircle2, X, Sparkles, ChevronRight } from 'lucide-react';
 import confetti from 'canvas-confetti';
 
+/**
+ * BookAppointmentModal component displays a popup dialog where a patient
+ * can choose a doctor, select date and time slots, and submit an appointment request.
+ * 
+ * @param {Object} props
+ * @param {Array} props.doctors Available doctor profiles to choose from
+ * @param {boolean} props.isOpen Controls the modal dialog visibility state
+ * @param {Function} props.onClose Callback handler to close the modal dialog
+ * @param {Function} props.onBookSuccess Callback triggered after successful appointment booking
+ */
 export default function BookAppointmentModal({ doctors, isOpen, onClose, onBookSuccess }) {
   const [selectedDoctorId, setSelectedDoctorId] = useState(doctors?.[0]?.id || 1);
   const [appointmentDate, setAppointmentDate] = useState(new Date().toISOString().split('T')[0]);
