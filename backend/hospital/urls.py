@@ -1,3 +1,8 @@
+"""
+URL configuration for the MediPulse AI Hospital app.
+Defines endpoints for authentication, doctor/patient profiles, appointments,
+prescriptions, payments, notification logs, admin dashboards, RAG assistant, and system health checks.
+"""
 from django.urls import path
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from . import views
@@ -5,6 +10,7 @@ from . import views
 app_name = 'hospital'
 
 urlpatterns = [
+
 
     # JWT Auth
     path('token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
