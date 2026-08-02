@@ -3,6 +3,16 @@ import { CreditCard, QrCode, Building2, Smartphone, ShieldCheck, Lock, CheckCirc
 import confetti from 'canvas-confetti';
 import { downloadInvoicePDF } from '../utils/pdfExporter';
 
+/**
+ * PaymentModal component handles online transactions for doctor consultation fees.
+ * Integrates Razorpay/UPI gateway simulation steps, timers, and triggers post-success animations.
+ * 
+ * @param {Object} props
+ * @param {Object} props.appointment Active appointment details linking patient and fee amount
+ * @param {boolean} props.isOpen Controls the modal dialog visibility state
+ * @param {Function} props.onClose Callback handler to close the payment modal
+ * @param {Function} props.onPaymentSuccess Callback triggered after successful payment processing
+ */
 export default function PaymentModal({ appointment, isOpen, onClose, onPaymentSuccess }) {
   const [paymentMethod, setPaymentMethod] = useState('UPI');
   const [selectedUpiApp, setSelectedUpiApp] = useState('gpay');
