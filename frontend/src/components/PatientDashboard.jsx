@@ -4,6 +4,17 @@ import { downloadPrescriptionPDF, downloadInvoicePDF } from '../utils/pdfExporte
 
 /**
  * Patient Health Workspace dashboard displaying vitals, appointments, AI digital prescriptions, and payment history.
+ * 
+ * @param {Object} props
+ * @param {Object} props.currentUser Current logged-in user profile details
+ * @param {Array} props.appointments List of patient's appointments
+ * @param {Array} props.prescriptions List of patient's digital prescriptions
+ * @param {Array} props.payments List of patient's billing transactions
+ * @param {Array} props.doctors Available doctor profiles list
+ * @param {Function} props.onOpenBooking Callback to trigger new appointment scheduling modal
+ * @param {Function} props.onOpenAIModal Callback to launch AI prescription guidance modal
+ * @param {Function} props.onOpenPayment Callback to open billing checkout modal
+ * @param {Function} props.onOpenTeleconsult Callback to launch video consultation room
  */
 export default function PatientDashboard({ currentUser, appointments, prescriptions, payments, doctors, onOpenBooking, onOpenAIModal, onOpenPayment, onOpenTeleconsult }) {
 
