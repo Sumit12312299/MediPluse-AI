@@ -3,6 +3,14 @@ import { Stethoscope, Calendar, Clock, CheckCircle2, XCircle, Brain, Pill, Plus,
 
 /**
  * Doctor OPD Workstation dashboard component for managing patient OPD queues and AI prescription generation.
+ * 
+ * @param {Object} props
+ * @param {Array} props.appointments List of all system appointments
+ * @param {Array} props.prescriptions List of generated digital prescriptions
+ * @param {Array} props.patients List of active patients
+ * @param {Function} props.onUpdateAppointmentStatus Callback to update status of an appointment
+ * @param {Function} props.onCreatePrescription Callback to save a newly generated prescription
+ * @param {Function} props.onOpenTeleconsult Callback to launch teleconsultation room suite
  */
 export default function DoctorDashboard({ appointments, prescriptions, patients, onUpdateAppointmentStatus, onCreatePrescription, onOpenTeleconsult }) {
 
