@@ -31,10 +31,12 @@ class UserProfileSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
     def validate_phone(self, value):
+        # Validate phone numbers using regex allowing international formatting.
         if value:
             import re
             if not re.match(r'^\+?[0-9\s\-]+$', value):
                 raise serializers.ValidationError("Phone number must contain only digits, spaces, dashes, or a leading plus sign.")
+            # Strip non-digit characters to verify numeric count is between 10 and 15 digits.
             digits = re.sub(r'\D', '', value)
             if len(digits) < 10 or len(digits) > 15:
                 raise serializers.ValidationError("Phone number must contain between 10 and 15 digits.")
@@ -62,16 +64,19 @@ class DoctorSerializer(serializers.ModelSerializer):
         return getattr(getattr(obj.user, 'profile', None), 'phone', '')
 
     def validate_consultation_fee(self, value):
+        # Ensure consultation fee is positive. Doctors cannot charge negative rates.
         if value < 0:
             raise serializers.ValidationError("Consultation fee must be a positive value.")
         return value
 
     def validate_rating(self, value):
+        # Rating must fall within standard 0.0 to 5.0 scale.
         if value < 0.0 or value > 5.0:
             raise serializers.ValidationError("Doctor rating must be between 0.0 and 5.0.")
         return value
 
     def validate_experience_years(self, value):
+        # Years of experience must be non-negative.
         if value < 0:
             raise serializers.ValidationError("Experience years cannot be negative.")
         return value
@@ -94,6 +99,7 @@ class PatientSerializer(serializers.ModelSerializer):
         return full if full else obj.user.username
 
     def validate_blood_group(self, value):
+        # Restrict blood group input to standard recognized clinical categories.
         valid_groups = ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-']
         if value and value.upper() not in valid_groups:
             raise serializers.ValidationError(f"Invalid blood group. Allowed: {', '.join(valid_groups)}")
