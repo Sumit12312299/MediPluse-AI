@@ -23,6 +23,7 @@ class ModelTestCase(TestCase):
         )
 
     def test_user_profile_creation(self):
+        """Verify that a UserProfile instance is created with correct roles and string representation."""
         profile = UserProfile.objects.create(
             user=self.patient_user,
             role='PATIENT',
@@ -32,6 +33,7 @@ class ModelTestCase(TestCase):
         self.assertEqual(profile.role, 'PATIENT')
 
     def test_doctor_profile_creation(self):
+        """Verify that a Doctor profile model maps user properties and details correctly."""
         doctor = Doctor.objects.create(
             user=self.doctor_user,
             specialization='Cardiology',
@@ -43,6 +45,7 @@ class ModelTestCase(TestCase):
         self.assertEqual(doctor.specialization, 'Cardiology')
 
     def test_patient_profile_creation(self):
+        """Verify patient creation, default fields, and string conversion."""
         patient = Patient.objects.create(
             user=self.patient_user,
             gender='MALE',
@@ -53,6 +56,7 @@ class ModelTestCase(TestCase):
         self.assertEqual(patient.blood_group, 'O+')
 
     def test_doctor_default_rating(self):
+        """Verify the rating defaults to 4.8 when rating field is omitted on Doctor profile creation."""
         doctor = Doctor.objects.create(
             user=self.doctor_user,
             specialization='Neurology',
