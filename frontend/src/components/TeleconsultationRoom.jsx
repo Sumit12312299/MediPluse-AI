@@ -3,6 +3,12 @@ import { Video, Mic, MicOff, VideoOff, PhoneOff, MessageSquare, Sparkles, ArrowL
 
 /**
  * WebRTC Tele-consultation Video Room suite with live AI Clinical Scribe transcript.
+ * Supports WebRTC media streams, live transcription, mock heartbeat telemetry,
+ * text chatting, and clinical scribe tools.
+ * 
+ * @param {Object} props
+ * @param {Object} props.appointment Active appointment details
+ * @param {Function} props.onBackToDashboard Callback to navigate back to dashboard
  */
 export default function TeleconsultationRoom({ appointment, onBackToDashboard }) {
 
