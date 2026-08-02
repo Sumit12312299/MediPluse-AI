@@ -1,6 +1,10 @@
 import React from 'react';
 import { HeartPulse, ShieldCheck, Phone, Mail, MapPin, ExternalLink, Lock } from 'lucide-react';
 
+/**
+ * Footer component displaying company brand, certification badges,
+ * list of patient services, departments, and emergency helplines.
+ */
 export default function Footer() {
   return (
     <footer className="mt-16 border-t border-slate-200/80 dark:border-slate-800 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md pt-12 pb-8 text-slate-600 dark:text-slate-400 text-xs">
