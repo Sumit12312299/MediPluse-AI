@@ -1,6 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import { HeartPulse, Bell, User, ShieldPlus, Stethoscope, UserRoundCheck, LogOut, Sun, Moon, Search, Command, Activity, Sparkles } from 'lucide-react';
 
+/**
+ * Navbar component for global header navigation, quick search,
+ * role portal switching, theme toggling, and authentication status.
+ * 
+ * @param {Object} props
+ * @param {Object} props.currentUser Current authenticated user details
+ * @param {string} props.activeRole Current user role mode (e.g. PATIENT, DOCTOR, ADMIN)
+ * @param {Function} props.onSwitchRole Callback to change user role view
+ * @param {Function} props.onOpenAuth Callback to open login/signup credentials modal
+ * @param {Function} props.onLogout Callback to clear tokens and log out user session
+ * @param {number} props.notificationCount Unread alerts badge count
+ * @param {Function} props.onOpenNotifications Callback to open notification side drawer
+ * @param {string} props.activeView Active page view (e.g. landing, dashboard)
+ */
 export default function Navbar({ currentUser, activeRole, onSwitchRole, onOpenAuth, onLogout, notificationCount, onOpenNotifications, activeView }) {
   const [isDark, setIsDark] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
