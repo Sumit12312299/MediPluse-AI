@@ -14,8 +14,11 @@ export const PDF_EXPORT_CONFIG = {
 export const sanitizeFileName = (name) => {
   return String(name || 'document').replace(/[^a-zA-Z0-0_-]/g, '_');
 };
-
-
+/**
+ * Triggers a download of a generated PDF document containing prescription details,
+ * medications, and the AI-generated layman summary.
+ * @param {Object} prescription Prescription details (patient, doctor, meds, AI summary)
+ */
 export function downloadPrescriptionPDF(prescription) {
 
   if (!prescription) return;
