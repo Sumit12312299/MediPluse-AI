@@ -29,11 +29,17 @@ def generate_ai_prescription_summary(diagnosis, medications, raw_text=""):
                 "summary, dosage_instructions, potential_side_effects, dietary_advice, key_precautions, audio_transcript."
             )
             response = model.generate_content(f"{system_prompt}\n\nPatient Case: {prompt}")
+            logger.info(f"Initiated Gemini API request for diagnosis: {diagnosis}")
             match = re.search(r'\{.*\}', response.text, re.DOTALL)
             if match:
+                logger.info("Successfully extracted and parsed JSON from Gemini response")
                 return json.loads(match.group())
+            else:
+                logger.warning("Gemini response did not contain valid JSON format")
         except Exception as e:
-            logger.warning(f"Gemini API prescription synthesis fallback: {e}")
+            logger.error(f"Gemini API prescription synthesis failed: {e}", exc_info=True)
+            logger.info("Falling back to rule-based fallback generator")
+
 
 
     # High-quality intelligent fallback AI synthesis
