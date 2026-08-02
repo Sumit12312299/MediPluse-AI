@@ -1,6 +1,7 @@
 import os
 import re
 import logging
+from typing import List, Dict, Any
 
 logger = logging.getLogger(__name__)
 
@@ -36,8 +37,17 @@ KNOWLEDGE_BASE = [
     }
 ]
 
-def search_knowledge_base(query, top_k=2):
-    """Simple term-frequency overlap keyword matching for local fallback retrieval"""
+def search_knowledge_base(query: str, top_k: int = 2) -> List[Dict[str, str]]:
+    """
+    Simple term-frequency overlap keyword matching for local fallback retrieval.
+    
+    Args:
+        query: User search query.
+        top_k: Maximum number of relevant chunks to return.
+        
+    Returns:
+        A list of matching chunks sorted by overlap.
+    """
     query_words = set(re.findall(r'\w+', query.lower()))
     matches = []
     for chunk in KNOWLEDGE_BASE:
@@ -49,7 +59,13 @@ def search_knowledge_base(query, top_k=2):
     matches.sort(key=lambda x: x[1], reverse=True)
     return [item[0] for item in matches[:top_k]]
 
-def generate_rag_response(query):
+
+def generate_rag_response(query: str) -> Dict[str, Any]:
+    """
+    Generates a RAG response based on the search query.
+    First tries calling Gemini API with retrieved context, and falls back to a rule-based
+    local search summary if the API call fails or is not configured.
+    """
     # Retrieve context
     relevant_chunks = search_knowledge_base(query)
     context = "\n\n".join([f"Source: {c['title']}\n{c['content']}" for c in relevant_chunks])
