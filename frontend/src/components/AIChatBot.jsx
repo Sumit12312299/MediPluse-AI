@@ -52,6 +52,9 @@ export default function AIChatBot() {
     }
   }, [messages, isOpen]);
 
+  /**
+   * Toggles Web Speech Recognition interface for audio speech input.
+   */
   const toggleVoiceInput = () => {
     if (!recognitionRef.current) {
       alert('Speech Recognition is not supported in this browser. Please use Chrome/Edge.');
@@ -65,6 +68,10 @@ export default function AIChatBot() {
     }
   };
 
+  /**
+   * Dispatches the user question to the RAG backend system and updates chat log state.
+   * @param {string} queryText User text input override (defaults to current input state)
+   */
   const handleSendQuery = async (queryText) => {
     const targetQuery = queryText || input;
     if (!targetQuery.trim() || loading) return;
