@@ -1,6 +1,15 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Video, Mic, MicOff, VideoOff, PhoneOff, MessageSquare, Sparkles, X, Brain, Stethoscope, User, ShieldCheck, Send, CheckCircle2, Camera } from 'lucide-react';
 
+/**
+ * TeleconsultationModal component manages virtual consultations between doctors and patients.
+ * Integrates HTML5 getUserMedia to toggle camera feed streaming and displays instant messaging.
+ * 
+ * @param {Object} props
+ * @param {Object} props.appointment Active appointment details linking patient and doctor
+ * @param {boolean} props.isOpen Controls modal screen visibility
+ * @param {Function} props.onClose Callback triggered when closing the consultation suite
+ */
 export default function TeleconsultationModal({ appointment, isOpen, onClose }) {
   const [isMicMuted, setIsMicMuted] = useState(false);
   const [isVideoOff, setIsVideoOff] = useState(false);
