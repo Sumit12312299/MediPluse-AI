@@ -3,6 +3,7 @@
  */
 
 export const WEBRTC_CONFIG = {
+  // STUN (Session Traversal Utilities for NAT) servers to discover public IP addresses during connection setup.
   iceServers: [
     { urls: 'stun:stun.l.google.com:19302' },
     { urls: 'stun:stun1.l.google.com:19302' },
