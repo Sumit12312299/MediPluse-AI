@@ -104,6 +104,10 @@ def register_view(request: Request) -> Response:
 @api_view(['GET', 'POST'])
 @permission_classes([AllowAny])
 def doctors_list(request):
+    """
+    GET: Retrieve a list of all doctors.
+    POST: Create/register a new doctor profile (Admin action).
+    """
     if request.method == 'GET':
         doctors = Doctor.objects.all()
         serializer = DoctorSerializer(doctors, many=True)
@@ -134,6 +138,9 @@ def doctors_list(request):
 @api_view(['GET'])
 @permission_classes([AllowAny])
 def patients_list(request):
+    """
+    Retrieve a list of all registered patient profiles.
+    """
     patients = Patient.objects.all()
     serializer = PatientSerializer(patients, many=True)
     return Response(serializer.data)
@@ -143,6 +150,11 @@ def patients_list(request):
 @api_view(['GET', 'POST', 'PATCH'])
 @permission_classes([AllowAny])
 def appointments_api(request, pk=None):
+    """
+    GET: Retrieve appointments list, optionally filtered by patient_id or doctor_id.
+    POST: Book/create a new appointment and create a corresponding notification log.
+    PATCH: Update appointment status or notes by pk.
+    """
     if request.method == 'GET':
         patient_id = request.query_params.get('patient_id')
         doctor_id = request.query_params.get('doctor_id')
