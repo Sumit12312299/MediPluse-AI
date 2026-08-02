@@ -77,8 +77,17 @@ The platform consists of a Django REST Framework backend and a Vite+React fronte
 - Heavy use of glassmorphism utility classes and custom keyframe animations
 
 ### Running Locally
-1. Run Django: `python manage.py runserver`
-2. Run Frontend: `npm run dev`
+
+1. **Start Django Backend**:
+   ```bash
+   cd backend
+   python manage.py runserver
+   ```
+2. **Start React Frontend**:
+   ```bash
+   cd frontend
+   npm run dev
+   ```
 
 ### Troubleshooting
 - Resolve node_modules issues by clean reinstall: `npm ci`
