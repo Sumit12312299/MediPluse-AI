@@ -2,6 +2,15 @@ import React, { useState } from 'react';
 import { Pill, Sparkles, Volume2, VolumeX, FileText, CheckCircle2, X, Brain, Stethoscope, User, Calendar, ShieldCheck, Download, Printer } from 'lucide-react';
 import { downloadPrescriptionPDF } from '../utils/pdfExporter';
 
+/**
+ * AIPrescriptionModal component presents digital prescriptions.
+ * Integrates Web Speech Synthesis to read layman summaries out loud.
+ * 
+ * @param {Object} props
+ * @param {Object} props.prescription Active prescription model instance details
+ * @param {boolean} props.isOpen Controls the modal dialog visibility state
+ * @param {Function} props.onClose Callback handler to close the prescription modal
+ */
 export default function AIPrescriptionModal({ prescription, isOpen, onClose }) {
   const [isPlaying, setIsPlaying] = useState(false);
 
