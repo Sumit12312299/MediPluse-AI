@@ -104,6 +104,11 @@ const MOCK_METRICS = {
   total_revenue: 18400.00
 };
 
+/**
+ * Central API Service interface for MediPulse AI.
+ * Implements standard REST/JSON client interactions with Django JWT endpoints.
+ * Includes auto-fallback to mock datasets if network requests fail or target server is offline.
+ */
 export const api = {
   async login(username, password) {
     try {
