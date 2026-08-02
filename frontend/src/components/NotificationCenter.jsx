@@ -39,6 +39,16 @@ function playNotificationChime() {
   }
 }
 
+/**
+ * NotificationCenter component renders a sliding side drawer listing medical alerts,
+ * payment logs, and prescription reminders. Playback audio cues utilize Web Audio API.
+ * 
+ * @param {Object} props
+ * @param {boolean} props.isOpen Controls visibility state of the drawer
+ * @param {Function} props.onClose Callback triggered when drawer is closed or clicked outside
+ * @param {Array} props.notifications List of system notification log items
+ * @param {Function} props.onRefresh Callback to trigger fresh fetch request of log items
+ */
 export default function NotificationCenter({ isOpen, onClose, notifications = [], onRefresh }) {
   const [activeFilter, setActiveFilter] = useState('ALL');
   const [isMuted, setIsMuted] = useState(false);
