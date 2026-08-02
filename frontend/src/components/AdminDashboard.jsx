@@ -32,6 +32,16 @@ function AnimatedCounter({ value, prefix = '', suffix = '', decimals = 0, durati
   );
 }
 
+/**
+ * AdminDashboard component displays aggregated operations metrics, total billing,
+ * active logs audit, and handles onboarding/registering new medical specialists.
+ * 
+ * @param {Object} props
+ * @param {Object} props.metrics Aggregated database counts (patients, appointments, earnings)
+ * @param {Array} props.doctors Registered doctor profiles list
+ * @param {Array} props.notifications Dispatched SMS/Email audit logs
+ * @param {Function} props.onAddDoctor Callback logic to register a new doctor
+ */
 export default function AdminDashboard({ metrics, doctors, notifications, onAddDoctor }) {
   const [isAddDoctorOpen, setIsAddDoctorOpen] = useState(false);
   const [docName, setDocName] = useState('');
