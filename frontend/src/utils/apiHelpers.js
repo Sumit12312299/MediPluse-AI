@@ -149,3 +149,36 @@ export const buildQueryString = (params) => {
 
 
 
+
+
+/**
+ * Sanitizes user input by trimming whitespace and removing potentially dangerous characters.
+ * @param {string} input
+ * @returns {string} Sanitized string
+ */
+export const sanitizeInput = (input) => {
+  if (!input || typeof input !== 'string') return '';
+  return input.trim().replace(/[<>"'`]/g, '');
+};
+
+/**
+ * Retries an async function up to maxRetries times with exponential backoff.
+ * @param {Function} fn Async function to retry
+ * @param {number} maxRetries Maximum number of retry attempts
+ * @param {number} baseDelayMs Base delay in milliseconds
+ * @returns {Promise<any>}
+ */
+export const retryWithBackoff = async (fn, maxRetries = 3, baseDelayMs = 500) => {
+  let lastError;
+  for (let attempt = 0; attempt <= maxRetries; attempt++) {
+    try {
+      return await fn();
+    } catch (err) {
+      lastError = err;
+      if (attempt < maxRetries) {
+        await new Promise(resolve => setTimeout(resolve, baseDelayMs * Math.pow(2, attempt)));
+      }
+    }
+  }
+  throw lastError;
+};
