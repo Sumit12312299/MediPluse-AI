@@ -224,3 +224,43 @@ Distributed under the MIT License. See `LICENSE` for details.
 
 Â© 2026 MediPulse AI Health Systems Inc. All rights reserved.
 
+
+
+---
+
+## Quick Start
+
+### Backend
+```bash
+cd backend && pip install -r requirements.txt
+python manage.py migrate && python manage.py runserver
+```
+
+### Frontend
+```bash
+cd frontend && npm install && npm run dev
+```
+
+### Docker
+```bash
+cp .env.example .env   # fill your keys
+docker-compose up --build
+```
+
+## Project Structure
+```
+medipulse-ai/
++-- backend/          # Django REST API
++-- frontend/         # React + Vite SPA
+¦   +-- src/
+¦       +-- components/
+¦       +-- constants/
+¦       +-- hooks/
+¦       +-- utils/
++-- .github/          # CI & issue templates
++-- docker-compose.yml
++-- Makefile
+```
+
+## Contributing
+See [CONTRIBUTING.md](CONTRIBUTING.md) and [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md).
