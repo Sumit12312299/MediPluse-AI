@@ -222,3 +222,32 @@ export const formatTime24to12 = (time24) => {
 
 
 
+
+
+/**
+ * Calculates age in years from a date of birth string or Date object.
+ * @param {string|Date} dob Date of birth
+ * @returns {number} Age in years, or 0 if invalid
+ */
+export const calculateAge = (dob) => {
+  if (!dob) return 0;
+  const birth = new Date(dob);
+  if (isNaN(birth.getTime())) return 0;
+  const now = new Date();
+  let age = now.getFullYear() - birth.getFullYear();
+  const monthDiff = now.getMonth() - birth.getMonth();
+  if (monthDiff < 0 || (monthDiff === 0 && now.getDate() < birth.getDate())) {
+    age--;
+  }
+  return age;
+};
+
+/**
+ * Formats a blood group string to a standardized display value.
+ * @param {string} bg Blood group (e.g. "o+" or "B-")
+ * @returns {string} Standardized blood group (e.g. "O+")
+ */
+export const formatBloodGroup = (bg) => {
+  if (!bg || typeof bg !== 'string') return 'N/A';
+  return bg.toUpperCase().trim();
+};
