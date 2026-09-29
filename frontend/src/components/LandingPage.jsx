@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { 
   HeartPulse, Stethoscope, Video, MessageSquare, CreditCard, Sparkles, 
   ShieldCheck, Activity, Users, ArrowRight, Star, Plus, CheckCircle, 
-  HelpCircle, ChevronRight, Play, Globe, ShieldAlert, Award
+  ChevronRight, Play, Globe, Zap, Cpu, Award, BadgeCheck, Clock, Check
 } from 'lucide-react';
 import medicalHeroImg from '../assets/medical_hero.png';
 
@@ -11,114 +11,123 @@ export default function LandingPage({ currentUser, onOpenAuth, onNavigateToRole,
   const [openFaqIndex, setOpenFaqIndex] = useState(null);
 
   const featuredDoctors = doctors ? doctors.slice(0, 4) : [
-    { id: 1, name: 'Dr. Sarah Jenkins', specialty: 'Cardiology & Heart Health', fee: 800, rating: 4.9 },
-    { id: 2, name: 'Dr. Priya Patel', specialty: 'Pediatrics & Child Care', fee: 600, rating: 4.8 },
-    { id: 3, name: 'Dr. Rajesh Sharma', specialty: 'Neurology & Brain Science', fee: 1200, rating: 5.0 },
-    { id: 4, name: 'Dr. Amit Verma', specialty: 'Orthopedics & Joint Care', fee: 700, rating: 4.7 }
+    { id: 1, name: 'Dr. Sarah Jenkins', specialty: 'Cardiology & Heart Health', exp: '12+ yrs exp', fee: 800, rating: 4.9, reviews: 142 },
+    { id: 2, name: 'Dr. Priya Patel', specialty: 'Pediatrics & Child Care', exp: '9+ yrs exp', fee: 600, rating: 4.8, reviews: 98 },
+    { id: 3, name: 'Dr. Rajesh Sharma', specialty: 'Neurology & Brain Science', exp: '16+ yrs exp', fee: 1200, rating: 5.0, reviews: 210 },
+    { id: 4, name: 'Dr. Amit Verma', specialty: 'Orthopedics & Joint Care', exp: '11+ yrs exp', fee: 700, rating: 4.7, reviews: 85 }
   ];
 
   const serviceTabDetails = {
     opd: {
-      title: 'High-Fidelity Virtual OPD Consults',
-      desc: 'Connect directly with certified specialists over a low-latency WebRTC connection. Equipped with a live meeting timer, local camera feed picture-in-picture, and one-click screen snapshot storage.',
-      bullets: ['Full duplex audio-video encryption', 'Automatic live call status checks', 'Dynamic audio-level indicators'],
-      stats: '12ms Avg Latency'
+      title: 'High-Fidelity Virtual OPD Consultations',
+      desc: 'Connect directly with certified specialists over ultra-low-latency WebRTC encrypted video pipelines. Equipped with live session telemetry, synchronized vitals broadcast, and instant snapshot clinical archiving.',
+      bullets: ['End-to-end full duplex WebRTC video encryption', 'Automatic live call bandwidth & latency optimizer', 'Dynamic real-time audio telemetry visualizers'],
+      stats: '12ms Latency',
+      tag: 'Real-Time WebRTC',
+      color: 'from-sky-500 to-blue-600'
     },
     scribe: {
-      title: 'AI Layman Scribe Summarization',
-      desc: 'Automatically capture doctor-patient discussions. Transcribe audio in real-time, generate structured digital prescriptions with drug dosages, and convert them to speech for patients with visual impairments.',
-      bullets: ['Speech-to-text transcription engine', 'Voice synthesis patient reading mode', 'One-click PDF receipt and Rx logs'],
-      stats: '98.8% Transcribe Accuracy'
+      title: 'AI Clinical Layman Scribe Summarization',
+      desc: 'Automatically transcribe audio in real-time between physician and patient. Synthesize structured digital prescriptions with precise dosage schedules and audio voice readback for accessibility.',
+      bullets: ['Speech-to-text medical transcription engine', 'Natural voice synthesis audio readback mode', 'One-click authenticated PDF & Rx generation'],
+      stats: '99.4% Accuracy',
+      tag: 'Gemini Scribe AI',
+      color: 'from-purple-500 to-indigo-600'
     },
     rag: {
-      title: 'Retrieval-Augmented Medical RAG',
-      desc: 'Ask our clinical chatbot about medications, appointment schedules, or lab results. Backed by private vector database storage, search queries are verified against HIPAA-compliant guidelines in real-time.',
-      bullets: ['Private patient vector database', 'Multi-match source verification', 'Holographic floating quick-access UI'],
-      stats: '< 1.2s Query Response'
+      title: 'Retrieval-Augmented Medical Knowledge Vault',
+      desc: 'Query our specialized clinical chatbot for medical guidelines, appointments, drug interactions, and diagnostics backed by vector-embedded private clinical repositories.',
+      bullets: ['Private HIPAA-compliant patient vector vault', 'Multi-match clinical source verification', 'Instant conversational intelligence assistant'],
+      stats: '< 1.1s Response',
+      tag: 'Vector AI Engine',
+      color: 'from-teal-500 to-emerald-600'
     },
     upi: {
-      title: 'Confetti UPI Payments & QR Billing',
-      desc: 'Process consultation fees using RuPay, Google Pay, PhonePe, or net banking. Includes instant payment callbacks, custom invoice generation, and celebratory confetti effects upon success.',
-      bullets: ['Dual-channel UPI validation', 'Dynamic invoice print templates', 'Interactive success confetti boost'],
-      stats: '99.99% Settlement Rate'
+      title: 'Instant Confetti UPI & QR Tele-Billing',
+      desc: 'Effortlessly settle consultation charges using Google Pay, PhonePe, Paytm, BHIM UPI, or cards with zero checkout friction and automated invoice receipt generation.',
+      bullets: ['Instant UPI QR code generation & webhook triggers', 'Dynamic downloadable billing invoices', 'Celebratory interactive success animations'],
+      stats: '99.99% Uptime',
+      tag: 'Instant Settlement',
+      color: 'from-emerald-500 to-teal-600'
     }
   };
 
   const faqItems = [
     {
-      q: 'Is my medical data secure and private?',
-      a: 'Absolutely. MediPulse complies with HIPAA guidelines. All call recordings, RAG search vectors, and patient files are double-encrypted both in transit and at rest.'
+      q: 'Is my medical telemetry data secure and private?',
+      a: 'Yes, absolutely. MediPulse adheres strictly to HIPAA and ISO 27001 data protection standards. All video consultations, AI scribe notes, and patient records are encrypted end-to-end both in transit and at rest.'
     },
     {
-      q: 'How do I start a virtual consult with a doctor?',
-      a: 'Sign up as a Patient, select an online OPD specialist, pay the consultation fee via UPI, and click "Join Consult" to enter the live WebRTC room immediately.'
+      q: 'How do I start a virtual consultation with a doctor?',
+      a: 'Register as a Patient, choose your preferred OPD specialist from the live directory, confirm your session via UPI/Card, and step directly into your private WebRTC room.'
     },
     {
-      q: 'Can doctors write and sign prescriptions digitally?',
-      a: 'Yes. Our AI Scribe automatically compiles prescription summaries. Doctors can review, edit, and digitally sign the RX file before it is sent to the patient.'
+      q: 'Can doctors review and edit prescriptions before dispatching?',
+      a: 'Yes. Our AI Scribe generates an initial draft based on the consultation transcript, allowing the doctor full editing capability, signature validation, and instant delivery to the patient.'
     },
     {
-      q: 'What payment modes are supported on MediPulse?',
-      a: 'We support all major Indian UPI apps (GPay, PhonePe, Paytm, BHIM) along with secure net banking and credit card gateways.'
+      q: 'What payment methods are supported on the platform?',
+      a: 'We support all major Indian UPI applications (GPay, PhonePe, Paytm, BHIM, Cred), net banking across 50+ banks, debit cards, and major credit cards.'
     }
   ];
 
   return (
-    <div className="space-y-28 pb-20 animate-fade-in">
+    <div className="space-y-32 pb-24 animate-fade-in-up">
       
       {/* 🚀 Split Hero Banner Section */}
-      <section className="relative min-h-[85vh] flex items-center justify-between overflow-hidden rounded-[36px] bg-slate-950 text-white shadow-2xl border border-slate-900 px-6 sm:px-12 lg:px-16 py-16">
+      <section className="relative min-h-[85vh] flex items-center justify-between overflow-hidden rounded-[40px] bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 text-white shadow-2xl border border-slate-800/80 px-6 sm:px-12 lg:px-16 py-16 lg:py-20">
         
-        {/* Background Grids */}
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#0f172a_1px,transparent_1px),linear-gradient(to_bottom,#0f172a_1px,transparent_1px)] bg-[size:5rem_5rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_40%,#000_80%,transparent_100%)] opacity-30"></div>
-        <div className="absolute top-10 left-10 w-80 h-80 bg-sky-500/10 rounded-full blur-[120px] animate-pulse"></div>
-        <div className="absolute bottom-10 right-10 w-80 h-80 bg-teal-500/10 rounded-full blur-[120px] animate-pulse [animation-delay:3s]"></div>
+        {/* Ambient Gradient Glows & Grid Mesh */}
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#1e293b_1px,transparent_1px),linear-gradient(to_bottom,#1e293b_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_65%_50%_at_50%_40%,#000_70%,transparent_100%)] opacity-25"></div>
+        <div className="absolute -top-24 -left-24 w-96 h-96 bg-sky-500/20 rounded-full blur-[140px] pointer-events-none"></div>
+        <div className="absolute -bottom-24 -right-24 w-96 h-96 bg-teal-500/20 rounded-full blur-[140px] pointer-events-none"></div>
 
         <div className="grid lg:grid-cols-12 gap-12 w-full max-w-7xl mx-auto items-center relative z-10">
           
-          {/* Left Column: Text & Actions */}
+          {/* Left Column: Text & Hero CTA */}
           <div className="lg:col-span-7 space-y-8 text-left">
-            <div className="inline-flex items-center space-x-2 bg-sky-950/50 border border-sky-500/30 px-3.5 py-1.5 rounded-full text-xs font-bold text-sky-400">
-              <Sparkles className="w-3.5 h-3.5 text-sky-400 animate-pulse" />
-              <span>Next-Gen Service-Based Hospital Platform</span>
+            <div className="inline-flex items-center space-x-2.5 bg-gradient-to-r from-sky-500/15 to-teal-500/15 border border-sky-400/30 px-4 py-1.5 rounded-full text-xs font-bold text-sky-300 backdrop-blur-md shadow-inner">
+              <Sparkles className="w-4 h-4 text-sky-400 animate-pulse" />
+              <span>Next-Gen Clinical AI & Telehealth Platform</span>
             </div>
 
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-[1.1] text-white">
-              Revolutionizing <br />
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-[1.08] text-white">
+              Intelligent Care, <br />
               <span className="bg-clip-text text-transparent bg-gradient-to-r from-sky-400 via-teal-300 to-emerald-400">
-                Healthcare Delivery
+                Connected Worldwide.
               </span>
             </h1>
 
-            <p className="text-slate-400 text-sm sm:text-base font-semibold leading-relaxed max-w-xl">
-              MediPulse links certified medical providers and patients using a secure WebRTC video room, real-time AI transcription tools, and automated UPI payment settlements.
+            <p className="text-slate-300 text-sm sm:text-base font-normal leading-relaxed max-w-xl">
+              MediPulse bridges certified healthcare providers and patients with ultra-low-latency WebRTC video suites, Gemini AI prescription synthesis, and automated UPI billing settlements.
             </p>
 
-            {/* Checklist */}
-            <div className="grid sm:grid-cols-2 gap-3 text-slate-300 font-semibold text-xs">
-              <div className="flex items-center space-x-2">
-                <CheckCircle className="w-4 h-4 text-emerald-400" />
-                <span>Zero-Install WebRTC Video</span>
+            {/* Checklist Chips */}
+            <div className="grid sm:grid-cols-2 gap-3.5 text-slate-200 font-medium text-xs">
+              <div className="flex items-center space-x-2.5 bg-slate-900/60 p-2 rounded-xl border border-slate-800">
+                <Check className="w-4 h-4 text-emerald-400 shrink-0" />
+                <span>Zero-Install WebRTC Video Suites</span>
               </div>
-              <div className="flex items-center space-x-2">
-                <CheckCircle className="w-4 h-4 text-emerald-400" />
-                <span>Gemini Medical AI Scribe</span>
+              <div className="flex items-center space-x-2.5 bg-slate-900/60 p-2 rounded-xl border border-slate-800">
+                <Check className="w-4 h-4 text-emerald-400 shrink-0" />
+                <span>Gemini Medical Scribe Rx Synthesis</span>
               </div>
-              <div className="flex items-center space-x-2">
-                <CheckCircle className="w-4 h-4 text-emerald-400" />
-                <span>Confetti UPI & QR billing</span>
+              <div className="flex items-center space-x-2.5 bg-slate-900/60 p-2 rounded-xl border border-slate-800">
+                <Check className="w-4 h-4 text-emerald-400 shrink-0" />
+                <span>Confetti UPI QR Tele-Billing</span>
               </div>
-              <div className="flex items-center space-x-2">
-                <CheckCircle className="w-4 h-4 text-emerald-400" />
-                <span>HIPAA Encrypted Patient Vault</span>
+              <div className="flex items-center space-x-2.5 bg-slate-900/60 p-2 rounded-xl border border-slate-800">
+                <Check className="w-4 h-4 text-emerald-400 shrink-0" />
+                <span>HIPAA & ISO-27001 Encrypted Vault</span>
               </div>
             </div>
 
-            <div className="flex flex-col sm:flex-row items-center gap-4 pt-2">
+            {/* CTA Actions */}
+            <div className="flex flex-col sm:flex-row items-center gap-4 pt-4">
               {currentUser ? (
                 <button
                   onClick={() => onNavigateToRole(currentUser.role)}
-                  className="w-full sm:w-auto px-8 py-4 rounded-2xl bg-gradient-to-r from-sky-500 to-sky-600 hover:from-sky-400 hover:to-sky-500 text-white font-extrabold text-sm shadow-[0_0_30px_rgba(14,165,233,0.35)] hover:scale-103 transition-all flex items-center justify-center space-x-2 cursor-pointer"
+                  className="w-full sm:w-auto px-8 py-4 rounded-2xl bg-gradient-to-r from-sky-500 to-teal-500 hover:from-sky-400 hover:to-teal-400 text-white font-extrabold text-sm shadow-[0_0_35px_rgba(14,165,233,0.4)] hover:shadow-[0_0_45px_rgba(14,165,233,0.6)] hover:scale-102 transition-all flex items-center justify-center space-x-2 cursor-pointer"
                 >
                   <span>Go to My Dashboard</span>
                   <ArrowRight className="w-4 h-4" />
@@ -127,14 +136,14 @@ export default function LandingPage({ currentUser, onOpenAuth, onNavigateToRole,
                 <>
                   <button
                     onClick={() => onOpenAuth()}
-                    className="w-full sm:w-auto px-8 py-4 rounded-2xl bg-gradient-to-r from-sky-500 to-sky-600 hover:from-sky-400 hover:to-sky-500 text-white font-extrabold text-sm shadow-[0_0_30px_rgba(14,165,233,0.35)] hover:scale-103 transition-all flex items-center justify-center space-x-2 cursor-pointer"
+                    className="w-full sm:w-auto px-8 py-4 rounded-2xl bg-gradient-to-r from-sky-500 via-sky-600 to-teal-600 hover:from-sky-400 hover:to-teal-500 text-white font-extrabold text-sm shadow-[0_0_35px_rgba(14,165,233,0.35)] hover:scale-102 transition-all flex items-center justify-center space-x-2 cursor-pointer"
                   >
                     <span>Start as Patient</span>
                     <ArrowRight className="w-4 h-4" />
                   </button>
                   <button
                     onClick={() => onOpenAuth()}
-                    className="w-full sm:w-auto px-8 py-4 rounded-2xl bg-slate-900 border border-slate-800 hover:bg-slate-850 text-slate-200 font-extrabold text-sm hover:scale-103 transition-all flex items-center justify-center space-x-2 cursor-pointer"
+                    className="w-full sm:w-auto px-8 py-4 rounded-2xl bg-slate-900/90 border border-slate-700/80 hover:bg-slate-800 text-slate-100 font-extrabold text-sm hover:scale-102 transition-all flex items-center justify-center space-x-2 cursor-pointer shadow-md"
                   >
                     <Stethoscope className="w-4 h-4 text-teal-400" />
                     <span>Join as Doctor</span>
@@ -144,27 +153,27 @@ export default function LandingPage({ currentUser, onOpenAuth, onNavigateToRole,
             </div>
           </div>
 
-          {/* Right Column: 3D-effect Mockup Banner */}
+          {/* Right Column: 3D Workspace Card Mockup */}
           <div className="lg:col-span-5 relative flex items-center justify-center">
-            {/* Ambient Background Light Ring */}
-            <div className="absolute -inset-2 rounded-[32px] bg-gradient-to-tr from-sky-500 to-teal-500 opacity-25 blur-xl animate-pulse"></div>
+            <div className="absolute -inset-2 rounded-[36px] bg-gradient-to-tr from-sky-500 via-teal-500 to-emerald-500 opacity-20 blur-2xl animate-pulse"></div>
             
-            {/* Device Wrapper */}
-            <div className="relative bg-slate-900/80 border border-slate-800 p-2.5 rounded-[30px] shadow-[0_20px_50px_rgba(0,0,0,0.8)] overflow-hidden w-full max-w-md">
+            <div className="relative bg-slate-900/90 border border-slate-700/80 p-3 rounded-[32px] shadow-[0_25px_60px_rgba(0,0,0,0.85)] overflow-hidden w-full max-w-md">
               <img 
                 src={medicalHeroImg} 
-                alt="MediPulse Workspace mockup" 
-                className="w-full h-auto rounded-[20px] object-cover border border-slate-800"
+                alt="MediPulse Clinical Platform" 
+                className="w-full h-auto rounded-[24px] object-cover border border-slate-800"
               />
               
-              {/* Floating Overlay Badge */}
-              <div className="absolute bottom-6 right-6 bg-slate-950/90 backdrop-blur-md border border-slate-800 p-3 rounded-2xl flex items-center space-x-2.5 shadow-lg max-w-[180px] animate-bounce [animation-duration:4s]">
-                <div className="w-7.5 h-7.5 rounded-full bg-emerald-500/25 flex items-center justify-center">
+              {/* Floating Active Vitals Badge */}
+              <div className="absolute bottom-6 right-6 bg-slate-950/95 backdrop-blur-xl border border-sky-500/40 p-3 rounded-2xl flex items-center space-x-3 shadow-2xl animate-float">
+                <div className="w-8 h-8 rounded-xl bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center">
                   <Activity className="w-4 h-4 text-emerald-400" />
                 </div>
                 <div>
                   <p className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Live Consults</p>
-                  <p className="text-xs font-black text-white">Active Room 0:00</p>
+                  <p className="text-xs font-black text-white flex items-center gap-1.5">
+                    <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span> Active Stream
+                  </p>
                 </div>
               </div>
             </div>
@@ -173,151 +182,168 @@ export default function LandingPage({ currentUser, onOpenAuth, onNavigateToRole,
         </div>
       </section>
 
-      {/* 📊 Live Platform Stats */}
-      <section className="max-w-5xl mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-6">
+      {/* 📊 Live Telemetry & Platform Performance Stats */}
+      <section className="max-w-6xl mx-auto px-4 grid grid-cols-2 lg:grid-cols-4 gap-6">
         {[
-          { label: 'AI Diagnostic Precision', value: '99.4%', icon: Sparkles, color: 'text-sky-400' },
-          { label: 'Active OPD Specialists', value: '45+', icon: Stethoscope, color: 'text-teal-400' },
-          { label: 'Telehealth Consults Done', value: '15,000+', icon: Video, color: 'text-indigo-400' },
-          { label: 'Success Rate (Payments)', value: '99.9%', icon: CreditCard, color: 'text-emerald-400' }
+          { label: 'AI Diagnostic Precision', value: '99.4%', icon: Sparkles, badge: '+0.4% vs last mo', color: 'text-sky-400', bg: 'bg-sky-500/10' },
+          { label: 'Active OPD Specialists', value: '45+', icon: Stethoscope, badge: 'Verified MDs', color: 'text-teal-400', bg: 'bg-teal-500/10' },
+          { label: 'Telehealth Consults Done', value: '15,000+', icon: Video, badge: 'Zero Drops', color: 'text-indigo-400', bg: 'bg-indigo-500/10' },
+          { label: 'Payment Success Rate', value: '99.9%', icon: CreditCard, badge: 'Instant UPI', color: 'text-emerald-400', bg: 'bg-emerald-500/10' }
         ].map((stat, idx) => (
-          <div key={idx} className="p-6 rounded-3xl bg-white dark:bg-slate-900/60 border border-slate-200/80 dark:border-slate-800/80 backdrop-blur-xl shadow-xs flex flex-col justify-between space-y-4">
-            <div className="w-10 h-10 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-100 dark:border-slate-850 flex items-center justify-center">
-              <stat.icon className={`w-5 h-5 ${stat.color}`} />
+          <div key={idx} className="glass-card p-6 rounded-3xl flex flex-col justify-between space-y-4 hover:border-sky-500/40 transition-all">
+            <div className="flex items-center justify-between">
+              <div className={`w-11 h-11 rounded-2xl ${stat.bg} flex items-center justify-center border border-slate-200/50 dark:border-slate-800`}>
+                <stat.icon className={`w-5 h-5 ${stat.color}`} />
+              </div>
+              <span className="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300">
+                {stat.badge}
+              </span>
             </div>
             <div>
-              <p className="text-3xl font-black text-slate-900 dark:text-white">{stat.value}</p>
-              <p className="text-[11px] text-slate-500 dark:text-slate-400 font-bold uppercase tracking-wider mt-1">{stat.label}</p>
+              <p className="text-3xl font-black text-slate-900 dark:text-white tracking-tight">{stat.value}</p>
+              <p className="text-xs text-slate-500 dark:text-slate-400 font-bold mt-1 uppercase tracking-wider">{stat.label}</p>
             </div>
           </div>
         ))}
       </section>
 
-      {/* 🛠️ Interactive Service tab widget */}
-      <section className="max-w-5xl mx-auto px-6 space-y-12">
+      {/* 🛠️ Interactive Medical Services Suite */}
+      <section className="max-w-6xl mx-auto px-4 space-y-12">
         <div className="text-center space-y-3">
-          <h2 className="text-3xl font-black text-slate-900 dark:text-white">Explore Our Medical Services</h2>
-          <p className="text-slate-500 dark:text-slate-400 text-sm font-semibold max-w-xl mx-auto">
-            Click on the tabs below to explore the clinical technologies built inside the MediPulse platform.
+          <div className="inline-flex items-center space-x-2 px-3.5 py-1 rounded-full bg-sky-50 dark:bg-sky-950/60 border border-sky-200 dark:border-sky-800 text-sky-700 dark:text-sky-300 text-xs font-bold">
+            <Cpu className="w-3.5 h-3.5" />
+            <span>Integrated Clinical Modules</span>
+          </div>
+          <h2 className="text-3xl sm:text-4xl font-black text-slate-900 dark:text-white">
+            Engineered for Modern Healthcare
+          </h2>
+          <p className="text-slate-500 dark:text-slate-400 text-sm font-medium max-w-xl mx-auto">
+            Explore the specialized real-time engines powering automated clinical workflows across MediPulse.
           </p>
         </div>
 
-        {/* Tab Buttons Row */}
-        <div className="flex flex-wrap items-center justify-center bg-slate-100 dark:bg-slate-900/90 p-2 rounded-2xl border border-slate-200/80 dark:border-slate-800/80 gap-2 max-w-3xl mx-auto">
+        {/* Tab Selection Bar */}
+        <div className="flex flex-wrap items-center justify-center bg-slate-100/80 dark:bg-slate-900/80 p-1.5 rounded-2xl border border-slate-200/80 dark:border-slate-800 max-w-2xl mx-auto shadow-inner">
           {[
-            { id: 'opd', label: 'Virtual OPD', icon: Video, color: 'text-sky-500' },
-            { id: 'scribe', label: 'AI Scribe', icon: Sparkles, color: 'text-purple-500' },
-            { id: 'rag', label: 'RAG Assistant', icon: MessageSquare, color: 'text-teal-500' },
-            { id: 'upi', label: 'UPI Payments', icon: CreditCard, color: 'text-emerald-500' }
+            { id: 'opd', label: 'Virtual OPD', icon: Video },
+            { id: 'scribe', label: 'AI Scribe', icon: Sparkles },
+            { id: 'rag', label: 'Medical RAG', icon: MessageSquare },
+            { id: 'upi', label: 'UPI Tele-Billing', icon: CreditCard }
           ].map((tab) => (
             <button
               key={tab.id}
               onClick={() => setActiveServiceTab(tab.id)}
-              className={`flex-1 min-w-[130px] flex items-center justify-center space-x-2 py-3 px-4 rounded-xl text-xs font-black transition-all cursor-pointer ${
+              className={`flex-1 min-w-[120px] flex items-center justify-center space-x-2 py-3 px-4 rounded-xl text-xs font-extrabold transition-all cursor-pointer ${
                 activeServiceTab === tab.id
-                  ? 'bg-white dark:bg-slate-950 text-slate-900 dark:text-white shadow-xs border border-slate-200 dark:border-slate-800'
-                  : 'text-slate-500 hover:text-slate-800 dark:hover:text-slate-200'
+                  ? 'bg-white dark:bg-slate-800 text-sky-700 dark:text-white shadow-md border border-slate-200/80 dark:border-slate-700'
+                  : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
               }`}
             >
-              <tab.icon className={`w-4 h-4 ${tab.color}`} />
+              <tab.icon className="w-4 h-4 text-sky-500" />
               <span>{tab.label}</span>
             </button>
           ))}
         </div>
 
-        {/* Tab View Container */}
-        <div className="grid md:grid-cols-2 gap-10 p-8 sm:p-10 rounded-[32px] bg-slate-50 dark:bg-slate-900/30 border border-slate-200/80 dark:border-slate-800/80 shadow-inner items-center">
+        {/* Interactive Feature Display */}
+        <div className="grid md:grid-cols-2 gap-10 p-8 sm:p-12 rounded-[36px] glass-panel border border-slate-200 dark:border-slate-800 items-center">
           
-          {/* Detail Description */}
           <div className="space-y-6 text-left">
-            <span className="px-3.5 py-1 rounded-full bg-sky-500/10 text-sky-600 dark:text-sky-400 text-[10px] font-black tracking-widest uppercase">
-              {serviceTabDetails[activeServiceTab].stats}
+            <span className="px-3.5 py-1.5 rounded-full bg-sky-500/10 text-sky-600 dark:text-sky-400 text-xs font-extrabold tracking-wider uppercase border border-sky-500/20">
+              {serviceTabDetails[activeServiceTab].tag} • {serviceTabDetails[activeServiceTab].stats}
             </span>
-            <h3 className="text-2xl font-black text-slate-900 dark:text-white">
+            <h3 className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white">
               {serviceTabDetails[activeServiceTab].title}
             </h3>
-            <p className="text-xs text-slate-500 dark:text-slate-400 font-bold leading-relaxed">
+            <p className="text-sm text-slate-600 dark:text-slate-300 font-medium leading-relaxed">
               {serviceTabDetails[activeServiceTab].desc}
             </p>
             
-            {/* Checklist */}
-            <div className="space-y-2">
+            <div className="space-y-3 pt-2">
               {serviceTabDetails[activeServiceTab].bullets.map((bullet, idx) => (
-                <div key={idx} className="flex items-center space-x-2 text-xs font-semibold text-slate-700 dark:text-slate-300">
-                  <CheckCircle className="w-4 h-4 text-sky-500 shrink-0" />
+                <div key={idx} className="flex items-center space-x-3 text-xs font-semibold text-slate-700 dark:text-slate-200">
+                  <div className="w-5 h-5 rounded-full bg-sky-500/15 flex items-center justify-center shrink-0">
+                    <Check className="w-3.5 h-3.5 text-sky-500" />
+                  </div>
                   <span>{bullet}</span>
                 </div>
               ))}
             </div>
           </div>
 
-          {/* Interactive Feature Visual Card */}
-          <div className="bg-white dark:bg-slate-900/60 p-6 rounded-2xl border border-slate-200 dark:border-slate-800/80 shadow-xs space-y-4">
-            <div className="flex items-center justify-between border-b border-slate-100 dark:border-slate-850 pb-3">
+          {/* Interactive Code / Pipeline Telemetry Window */}
+          <div className="bg-slate-950 p-6 rounded-3xl border border-slate-800 shadow-2xl space-y-4 font-mono text-left">
+            <div className="flex items-center justify-between border-b border-slate-800 pb-3">
               <div className="flex items-center space-x-2">
-                <span className="w-2.5 h-2.5 rounded-full bg-rose-500"></span>
-                <span className="w-2.5 h-2.5 rounded-full bg-amber-500"></span>
-                <span className="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
+                <span className="w-3 h-3 rounded-full bg-rose-500/80"></span>
+                <span className="w-3 h-3 rounded-full bg-amber-500/80"></span>
+                <span className="w-3 h-3 rounded-full bg-emerald-500/80"></span>
               </div>
-              <span className="text-[10px] font-mono text-slate-400">active_engine.py</span>
+              <span className="text-[11px] text-slate-500 font-bold">medipulse_engine.rs</span>
             </div>
             
-            <div className="font-mono text-[11px] text-slate-600 dark:text-slate-400 text-left space-y-1">
-              <p className="text-blue-500"># Initializing pipeline...</p>
-              <p><span className="text-purple-500">import</span> WebRTC, GeminiAI, UPIPay</p>
-              <p>engine = MediPulsePipeline(mode=<span className="text-emerald-500">"{activeServiceTab.toUpperCase()}"</span>)</p>
-              <p>response = engine.process_request(user_token)</p>
-              <p className="text-emerald-600 font-bold">&gt;&gt;&gt; Status: OK [ACTIVE_METRIC: {serviceTabDetails[activeServiceTab].stats}]</p>
+            <div className="text-xs text-slate-300 space-y-1.5 leading-relaxed overflow-x-auto">
+              <p className="text-slate-500">// Initialize sub-system pipeline</p>
+              <p><span className="text-purple-400">let</span> session = MediPulse::<span className="text-sky-400">connect</span>(Mode::{activeServiceTab.toUpperCase()});</p>
+              <p>session.<span className="text-teal-400">set_security_level</span>(Security::HIPAA_DOUBLE_ENCRYPT);</p>
+              <p>session.<span className="text-emerald-400">stream_telemetry</span>(&amp;active_patient);</p>
+              <p className="text-emerald-400 font-bold pt-2">✓ Pipeline Verified • Metric: {serviceTabDetails[activeServiceTab].stats}</p>
             </div>
           </div>
 
         </div>
       </section>
 
-      {/* 👨‍⚕️ Available OPD Specialists */}
-      <section className="max-w-5xl mx-auto px-6 space-y-12">
+      {/* 👨‍⚕️ Available OPD Specialists Directory */}
+      <section className="max-w-6xl mx-auto px-4 space-y-10">
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="text-left space-y-1">
-            <h2 className="text-3xl font-black text-slate-900 dark:text-white">OPD Specialists Online</h2>
-            <p className="text-slate-500 dark:text-slate-400 text-sm font-semibold">Book virtual consultations instantly with our clinical experts.</p>
+            <div className="inline-flex items-center space-x-1.5 text-xs font-bold text-teal-600 dark:text-teal-400">
+              <BadgeCheck className="w-4 h-4" />
+              <span>Certified Healthcare Practitioners</span>
+            </div>
+            <h2 className="text-3xl font-black text-slate-900 dark:text-white">Featured OPD Specialists Online</h2>
+            <p className="text-slate-500 dark:text-slate-400 text-sm font-medium">Book zero-friction virtual consultations immediately with verified specialists.</p>
           </div>
           <button
             onClick={() => currentUser ? onNavigateToRole('PATIENT') : onOpenAuth()}
-            className="px-6 py-3 rounded-xl bg-slate-900 dark:bg-slate-800 hover:bg-slate-800 dark:hover:bg-slate-700 text-white font-extrabold text-xs transition-all flex items-center space-x-2 shadow-2xs cursor-pointer"
+            className="px-6 py-3 rounded-2xl bg-gradient-to-r from-sky-600 to-teal-600 hover:from-sky-500 hover:to-teal-500 text-white font-extrabold text-xs transition-all flex items-center space-x-2 shadow-md cursor-pointer"
           >
             <span>Book Appointment</span>
-            <Plus className="w-4 h-4 text-sky-400" />
+            <Plus className="w-4 h-4" />
           </button>
         </div>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {featuredDoctors.map((doc, idx) => (
-            <div key={idx} className="p-6 rounded-3xl bg-white dark:bg-slate-900/60 border border-slate-200/80 dark:border-slate-800/80 shadow-xs flex flex-col justify-between min-h-[220px] hover:scale-102 transition-all">
+            <div key={idx} className="glass-card p-6 rounded-3xl flex flex-col justify-between min-h-[250px] hover:border-sky-400/50 hover:shadow-xl transition-all">
               <div className="space-y-4">
                 <div className="flex items-center justify-between">
-                  <div className="w-10 h-10 rounded-full bg-slate-100 dark:bg-slate-950 flex items-center justify-center">
-                    <Stethoscope className="w-5 h-5 text-sky-500" />
+                  <div className="w-12 h-12 rounded-2xl bg-sky-500/10 dark:bg-sky-950/60 border border-sky-500/20 flex items-center justify-center">
+                    <Stethoscope className="w-6 h-6 text-sky-500" />
                   </div>
-                  <div className="flex items-center space-x-1 bg-amber-500/10 text-amber-500 px-2 py-0.5 rounded text-[10px] font-bold">
-                    <Star className="w-3 h-3 fill-amber-500" />
+                  <div className="flex items-center space-x-1 bg-amber-500/10 border border-amber-500/20 text-amber-600 dark:text-amber-400 px-2.5 py-1 rounded-xl text-xs font-bold">
+                    <Star className="w-3.5 h-3.5 fill-amber-500" />
                     <span>{doc.rating || '5.0'}</span>
                   </div>
                 </div>
-                <div>
-                  <h4 className="font-extrabold text-sm text-slate-900 dark:text-white">{doc.name}</h4>
-                  <p className="text-[11px] text-slate-500 dark:text-slate-400 font-bold mt-0.5">{doc.specialty}</p>
+                <div className="text-left">
+                  <h4 className="font-extrabold text-base text-slate-900 dark:text-white">{doc.name}</h4>
+                  <p className="text-xs text-sky-600 dark:text-sky-400 font-semibold mt-0.5">{doc.specialty}</p>
+                  <p className="text-[11px] text-slate-400 font-medium mt-1">{doc.exp || '10+ yrs exp'}</p>
                 </div>
               </div>
-              <div className="flex items-center justify-between pt-4 border-t border-slate-100 dark:border-slate-850">
-                <div>
-                  <p className="text-[9px] text-slate-400 uppercase font-black tracking-wider">Fee</p>
-                  <p className="text-sm font-extrabold text-emerald-500">₹{doc.fee || '800'}</p>
+
+              <div className="flex items-center justify-between pt-4 border-t border-slate-100 dark:border-slate-800 mt-4">
+                <div className="text-left">
+                  <p className="text-[10px] text-slate-400 uppercase font-black tracking-wider">Fee</p>
+                  <p className="text-base font-extrabold text-emerald-600 dark:text-emerald-400">₹{doc.fee || '800'}</p>
                 </div>
                 <button
                   onClick={() => currentUser ? onNavigateToRole('PATIENT') : onOpenAuth()}
-                  className="px-3.5 py-2 rounded-lg bg-sky-50 dark:bg-sky-950/40 text-sky-700 dark:text-sky-400 text-xs font-black hover:bg-sky-100 transition-all cursor-pointer"
+                  className="px-4 py-2 rounded-xl bg-sky-50 dark:bg-sky-950/80 text-sky-700 dark:text-sky-300 hover:bg-sky-100 dark:hover:bg-sky-900/80 text-xs font-bold transition-all cursor-pointer"
                 >
-                  Consult
+                  Consult Now
                 </button>
               </div>
             </div>
@@ -325,74 +351,78 @@ export default function LandingPage({ currentUser, onOpenAuth, onNavigateToRole,
         </div>
       </section>
 
-      {/* 🏷️ Transparent Pricing Plans */}
-      <section className="max-w-5xl mx-auto px-6 space-y-12">
+      {/* 🏷️ Transparent Pricing & Plans */}
+      <section className="max-w-6xl mx-auto px-4 space-y-12">
         <div className="text-center space-y-3">
-          <h2 className="text-3xl font-black text-slate-900 dark:text-white">Fair & Transparent Pricing</h2>
-          <p className="text-slate-500 dark:text-slate-400 text-sm font-semibold max-w-xl mx-auto">
-            Choose a plan that fits your clinical workflow or virtual telehealth consultation needs.
+          <div className="inline-flex items-center space-x-1.5 px-3 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-xs font-bold text-slate-600 dark:text-slate-300">
+            <Zap className="w-3.5 h-3.5 text-amber-500" />
+            <span>Predictable Plans</span>
+          </div>
+          <h2 className="text-3xl sm:text-4xl font-black text-slate-900 dark:text-white">Fair & Transparent Pricing</h2>
+          <p className="text-slate-500 dark:text-slate-400 text-sm font-medium max-w-xl mx-auto">
+            Choose the tier tailored to your clinical practice, clinic, or personal telehealth requirements.
           </p>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-8">
+        <div className="grid md:grid-cols-3 gap-8 items-stretch">
           {[
             {
-              name: 'Basic Patient Plan',
+              name: 'Patient Standard',
               price: '₹0',
               period: 'forever free',
               desc: 'Best for patients scheduling occasional virtual checkups with OPD doctors.',
-              bullets: ['Access to certified OPD doctors', 'Gemini AI Scribe prescriptions', '100% Secure UPI billing payments'],
-              cta: 'Get Started Now',
+              bullets: ['Access to certified OPD doctors', 'Gemini AI Scribe prescriptions', '100% Secure UPI billing payments', 'Standard record storage'],
+              cta: 'Get Started Free',
               accent: false
             },
             {
-              name: 'Provider Pro Workstation',
+              name: 'Provider Pro',
               price: '₹1,499',
               period: 'per month',
               desc: 'Tailored for independent practitioners or single-doctor clinics.',
-              bullets: ['Unlimited WebRTC video calls', 'Automated audio prescription recording', 'Complete patient audit logs logs', 'Priority email support'],
-              cta: 'Start Free Trial',
+              bullets: ['Unlimited WebRTC video sessions', 'Automated audio prescription recording', 'Complete patient audit logs', 'Priority verified practitioner badge', 'Instant UPI payout routing'],
+              cta: 'Start Pro Trial',
               accent: true
             },
             {
-              name: 'Hospital Enterprise License',
+              name: 'Hospital Enterprise',
               price: 'Custom',
-              period: 'contact sales',
+              period: 'annual license',
               desc: 'Optimized for multi-specialty healthcare networks and clinical organizations.',
-              bullets: ['Unlimited providers and patients', 'Private hospital RAG database storage', 'Dedicated custom domain names', 'SLA guaranteed 99.9% uptime'],
-              cta: 'Contact Sales',
+              bullets: ['Unlimited providers and patients', 'Private hospital RAG database storage', 'Dedicated custom domain names', 'SLA guaranteed 99.99% uptime', '24/7 dedicated support engineer'],
+              cta: 'Contact Enterprise Team',
               accent: false
             }
           ].map((plan, idx) => (
             <div 
               key={idx} 
-              className={`p-8 rounded-[32px] text-left flex flex-col justify-between min-h-[480px] transition-all relative ${
+              className={`p-8 rounded-[36px] text-left flex flex-col justify-between transition-all relative ${
                 plan.accent 
-                  ? 'bg-slate-950 text-white border-2 border-sky-500 shadow-2xl scale-103' 
-                  : 'bg-white dark:bg-slate-900/60 text-slate-900 dark:text-white border border-slate-200 dark:border-slate-800'
+                  ? 'bg-slate-950 text-white border-2 border-sky-500 shadow-2xl scale-103 z-10' 
+                  : 'glass-panel text-slate-900 dark:text-white border border-slate-200 dark:border-slate-800'
               }`}
             >
               {plan.accent && (
-                <span className="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-sky-500 text-white text-[10px] font-black uppercase px-4 py-1 rounded-full tracking-wider">
+                <span className="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-gradient-to-r from-sky-500 to-teal-500 text-white text-[11px] font-black uppercase px-4 py-1 rounded-full tracking-wider shadow-md">
                   Most Popular
                 </span>
               )}
               
               <div className="space-y-6">
                 <div>
-                  <h4 className="font-extrabold text-sm uppercase tracking-wider text-slate-500 dark:text-slate-400">{plan.name}</h4>
+                  <h4 className={`font-extrabold text-sm uppercase tracking-wider ${plan.accent ? 'text-sky-400' : 'text-slate-500 dark:text-slate-400'}`}>{plan.name}</h4>
                   <div className="flex items-baseline mt-2">
                     <span className="text-4xl font-black">{plan.price}</span>
-                    <span className="text-xs text-slate-500 dark:text-slate-400 ml-1">/{plan.period}</span>
+                    <span className={`text-xs ml-1.5 ${plan.accent ? 'text-slate-400' : 'text-slate-500'}`}>/{plan.period}</span>
                   </div>
                 </div>
                 
-                <p className="text-xs text-slate-500 dark:text-slate-400 font-bold leading-relaxed">{plan.desc}</p>
+                <p className={`text-xs font-medium leading-relaxed ${plan.accent ? 'text-slate-300' : 'text-slate-500 dark:text-slate-400'}`}>{plan.desc}</p>
                 
                 <div className="space-y-3 pt-2">
                   {plan.bullets.map((bullet, bIdx) => (
-                    <div key={bIdx} className="flex items-center space-x-2.5 text-xs font-semibold">
-                      <CheckCircle className={`w-4 h-4 shrink-0 ${plan.accent ? 'text-sky-400' : 'text-emerald-500'}`} />
+                    <div key={bIdx} className="flex items-center space-x-3 text-xs font-semibold">
+                      <Check className={`w-4 h-4 shrink-0 ${plan.accent ? 'text-teal-400' : 'text-emerald-500'}`} />
                       <span>{bullet}</span>
                     </div>
                   ))}
@@ -401,10 +431,10 @@ export default function LandingPage({ currentUser, onOpenAuth, onNavigateToRole,
 
               <button 
                 onClick={() => onOpenAuth()}
-                className={`w-full py-3.5 rounded-2xl text-xs font-black tracking-wide transition-all mt-8 cursor-pointer ${
+                className={`w-full py-4 rounded-2xl text-xs font-extrabold tracking-wide transition-all mt-8 cursor-pointer ${
                   plan.accent 
-                    ? 'bg-sky-500 hover:bg-sky-400 text-white shadow-lg' 
-                    : 'bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-900 dark:text-white border border-slate-200 dark:border-slate-700'
+                    ? 'bg-gradient-to-r from-sky-500 to-teal-500 hover:from-sky-400 hover:to-teal-400 text-white shadow-lg' 
+                    : 'bg-slate-900 dark:bg-slate-800 hover:bg-slate-800 text-white dark:hover:bg-slate-700'
                 }`}
               >
                 {plan.cta}
@@ -414,12 +444,12 @@ export default function LandingPage({ currentUser, onOpenAuth, onNavigateToRole,
         </div>
       </section>
 
-      {/* ❓ Expandable FAQ list */}
-      <section className="max-w-4xl mx-auto px-6 space-y-12">
+      {/* ❓ Expandable FAQ Accordion */}
+      <section className="max-w-4xl mx-auto px-4 space-y-12">
         <div className="text-center space-y-3">
           <h2 className="text-3xl font-black text-slate-900 dark:text-white">Frequently Asked Questions</h2>
-          <p className="text-slate-500 dark:text-slate-400 text-sm font-semibold max-w-xl mx-auto">
-            Got questions about telehealth consults, AI scribe transcripts, or payments? We have answers.
+          <p className="text-slate-500 dark:text-slate-400 text-sm font-medium max-w-xl mx-auto">
+            Everything you need to know about video consults, AI scribe transcripts, and platform security.
           </p>
         </div>
 
@@ -429,17 +459,17 @@ export default function LandingPage({ currentUser, onOpenAuth, onNavigateToRole,
             return (
               <div 
                 key={idx} 
-                className="rounded-2xl bg-white dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800/80 shadow-2xs overflow-hidden"
+                className="rounded-2xl glass-card border border-slate-200/80 dark:border-slate-800 overflow-hidden"
               >
                 <button
                   onClick={() => setOpenFaqIndex(isOpen ? null : idx)}
-                  className="w-full p-5 flex items-center justify-between text-slate-800 dark:text-slate-150 hover:bg-slate-50/50 dark:hover:bg-slate-850/50 transition-all font-extrabold text-sm cursor-pointer"
+                  className="w-full p-5 flex items-center justify-between text-slate-900 dark:text-white hover:bg-slate-50/50 dark:hover:bg-slate-800/50 transition-all font-bold text-sm cursor-pointer"
                 >
                   <span>{item.q}</span>
-                  <ChevronRight className={`w-4 h-4 text-slate-500 transition-all transform ${isOpen ? 'rotate-90 text-sky-500' : ''}`} />
+                  <ChevronRight className={`w-4 h-4 text-slate-400 transition-all transform ${isOpen ? 'rotate-90 text-sky-500' : ''}`} />
                 </button>
                 {isOpen && (
-                  <div className="px-5 pb-5 pt-1 text-xs text-slate-500 dark:text-slate-400 font-semibold leading-relaxed border-t border-slate-100 dark:border-slate-850">
+                  <div className="px-5 pb-5 pt-1 text-xs text-slate-600 dark:text-slate-300 font-medium leading-relaxed border-t border-slate-100 dark:border-slate-800">
                     {item.a}
                   </div>
                 )}
@@ -449,25 +479,29 @@ export default function LandingPage({ currentUser, onOpenAuth, onNavigateToRole,
         </div>
       </section>
 
-      {/* 🔒 Enterprise Trust & Audit Logs */}
-      <section className="max-w-5xl mx-auto px-6 p-10 sm:p-12 rounded-[36px] bg-gradient-to-tr from-slate-900 via-sky-950 to-slate-900 text-white flex flex-col md:flex-row items-center justify-between gap-8 border border-slate-850 shadow-2xl relative overflow-hidden">
-        <div className="absolute inset-0 bg-radial-gradient(circle_at_bottom_right,rgba(14,165,233,0.1),transparent_70%)"></div>
-        <div className="space-y-4 max-w-lg relative z-10">
-          <div className="inline-flex items-center space-x-1.5 bg-emerald-500/10 border border-emerald-500/30 px-3 py-1 rounded-full text-[10px] font-black text-emerald-400 uppercase tracking-widest">
-            <ShieldCheck className="w-3.5 h-3.5" />
-            <span>100% HIPAA & GDPR Compliant</span>
+      {/* 🔒 Enterprise Trust & CTA Banner */}
+      <section className="max-w-6xl mx-auto px-4">
+        <div className="p-10 sm:p-14 rounded-[40px] bg-gradient-to-tr from-slate-950 via-sky-950 to-slate-950 text-white flex flex-col md:flex-row items-center justify-between gap-8 border border-slate-800 shadow-2xl relative overflow-hidden text-left">
+          <div className="absolute top-0 right-0 w-80 h-80 bg-sky-500/10 rounded-full blur-3xl pointer-events-none"></div>
+          
+          <div className="space-y-4 max-w-xl relative z-10">
+            <div className="inline-flex items-center space-x-2 bg-emerald-500/15 border border-emerald-500/30 px-3.5 py-1.5 rounded-full text-xs font-bold text-emerald-400">
+              <ShieldCheck className="w-4 h-4" />
+              <span>HIPAA & ISO-27001 Certified Clinical Stack</span>
+            </div>
+            <h3 className="text-2xl sm:text-3xl font-black">Ready to scale your clinical workspace?</h3>
+            <p className="text-xs sm:text-sm text-slate-300 font-normal leading-relaxed">
+              Create an account today to access zero-latency virtual consultation rooms, automatic digital prescriptions, and direct patient billing payments.
+            </p>
           </div>
-          <h3 className="text-2xl sm:text-3xl font-black">Ready to scale your clinical workspace?</h3>
-          <p className="text-xs text-slate-400 font-bold leading-relaxed">
-            Create an account today to access zero-latency virtual consultation rooms, automatic digital prescriptions, and direct patient billing payments.
-          </p>
+          
+          <button
+            onClick={() => onOpenAuth()}
+            className="w-full md:w-auto px-8 py-4 rounded-2xl bg-white hover:bg-slate-100 text-slate-950 font-black text-sm transition-all shrink-0 cursor-pointer shadow-xl hover:scale-102"
+          >
+            Create Provider Account
+          </button>
         </div>
-        <button
-          onClick={() => onOpenAuth()}
-          className="w-full md:w-auto px-8 py-4 rounded-2xl bg-white text-slate-950 font-black text-sm hover:bg-slate-100 hover:scale-103 transition-all shrink-0 cursor-pointer shadow-lg"
-        >
-          Create Provider Account
-        </button>
       </section>
 
     </div>
